@@ -1,12 +1,20 @@
 package pl.mylittleworld.usadz_ich;
 
-import java.util.List;
-
 
 public class Person {
 
     private int personID;
-    private List<CONDITIONS_OPTIONS> conditionsList;
 
+    public Person(int personID) {
+        this.personID = personID;
+    }
+
+    public int getPersonID() {
+        return personID;
+    }
+
+    public void setPersonID(int personID) {
+        this.personID = personID;
+    }
 }
 

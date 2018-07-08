@@ -2,7 +2,7 @@ package pl.mylittleworld.usadz_ich.conditions;
 
 import pl.mylittleworld.usadz_ich.SittingPlanProxy;
 
-interface Condition {
+public interface Condition {
 
-boolean isThisConditionFulfilled(SittingPlanProxy sittingPlanProxy);
+    boolean isThisConditionFulfilled(SittingPlanProxy sittingPlanProxy);
 }

@@ -14,4 +14,15 @@ public class SittingPlan {
         }
         return null;
     }
+
+    public boolean addSit(){
+        return false;
+    }
+    public boolean updateSit(){
+        return false;
+    }
+    public boolean removeSit(){
+        return false;
+    }
+
 }
