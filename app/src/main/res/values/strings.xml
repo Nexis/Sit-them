@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">usadz_ich</string>
+    <string name="scheme">UKŁAD</string>
+    <string name="list">LISTA</string>
+    <string name="sit_scheme">USADZENIE</string>
+    <string name="official_name">Usadź ich!</string>
 </resources>
