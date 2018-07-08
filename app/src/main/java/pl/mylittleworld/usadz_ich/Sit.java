@@ -53,4 +53,30 @@ public class Sit {
     public void setY(int y) {
         this.y = y;
     }
+
+    public boolean areThisSitsCloseToEachOther(Sit sit2,boolean meansOppositeClose, boolean meansDiagonallyClose){
+        if(this.tableID!=sit2.getTableID()){
+            return false;
+        }
+        if(meansDiagonallyClose){
+            if( isDifferentAboutOne(this.x,sit2.getX()) && isDifferentAboutOne(this.y,sit2.getY()) )
+                return true;
+
+        }
+        if(meansOppositeClose){
+            if(this.x == sit2.getX() && isDifferentAboutOne(this.y,sit2.getY()))
+                return true;
+        }
+        if(this.y == sit2.getY() && isDifferentAboutOne(this.x,sit2.getX())) {
+            return true;
+        }
+            return false;
+
+    }
+    private boolean isDifferentAboutOne(int a, int b){
+        if(a==b+1||a==b-1)
+            return true;
+
+        return false;
+    }
 }
