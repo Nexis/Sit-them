@@ -18,13 +18,21 @@ public class Conditions {
         this.conditions = conditions;
     }
 
-    public boolean addCondition(){
-        return false;
+    public boolean addCondition(Condition condition){
+        return conditions.add(condition);
     }
-    public boolean removeCondition(){
-        return false;
+
+    public boolean removeCondition(Condition condition){
+
+        return conditions.remove(condition);
     }
-    public boolean areAllConditionsFulfilled(){
-        return false;
+
+    public boolean areAllConditionsFulfilled(SittingPlanProxy sittingPlanProxy){
+        for(Condition condition : conditions){
+            if(!condition.isThisConditionFulfilled(sittingPlanProxy)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -1,7 +1,5 @@
 package pl.mylittleworld.usadz_ich;
 
-import pl.mylittleworld.usadz_ich.Sit;
-
 public class SittingPlanProxy {
 
     private SittingPlan sittingPlan;
@@ -10,7 +8,7 @@ public class SittingPlanProxy {
         this.sittingPlan = sittingPlan;
     }
 
-    public Sit whereSits(int personID){
+    public Seat whereSits(int personID){
         return sittingPlan.whereSits(personID);
     }
 }

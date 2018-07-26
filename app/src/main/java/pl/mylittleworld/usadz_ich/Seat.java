@@ -7,15 +7,15 @@ package pl.mylittleworld.usadz_ich;
  * @x coordinate relatively to table
  * @y coordinate relatively to table
  */
-public class Sit {
+public class Seat {
 
-    private int tableID;
+    private final int tableID;
     private int personID;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
 
-    public Sit(int tableID, int personID, int x, int y) {
+    public Seat(int tableID, int personID, int x, int y) {
         this.tableID = tableID;
         this.personID = personID;
         this.x = x;
@@ -24,10 +24,6 @@ public class Sit {
 
     public int getTableID() {
         return tableID;
-    }
-
-    public void setTableID(int tableID) {
-        this.tableID = tableID;
     }
 
     public int getPersonID() {
@@ -54,20 +50,20 @@ public class Sit {
         this.y = y;
     }
 
-    public boolean areThisSitsCloseToEachOther(Sit sit2,boolean meansOppositeClose, boolean meansDiagonallyClose){
-        if(this.tableID!=sit2.getTableID()){
+    public boolean areThoseSitsCloseToEachOther(Seat seat2, boolean meansOppositeClose, boolean meansDiagonallyClose){
+        if(this.tableID!= seat2.getTableID()){
             return false;
         }
         if(meansDiagonallyClose){
-            if( isDifferentAboutOne(this.x,sit2.getX()) && isDifferentAboutOne(this.y,sit2.getY()) )
+            if( isDifferentAboutOne(this.x, seat2.getX()) && isDifferentAboutOne(this.y, seat2.getY()) )
                 return true;
 
         }
         if(meansOppositeClose){
-            if(this.x == sit2.getX() && isDifferentAboutOne(this.y,sit2.getY()))
+            if(this.x == seat2.getX() && isDifferentAboutOne(this.y, seat2.getY()))
                 return true;
         }
-        if(this.y == sit2.getY() && isDifferentAboutOne(this.x,sit2.getX())) {
+        if(this.y == seat2.getY() && isDifferentAboutOne(this.x, seat2.getX())) {
             return true;
         }
             return false;

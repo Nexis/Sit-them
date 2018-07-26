@@ -1,7 +1,7 @@
 package pl.mylittleworld.usadz_ich.conditions;
 
 import pl.mylittleworld.usadz_ich.PersonNotSittedException;
-import pl.mylittleworld.usadz_ich.Sit;
+import pl.mylittleworld.usadz_ich.Seat;
 import pl.mylittleworld.usadz_ich.SittingPlanProxy;
 
 public class ConditionMustNextTo implements Condition {
@@ -15,11 +15,11 @@ public class ConditionMustNextTo implements Condition {
     }
 
     public boolean isThisConditionFulfilled(SittingPlanProxy sittingPlanProxy){
-        Sit sit1= sittingPlanProxy.whereSits(person1ID);
-        Sit sit2= sittingPlanProxy.whereSits(person2ID);
+        Seat seat1 = sittingPlanProxy.whereSits(person1ID);
+        Seat seat2 = sittingPlanProxy.whereSits(person2ID);
 
-       if(sit1!=null && sit2!=null)
-         return sit1.areThisSitsCloseToEachOther(sit2,false,false);
+       if(seat1 !=null && seat2 !=null)
+         return seat1.areThoseSitsCloseToEachOther(seat2,false,false);
 
        throw new PersonNotSittedException();
    }

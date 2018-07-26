@@ -5,12 +5,12 @@ import java.util.List;
 
 public class SittingPlan {
 
-    private List<Sit> sittingPlan=new ArrayList<>();
+    private List<Seat> sittingPlan=new ArrayList<>();
 
-    public Sit whereSits(int personID){
-        for (Sit sit: sittingPlan) {
-            if(sit.getPersonID()==personID)
-                return sit;
+    public Seat whereSits(int personID){
+        for (Seat seat : sittingPlan) {
+            if(seat.getPersonID()==personID)
+                return seat;
         }
         return null;
     }
@@ -23,6 +23,31 @@ public class SittingPlan {
     }
     public boolean removeSit(){
         return false;
+    }
+    public int getNumberOfSits(){
+        return sittingPlan.size();
+    }
+    public boolean changePersonAtSit(int sitIndex,int newPersonID){
+        if(sitIndex < sittingPlan.size()){
+            sittingPlan.get(sitIndex).setPersonID(newPersonID);
+            return true;
+        }
+        return false;
+    }
+    public boolean swapPeopleAtSits(int sitNumber1,int sitNumber2){
+
+        int tempPersonID=sittingPlan.get(sitNumber1).getPersonID();
+        if(sitNumber1 < sittingPlan.size()&&sitNumber2 <sittingPlan.size()) {
+
+
+            sittingPlan.get(sitNumber1).setPersonID(sittingPlan.get(sitNumber2).getPersonID());
+            sittingPlan.get(sitNumber2).setPersonID(tempPersonID);
+
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }

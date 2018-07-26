@@ -20,16 +20,8 @@ public class Table {
         return tableID;
     }
 
-    public void setTableID(int tableID) {
-        this.tableID = tableID;
-    }
-
     public int getTableHeight() {
         return tableHeight;
-    }
-
-    public void setTableHeight(int tableHeight) {
-        this.tableHeight = tableHeight;
     }
 
     public int getTableWidth() {
