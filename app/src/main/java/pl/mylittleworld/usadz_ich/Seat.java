@@ -38,16 +38,8 @@ public class Seat {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public boolean areThoseSitsCloseToEachOther(Seat seat2, boolean meansOppositeClose, boolean meansDiagonallyClose){
@@ -75,4 +67,5 @@ public class Seat {
 
         return false;
     }
+
 }
