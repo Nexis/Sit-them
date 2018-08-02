@@ -9,21 +9,12 @@ package pl.mylittleworld.usadz_ich;
  */
 public class Seat {
 
-    private final int tableID;
-    private int personID;
-    private final int x;
-    private final int y;
+    private final Chair chair;
+    private int personID=-1;
 
-
-    public Seat(int tableID, int personID, int x, int y) {
-        this.tableID = tableID;
+    public Seat(Chair chair, int personID) {
+        this.chair=chair;
         this.personID = personID;
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getTableID() {
-        return tableID;
     }
 
     public int getPersonID() {
@@ -34,28 +25,24 @@ public class Seat {
         this.personID = personID;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    public Chair getChair() {
+        return chair;
     }
 
     public boolean areThoseSitsCloseToEachOther(Seat seat2, boolean meansOppositeClose, boolean meansDiagonallyClose){
-        if(this.tableID!= seat2.getTableID()){
+        if(this.getChair().getTableID()!= seat2.getChair().getTableID()){
             return false;
         }
         if(meansDiagonallyClose){
-            if( isDifferentAboutOne(this.x, seat2.getX()) && isDifferentAboutOne(this.y, seat2.getY()) )
+            if( isDifferentAboutOne(this.getChair().getX(), seat2.getChair().getX()) && isDifferentAboutOne(this.getChair().getX(), seat2.getChair().getY()))
                 return true;
 
         }
         if(meansOppositeClose){
-            if(this.x == seat2.getX() && isDifferentAboutOne(this.y, seat2.getY()))
+            if(this.getChair().getX() == seat2.getChair().getX() && isDifferentAboutOne(this.getChair().getX(), seat2.getChair().getY()))
                 return true;
         }
-        if(this.y == seat2.getY() && isDifferentAboutOne(this.x, seat2.getX())) {
+        if(this.getChair().getY() == seat2.getChair().getY() && isDifferentAboutOne(this.getChair().getX(), seat2.getChair().getX())) {
             return true;
         }
             return false;

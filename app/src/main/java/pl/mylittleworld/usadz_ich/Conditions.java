@@ -35,4 +35,18 @@ public class Conditions {
         }
         return true;
     }
+    public float howMuchAreConditionsFullfield(SittingPlanProxy sittingPlanProxy){
+        int numberOfConditions=0;
+        int numberOfFullFieldConditions=0;
+        for(Condition condition : conditions){
+            if(condition.isThisConditionFulfilled(sittingPlanProxy)) {
+                ++numberOfFullFieldConditions;
+            }
+            ++numberOfConditions;
+        }
+       if(numberOfConditions!=0){
+            return ((float)numberOfFullFieldConditions) /numberOfConditions;
+       }
+       else return 0;
+    }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 public class People {
 
     private List<Person> people;
+    private String name;
 
     public People() {
         this.people=new ArrayList<>();
@@ -23,6 +24,14 @@ public class People {
     public boolean removePerson(Person person){
 
         return people.remove(person);
+    }
+
+    public Person getPersonAt(int index) {
+        return people.get(index);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public boolean areAllPeopleSitted(SittingPlanProxy sittingPlanProxy){

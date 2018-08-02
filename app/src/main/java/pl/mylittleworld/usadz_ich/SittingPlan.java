@@ -9,9 +9,20 @@ public class SittingPlan {
 
     private List<Seat> sittingPlan=new ArrayList<>();
     private Conditions conditions;
+    private People people;
+
+    public SittingPlan(Chairs chairs,Conditions conditions,People people){
+
+    }
+    public SittingPlan(){
+
+    }
 
     public Conditions getConditions() {
         return conditions;
+    }
+    public float getAdaptationLvl(){
+       return conditions.howMuchAreConditionsFullfield(new SittingPlanProxy(this));
     }
 
     public void setConditions(Conditions conditions) {
@@ -69,6 +80,10 @@ public class SittingPlan {
                 return true;
         }
         return false;
+    }
+    public boolean isPersonUnderThisIndexSitted(int index){
+        int personID=people.getPersonAt(index).getPersonID();
+        return isThisPersonSitted(personID);
     }
 
 }
