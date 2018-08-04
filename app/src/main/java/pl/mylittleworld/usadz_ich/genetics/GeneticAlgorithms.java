@@ -15,23 +15,27 @@ public class GeneticAlgorithms {
 
     private Random random = new Random();
 
-    private final int populationSize=10;
+    private final int populationSize = 10;
 
-    private List<SittingPlan>  randFirstPopulation(SittingPlan emptySittingPlan){
+    SittingPlan getNewEmptySittingPlan() {
+        return null;
+    }
 
-        List<SittingPlan> sittingPlans= new ArrayList<SittingPlan>();
-        for(int i=0;i<populationSize;++i){
+    List<SittingPlan> randFirstPopulation(SittingPlan emptySittingPlan) {
+
+        List<SittingPlan> sittingPlans = new ArrayList<SittingPlan>();
+        for (int i = 0; i < populationSize; ++i) {
             sittingPlans.add(emptySittingPlan);
         }
 
         int randPersonIndex;
-        int numberOfSits= emptySittingPlan.getNumberOfSits();
+        int numberOfSits = emptySittingPlan.getNumberOfSits();
 
-        for(SittingPlan sittingPlan : sittingPlans){
-            randPersonIndex=random.nextInt()%numberOfSits;
-            for(int i=0;i<numberOfSits;++i) {
-                while(sittingPlan.isPersonUnderThisIndexSitted(randPersonIndex)){
-                    randPersonIndex=random.nextInt()%numberOfSits;
+        for (SittingPlan sittingPlan : sittingPlans) {
+            randPersonIndex = random.nextInt() % numberOfSits;
+            for (int i = 0; i < numberOfSits; ++i) {
+                while (sittingPlan.isPersonUnderThisIndexSitted(randPersonIndex)) {
+                    randPersonIndex = random.nextInt() % numberOfSits;
                 }
                 sittingPlan.getSitAt(i).setPersonID(randPersonIndex);
             }
@@ -39,39 +43,39 @@ public class GeneticAlgorithms {
         return sittingPlans;
     }
 
-    private SittingPlan mutateBig(SittingPlan sittingPlan){
+    SittingPlan mutateBig(SittingPlan sittingPlan) {
 
-        int startIndex= random.nextInt()% sittingPlan.getNumberOfSits();
-        int endIndex= random.nextInt()% sittingPlan.getNumberOfSits();
+        int startIndex = Math.abs(random.nextInt() % sittingPlan.getNumberOfSits());
+        int endIndex = Math.abs(random.nextInt() % sittingPlan.getNumberOfSits());
 
-        if(startIndex> endIndex){
-            int temp= startIndex;
-            startIndex=endIndex;
-            endIndex=temp;
+        if (startIndex > endIndex) {
+            int temp = startIndex;
+            startIndex = endIndex;
+            endIndex = temp;
         }
 
-        SittingPlan mutated= new SittingPlan();
-        int backIndex=endIndex;
+        SittingPlan mutated = new SittingPlan(sittingPlan);
+        int backIndex = endIndex;
 
-        for(int i=0;i<sittingPlan.getNumberOfSits();++i){
-            if(i<startIndex || i>endIndex){
-                mutated.addSit(sittingPlan.getSitAt(i));
-            }
-            else{
-                mutated.addSit(sittingPlan.getSitAt(backIndex));
+        for (int i = 0; i < sittingPlan.getNumberOfSits(); ++i) {
+            if (i < startIndex || i > endIndex) {
+                mutated.getSitAt(i).setPersonID(sittingPlan.getSitAt(i).getPersonID());
+            } else {
+                mutated.getSitAt(i).setPersonID(sittingPlan.getSitAt(backIndex).getPersonID());
                 --backIndex;
             }
         }
         return mutated;
+
     }
 
-    private SittingPlan mutate(SittingPlan sittingPlan) {
+    SittingPlan mutate(SittingPlan sittingPlan) {
         if (sittingPlan.getNumberOfSits() > 1) {
-            int sitNumber1 = random.nextInt() % sittingPlan.getNumberOfSits();
-            int sitNumber2 = random.nextInt() % sittingPlan.getNumberOfSits();
+            int sitNumber1 = Math.abs(random.nextInt() % sittingPlan.getNumberOfSits());
+            int sitNumber2 = Math.abs(random.nextInt() % sittingPlan.getNumberOfSits());
 
             while (sitNumber1 == sitNumber2) {
-                sitNumber2 = random.nextInt() % sittingPlan.getNumberOfSits();
+                sitNumber2 = Math.abs(random.nextInt() % sittingPlan.getNumberOfSits());
             }
             sittingPlan.swapPeopleAtSits(sitNumber1, sitNumber2);
 
@@ -79,7 +83,7 @@ public class GeneticAlgorithms {
         return sittingPlan;
     }
 
-    private SittingPlan copulate(SittingPlan mother, SittingPlan father) throws SomethingWentTerriblyWrongException {
+    SittingPlan copulate(SittingPlan mother, SittingPlan father) throws SomethingWentTerriblyWrongException {
         if (mother.getNumberOfSits() != father.getNumberOfSits()) {
             throw new SomethingWentTerriblyWrongException();
         }
@@ -121,34 +125,33 @@ public class GeneticAlgorithms {
         return descendant;
     }
 
+    List<SittingPlan> naturalSelection(List<SittingPlan> sittingPlans) {
 
-    public List<SittingPlan> naturalSelection(List<SittingPlan> sittingPlans) {
-
-        Collections.sort(sittingPlans,new Comparator<SittingPlan>() {
+        Collections.sort(sittingPlans, new Comparator<SittingPlan>() {
             @Override
             public int compare(SittingPlan o1, SittingPlan o2) {
-                if (o1.getAdaptationLvl()<o2.getAdaptationLvl()){
+                if (o1.getAdaptationLvl() < o2.getAdaptationLvl()) {
                     return -1;
-                }else if (o1.getAdaptationLvl()==o2.getAdaptationLvl()){
+                } else if (o1.getAdaptationLvl() == o2.getAdaptationLvl()) {
                     return 0;
-                }else{
+                } else {
                     return 1;
                 }
 
             }
         });
 
-        int listSize=sittingPlans.size()/2;
+        int listSize = sittingPlans.size() / 2;
 
-        for(int i=0;i<listSize;++i) {
+        for (int i = 0; i < listSize; ++i) {
             sittingPlans.remove(i);
         }
 
         return sittingPlans;
     }
 
-    public void evolution(){
+    public SittingPlan evolution() {
 
-
+        return null;
     }
 }

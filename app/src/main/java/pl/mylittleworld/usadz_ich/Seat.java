@@ -34,7 +34,7 @@ public class Seat {
             return false;
         }
         if(meansDiagonallyClose){
-            if( isDifferentAboutOne(this.getChair().getX(), seat2.getChair().getX()) && isDifferentAboutOne(this.getChair().getX(), seat2.getChair().getY()))
+            if( isDifferentAboutOne(this.getChair().getX(), seat2.getChair().getX()) && isDifferentAboutOne(this.getChair().getY(), seat2.getChair().getY()))
                 return true;
 
         }

@@ -17,6 +17,16 @@ public class SittingPlan {
     public SittingPlan(){
 
     }
+    public SittingPlan(SittingPlan sittingPlan){
+        this.sittingPlan=sittingPlan.sittingPlan;
+        this.conditions=sittingPlan.conditions;
+        this.people=sittingPlan.people;
+    }
+    public SittingPlan(List <Seat> sittingPlan,Conditions conditions,People people){
+        this.sittingPlan=sittingPlan;
+        this.conditions=conditions;
+        this.people=people;
+    }
 
     public Conditions getConditions() {
         return conditions;

@@ -9,6 +9,6 @@ public class SittingPlanProxyTest {
         SittingPlan sittingPlan = new SittingPlan();
         SittingPlanProxy sittingPlanProxy = new SittingPlanProxy(sittingPlan);
         Seat seat = sittingPlanProxy.whereSits(0);
-        seat.setTableID(3);
+       // seat.setTableID(3);
     }
 }
