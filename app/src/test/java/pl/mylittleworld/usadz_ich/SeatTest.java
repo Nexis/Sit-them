@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.junit.Assert;
 
+import pl.mylittleworld.sit_them.Chair;
+import pl.mylittleworld.sit_them.Seat;
+
 import static org.mockito.Mockito.when;
 
 public class SeatTest {

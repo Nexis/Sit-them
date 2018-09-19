@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="add_guests_options">
+        <item>Importuj</item>
+        <item>Utwórz</item>
+        <item>Utwórz na podstawie istniejącej</item>
+
+    </string-array>
+</resources>

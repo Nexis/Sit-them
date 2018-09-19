@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">usadz_ich</string>
     <string name="scheme">UKŁAD</string>
-    <string name="list">LISTA</string>
+    <string name="list">LISTA GOŚCI</string>
     <string name="sit_scheme">USADZENIE</string>
     <string name="official_name">Usadź ich!</string>
+    <string name="add_guests_list">DODAJ GOŚCI</string>
+    <string name="guest_name">nazwa gościa</string>
+    <string name="end_adding_guests">KONIEC</string>
+    <string name="add_next_guest">NASTĘPNY</string>
 </resources>
