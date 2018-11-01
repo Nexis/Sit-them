@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-import pl.mylittleworld.sit_them.Seat;
+import pl.mylittleworld.database.Seat;
 import pl.mylittleworld.sit_them.SittingPlan;
 
 public class GeneticAlgorithms {

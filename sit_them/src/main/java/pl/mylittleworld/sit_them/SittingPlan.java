@@ -3,13 +3,18 @@ package pl.mylittleworld.sit_them;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.mylittleworld.sit_them.conditions.Conditions;
+import pl.mylittleworld.sit_them.model.Chairs;
+import pl.mylittleworld.sit_them.model.People;
+import pl.mylittleworld.sit_them.model.Seat;
+
 public class SittingPlan {
 
     private List<Seat> sittingPlan=new ArrayList<>();
     private Conditions conditions;
     private People people;
 
-    public SittingPlan(Chairs chairs,Conditions conditions,People people){
+    public SittingPlan(Chairs chairs, Conditions conditions, People people){
 
     }
     public SittingPlan(){

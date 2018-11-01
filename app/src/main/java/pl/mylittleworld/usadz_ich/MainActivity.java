@@ -1,55 +1,141 @@
 package pl.mylittleworld.usadz_ich;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
+import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
-    private final int LISTA_GOSCI=0;
+import pl.mylittleworld.database.StorageAssistant;
+import pl.mylittleworld.sit_them.Storage;
+import pl.mylittleworld.sit_them.conditions.Condition;
+import pl.mylittleworld.sit_them.logic.Control;
+import pl.mylittleworld.sit_them.logic.ControlProvider;
+import pl.mylittleworld.sit_them.model.Person;
+
+public class MainActivity extends AppCompatActivity implements Storage.GetGuestsListener, Storage.GetConditionsListener {
+
+    private final int GUESTS_LIST=0;
+    private final int LOUNGE_PLAN=1;
+    private final int CONDITIONS=2;
+    private final int SITTING_PLAN=3;
+
+    Control logicController = ControlProvider.getInstance();
+    private ArrayAdapter listAdapterForGuestsList;
+  //  private TabItem [] tabItems= new TabItem[4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        StorageAssistant storageAssistant= new StorageAssistant(getApplicationContext());
+        logicController.giveStorageAssistant(storageAssistant);
+        logicController.getPeopleListForDisplay(this);
 
         findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                switch(((TabLayout)findViewById(R.id.tabs)).getSelectedTabPosition()){
-                    case 0:
+                int tempCardNumber=((TabLayout)findViewById(R.id.tabs)).getSelectedTabPosition();
+
+                switch(tempCardNumber){
+                    case GUESTS_LIST:
+                        Intent intent= new Intent(MainActivity.this, AddGuestsActivity.class);
+                        startActivityForResult(intent, 69);
                         break;
-                    case 1:
-                      new OptionsDialog().show(getSupportFragmentManager(),"CHOOSE_DIALOG");
+
+                    case LOUNGE_PLAN:
                         break;
-                    case 2:
+                    case CONDITIONS:
                         break;
-                    case 3:
-                break;
+                    case SITTING_PLAN:
+                        break;
+                }
+
             }
+        });
+
+
+        TabLayout tab= findViewById(R.id.tabs);
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch(tab.getPosition()){
+                    case GUESTS_LIST:
+                        logicController.getPeopleListForDisplay(MainActivity.this);
+                        break;
+
+                    case LOUNGE_PLAN:
+                        break;
+                    case CONDITIONS:
+                        logicController.getConditionsListForDisplay(MainActivity.this);
+                        break;
+                    case SITTING_PLAN:
+                        break;
+
+
+
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+    }
+    private synchronized void setListAdapter(ArrayAdapter myListAdapter) {
+        this.listAdapterForGuestsList = myListAdapter;
+    }
+
+    private synchronized ArrayAdapter getListAdapter() {
+        return listAdapterForGuestsList;
+    }
+
+    @Override
+    public void onGuestsListRetrived(ArrayList<Person> list) {
+       setListAdapter(new ListAdapterForGuestsList(this,list));
+
+        if(isFinishing() || isDestroyed()) return;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(isFinishing() || isDestroyed()) return;
+
+        ListView guestList= findViewById(R.id.list_view);
+        guestList.setAdapter(getListAdapter());
+
             }
         });
 
     }
 
-    public void selectedOption(int which){
+    @Override
+    public void onConditionsListRetrived(ArrayList<Condition> list) {
+        setListAdapter(new ListAdapterForConditionsList(this,list));
 
-        switch(which){
-            case 0:
-                break;
-            case 1:
-                Intent intent= new Intent(this, AddGuestsActivity.class);
-                startActivityForResult(intent, Activity.RESULT_OK);
-                break;
-            case 2:
-                break;
+        if(isFinishing() || isDestroyed()) return;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(isFinishing() || isDestroyed()) return;
 
-        }
+                ListView guestList= findViewById(R.id.list_view);
+                guestList.setAdapter(getListAdapter());
+
+            }
+        });
     }
 }

@@ -1,4 +1,4 @@
-package pl.mylittleworld.sit_them;
+package pl.mylittleworld.database;
 
 /**
  * class describes single sit
@@ -9,10 +9,10 @@ package pl.mylittleworld.sit_them;
  */
 public class Seat {
 
-    private final Chair chair;
+    private final ChairT chair;
     private int personID=-1;
 
-    public Seat(Chair chair, int personID) {
+    public Seat(ChairT chair, int personID) {
         this.chair=chair;
         this.personID = personID;
     }
@@ -25,24 +25,24 @@ public class Seat {
         this.personID = personID;
     }
 
-    public Chair getChair() {
+    public ChairT getChairT() {
         return chair;
     }
 
     public boolean areThoseSitsCloseToEachOther(Seat seat2, boolean meansOppositeClose, boolean meansDiagonallyClose){
-        if(this.getChair().getTableID()!= seat2.getChair().getTableID()){
+        if(this.getChairT().getTableID()!= seat2.getChairT().getTableID()){
             return false;
         }
         if(meansDiagonallyClose){
-            if( isDifferentAboutOne(this.getChair().getX(), seat2.getChair().getX()) && isDifferentAboutOne(this.getChair().getY(), seat2.getChair().getY()))
+            if( isDifferentAboutOne(this.getChairT().getX(), seat2.getChairT().getX()) && isDifferentAboutOne(this.getChairT().getY(), seat2.getChairT().getY()))
                 return true;
 
         }
         if(meansOppositeClose){
-            if(this.getChair().getX() == seat2.getChair().getX() && isDifferentAboutOne(this.getChair().getX(), seat2.getChair().getY()))
+            if(this.getChairT().getX() == seat2.getChairT().getX() && isDifferentAboutOne(this.getChairT().getX(), seat2.getChairT().getY()))
                 return true;
         }
-        if(this.getChair().getY() == seat2.getChair().getY() && isDifferentAboutOne(this.getChair().getX(), seat2.getChair().getX())) {
+        if(this.getChairT().getY() == seat2.getChairT().getY() && isDifferentAboutOne(this.getChairT().getX(), seat2.getChairT().getX())) {
             return true;
         }
             return false;

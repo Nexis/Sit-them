@@ -8,4 +8,5 @@
     <string name="guest_name">nazwa gościa</string>
     <string name="end_adding_guests">KONIEC</string>
     <string name="add_next_guest">NASTĘPNY</string>
+    <string name="problems">WARUNKI</string>
 </resources>

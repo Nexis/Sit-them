@@ -5,8 +5,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.junit.Assert;
 
-import pl.mylittleworld.sit_them.Chair;
-import pl.mylittleworld.sit_them.Seat;
+import pl.mylittleworld.sit_them.model.Chair;
+import pl.mylittleworld.database.Seat;
 
 import static org.mockito.Mockito.when;
 

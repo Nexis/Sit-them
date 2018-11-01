@@ -1,4 +1,4 @@
-package pl.mylittleworld.sit_them;
+package pl.mylittleworld.sit_them.model;
 
 public class Table {
 

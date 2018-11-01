@@ -1,5 +1,7 @@
 package pl.mylittleworld.sit_them;
 
+import pl.mylittleworld.sit_them.model.Seat;
+
 public class SittingPlanProxy {
 
     private SittingPlan sittingPlan;

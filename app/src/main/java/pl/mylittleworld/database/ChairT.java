@@ -1,4 +1,4 @@
-package pl.mylittleworld.usadz_ich.DataBase;
+package pl.mylittleworld.database;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
@@ -9,11 +9,15 @@ public class ChairT {
     @PrimaryKey
     private int tableID;
 
-    @PrimaryKey
+
     private int x;
 
-    @PrimaryKey
+
     private int y;
+
+    public void setTableID(int tableID) {
+        this.tableID = tableID;
+    }
 
     public int getTableID() {
         return tableID;
@@ -25,5 +29,13 @@ public class ChairT {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }

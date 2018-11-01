@@ -1,4 +1,4 @@
-package pl.mylittleworld.usadz_ich.DataBase;
+package pl.mylittleworld.database;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
@@ -38,4 +38,19 @@ public class TableT {
         return y;
     }
 
+    public void setTableID(int tableID) {
+        this.tableID = tableID;
+    }
+
+    public void setTableHeight(int tableHeight) {
+        this.tableHeight = tableHeight;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 }

@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addButton"
-        android:layout_width="61dp"
-        android:layout_height="62dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="72dp"
+        android:layout_height="81dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
+        android:focusable="auto"
         app:backgroundTint="@android:color/holo_orange_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,18 +25,12 @@
         android:id="@+id/tabs"
         android:layout_width="368dp"
         android:layout_height="46dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/chairs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/scheme" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/guests_list"
@@ -43,10 +39,38 @@
             android:text="@string/list" />
 
         <android.support.design.widget.TabItem
+            android:id="@+id/chairs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scheme" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/conditions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/problems" />
+
+        <android.support.design.widget.TabItem
             android:id="@+id/sitting_plan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sit_scheme" />
     </android.support.design.widget.TabLayout>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:overScrollMode="ifContentScrolls"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabs" />
+
 
 </android.support.constraint.ConstraintLayout>

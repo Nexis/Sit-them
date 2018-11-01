@@ -8,10 +8,10 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.mylittleworld.sit_them.Chair;
-import pl.mylittleworld.sit_them.Conditions;
-import pl.mylittleworld.sit_them.People;
-import pl.mylittleworld.sit_them.Seat;
+import pl.mylittleworld.sit_them.model.Chair;
+import pl.mylittleworld.sit_them.conditions.Conditions;
+import pl.mylittleworld.sit_them.model.People;
+import pl.mylittleworld.database.Seat;
 import pl.mylittleworld.sit_them.SittingPlan;
 
 import static junit.framework.Assert.fail;

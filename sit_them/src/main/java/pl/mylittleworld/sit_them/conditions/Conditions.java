@@ -1,9 +1,10 @@
-package pl.mylittleworld.sit_them;
+package pl.mylittleworld.sit_them.conditions;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.mylittleworld.sit_them.SittingPlanProxy;
 import pl.mylittleworld.sit_them.conditions.Condition;
 
 public class Conditions {

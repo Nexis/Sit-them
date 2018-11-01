@@ -1,9 +1,8 @@
-package pl.mylittleworld.sit_them;
+package pl.mylittleworld.sit_them.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.mylittleworld.sit_them.Person;
 import pl.mylittleworld.sit_them.SittingPlanProxy;
 
 
@@ -11,6 +10,7 @@ public class People {
 
     private List<Person> people;
     private String name;
+    private static int personId=-1;
 
     public People() {
         this.people=new ArrayList<>();
@@ -44,5 +44,14 @@ public class People {
             }
         }
         return true;
+    }
+
+    public static int nextPersonId() {
+        ++personId;
+        return personId;
+    }
+
+    public List<Person> getPeople() {
+        return people;
     }
 }

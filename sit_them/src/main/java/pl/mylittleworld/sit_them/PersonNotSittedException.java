@@ -1,4 +1,4 @@
-package pl.mylittleworld.usadz_ich;
+package pl.mylittleworld.sit_them;
 
 public class PersonNotSittedException extends RuntimeException {
 
