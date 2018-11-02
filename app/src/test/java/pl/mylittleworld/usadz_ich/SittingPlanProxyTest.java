@@ -3,8 +3,6 @@ package pl.mylittleworld.usadz_ich;
 import org.junit.Test;
 
 import pl.mylittleworld.database.Seat;
-import pl.mylittleworld.sit_them.SittingPlan;
-import pl.mylittleworld.sit_them.SittingPlanProxy;
 
 public class SittingPlanProxyTest {
 

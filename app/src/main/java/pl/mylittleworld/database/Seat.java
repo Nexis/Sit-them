@@ -1,5 +1,7 @@
 package pl.mylittleworld.database;
 
+import pl.mylittleworld.database.tables.ChairT;
+
 /**
  * class describes single sit
  * @tableID in witch table is it

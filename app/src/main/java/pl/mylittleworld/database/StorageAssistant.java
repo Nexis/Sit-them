@@ -2,16 +2,15 @@ package pl.mylittleworld.database;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.os.AsyncTask;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.List;
 
 import pl.mylittleworld.ThreadPoolExecutorForDatabaseAccess;
-import pl.mylittleworld.database.tasks.GetGuestsTask;
-import pl.mylittleworld.sit_them.Storage;
-import pl.mylittleworld.sit_them.model.Person;
+import pl.mylittleworld.database.tables.ConditionT;
+import pl.mylittleworld.database.tables.PersonT;
+import pl.mylittleworld.database.tasks.GetConditionsTask;
 
 public class StorageAssistant implements Storage {
 
@@ -23,18 +22,19 @@ public class StorageAssistant implements Storage {
     }
 
     @Override
-    public void getGuestsList(GetGuestsListener getGuestsListener) {
-        ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new GetGuestsTask(getGuestsListener,dataBase.getDao()));
-    }
-
-    @Override
-    public void getConditionsList(GetConditionsListener getConditionsListener) {
+    public void getGuestsList(final GetGuestsListener getGuestsListener) {
         ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
             @Override
             public void run() {
-                dataBase.getDao().getConditionsList();
+               ArrayList<PersonT> people= new ArrayList<>(dataBase.getDao().getGuests());
+                getGuestsListener.onGuestsListRetrived(people);
             }
         });
+    }
+
+    @Override
+    public void getConditionsList(final GetConditionsListener getConditionsListener) {
+        ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new GetConditionsTask(dataBase.getDao(),getConditionsListener));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class StorageAssistant implements Storage {
     }
 
     @Override
-    public void deleteGuests(final Person... people) {
+    public void deleteGuests(final PersonT... people) {
         ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
             @Override
             public void run() {

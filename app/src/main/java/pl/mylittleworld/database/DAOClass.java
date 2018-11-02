@@ -9,10 +9,10 @@ import android.database.Cursor;
 
 import java.util.List;
 
-import pl.mylittleworld.sit_them.conditions.Condition;
-import pl.mylittleworld.sit_them.conditions.ConditionMustNextTo;
-import pl.mylittleworld.sit_them.conditions.Conditions;
-import pl.mylittleworld.sit_them.model.Person;
+import pl.mylittleworld.database.tables.ConditionT;
+import pl.mylittleworld.database.tables.PersonT;
+import pl.mylittleworld.database.tables.TableT;
+
 
 @Dao
 public interface DAOClass {
@@ -20,7 +20,7 @@ public interface DAOClass {
     //Tables///////////////////////////////////////////////////////////////////////////
 
     @Insert
-    public void insertTable(TableT ... tables);
+    public void insertTable(TableT... tables);
 
     @Delete
     public int deleteTable(TableT ...tables);
@@ -28,7 +28,7 @@ public interface DAOClass {
     //People//////////////////////////////////////////////////////////////////////////
 
     @Insert
-    public void insertPerson(PersonT ...people);
+    public void insertPerson(PersonT...people);
 
     @Update
     public int updatePerson(PersonT ...people);
@@ -37,7 +37,7 @@ public interface DAOClass {
     public int deletePerson(PersonT ...people);
 
     @Query("SELECT *  FROM PersonT")
-    Cursor getGuests();
+    List<PersonT> getGuests();
 
     @Query("SELECT * FROM ConditionT")
     List<ConditionT> getConditionsList();

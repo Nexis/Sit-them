@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.mylittleworld.sit_them.model.Chair;
-import pl.mylittleworld.sit_them.conditions.Conditions;
+import pl.mylittleworld.usadz_ich.conditions.Conditions;
 import pl.mylittleworld.sit_them.model.People;
 import pl.mylittleworld.database.Seat;
-import pl.mylittleworld.sit_them.SittingPlan;
+import pl.mylittleworld.usadz_ich.SittingPlan;
+import pl.mylittleworld.usadz_ich.genetics.GeneticAlgorithms;
+import pl.mylittleworld.usadz_ich.genetics.SomethingWentTerriblyWrongException;
 
 import static junit.framework.Assert.fail;
 
