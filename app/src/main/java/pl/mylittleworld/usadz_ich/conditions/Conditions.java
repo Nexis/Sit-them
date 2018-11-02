@@ -22,6 +22,10 @@ public class Conditions {
         return conditions.add(condition);
     }
 
+    public List<Condition> getAll(){
+        return conditions;
+    }
+
     public boolean removeCondition(Condition condition){
 
         return conditions.remove(condition);

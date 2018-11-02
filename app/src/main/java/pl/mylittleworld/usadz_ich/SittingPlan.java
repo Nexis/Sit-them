@@ -40,7 +40,7 @@ public class SittingPlan {
      * @return value between 0 - 100 where 0 means not adjusted and 100 ideally adjusted
      */
     public int getAdaptationLvl(){
-       return conditions.howMuchAreConditionsFullfield(this);
+        return conditions.howMuchAreConditionsFullfield(this);
     }
 
     public void setConditions(Conditions conditions) {
@@ -104,4 +104,15 @@ public class SittingPlan {
         return isThisPersonSitted(personID);
     }
 
+    @Override
+    public String toString() {
+        String out="";
+       for(int i=0;i<getNumberOfSits();++i){
+           out+="czlowiek "+getSitAt(i).getPersonID();
+           out+="krzeslo "+getSitAt(i).getChairT().getX()+" "+getSitAt(i).getChairT().getY()+"\n";
+       }
+       out+="\n";
+
+       return out;
+    }
 }

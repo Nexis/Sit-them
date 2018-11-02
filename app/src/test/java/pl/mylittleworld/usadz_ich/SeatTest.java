@@ -5,14 +5,14 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.junit.Assert;
 
-import pl.mylittleworld.sit_them.model.Chair;
+import pl.mylittleworld.database.tables.ChairT;
 import pl.mylittleworld.database.Seat;
 
 import static org.mockito.Mockito.when;
 
 public class SeatTest {
 
-    Chair mockChair1= Mockito.mock(Chair.class);
+    ChairT mockChair1= Mockito.mock(ChairT.class);
 
     Seat seat= new Seat(mockChair1,6);
 
@@ -27,7 +27,7 @@ public class SeatTest {
 
         //next to
 
-        Chair nextToChair= Mockito.mock(Chair.class);
+        ChairT nextToChair= Mockito.mock(ChairT.class);
         when(nextToChair.getX()).thenReturn(2);
         when(nextToChair.getY()).thenReturn(5);
         when(nextToChair.getTableID()).thenReturn(3);
@@ -37,7 +37,7 @@ public class SeatTest {
 
         Assert.assertTrue("Problem with sitting close to each other",seat.areThoseSitsCloseToEachOther(seat1,false,false));
 
-        Chair notNextToChair= Mockito.mock(Chair.class);
+        ChairT notNextToChair= Mockito.mock(ChairT.class);
         when(nextToChair.getX()).thenReturn(3);
         when(nextToChair.getY()).thenReturn(5);
         when(nextToChair.getTableID()).thenReturn(3);
@@ -50,7 +50,7 @@ public class SeatTest {
 
 
         //diagonally
-        Chair diagonalChair= Mockito.mock(Chair.class);
+        ChairT diagonalChair= Mockito.mock(ChairT.class);
         when(diagonalChair.getX()).thenReturn(2);
         when(diagonalChair.getY()).thenReturn(6);
         when(diagonalChair.getTableID()).thenReturn(3);
@@ -61,7 +61,7 @@ public class SeatTest {
         Assert.assertFalse("Problem with sitting close to each other",seat.areThoseSitsCloseToEachOther(seat3,false,false));
 
 
-        Chair notDiagonalChair= Mockito.mock(Chair.class);
+        ChairT notDiagonalChair= Mockito.mock(ChairT.class);
         when(notDiagonalChair.getX()).thenReturn(3);
         when(notDiagonalChair.getY()).thenReturn(6);
         when(notDiagonalChair.getTableID()).thenReturn(3);

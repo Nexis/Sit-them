@@ -1,19 +1,19 @@
 package pl.mylittleworld.usadz_ich.conditions;
 
-
 import pl.mylittleworld.database.Seat;
 import pl.mylittleworld.database.tables.PersonT;
-import pl.mylittleworld.usadz_ich.genetics.PersonNotSittedException;
 import pl.mylittleworld.usadz_ich.SittingPlan;
+import pl.mylittleworld.usadz_ich.genetics.PersonNotSittedException;
 
-public class ConditionMustNextTo implements Condition {
+public class CantNextToCondition implements Condition {
+
 
     private PersonT person1;
     private PersonT person2;
 
     private int conitionId;
 
-    public ConditionMustNextTo(PersonT person1ID, PersonT person2ID,int id) {
+    public CantNextToCondition(PersonT person1ID, PersonT person2ID, int id) {
         this.person1 = person1ID;
         this.person2 = person2ID;
         this.conitionId=id;
@@ -27,7 +27,7 @@ public class ConditionMustNextTo implements Condition {
         Seat seat2 = sittingPlan.whereSits(person2.getPersonID());
 
         if(seat1 !=null && seat2 !=null)
-            return seat1.areThoseSitsCloseToEachOther(seat2,false,false);
+            return !seat1.areThoseSitsCloseToEachOther(seat2,false,false);
 
 
         throw new PersonNotSittedException();
@@ -35,16 +35,11 @@ public class ConditionMustNextTo implements Condition {
 
     @Override
     public String getDescription() {
-        return person1.getName() + " OBOK " + person2.getName() ;
+        return person1.getName() + " NIE MOŻE OBOK " + person2.getName() ;
     }
 
     @Override
     public int getConditionId() {
-        return 0;
-    }
-
-    public int getConitionId() {
         return conitionId;
     }
-
 }

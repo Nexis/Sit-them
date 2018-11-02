@@ -6,6 +6,12 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class ChairT {
 
+    public ChairT(int tableID, int x, int y) {
+        this.tableID = tableID;
+        this.x = x;
+        this.y = y;
+    }
+
     @PrimaryKey
     private int tableID;
 

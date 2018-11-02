@@ -9,7 +9,7 @@ import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.usadz_ich.conditions.CONDITIONS_OPTIONS;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
-import pl.mylittleworld.usadz_ich.conditions.ConditionMustNextTo;
+import pl.mylittleworld.usadz_ich.conditions.MustNextToCondition;
 
 public class ConNextToDescryptor implements ConDescryptor{
 
@@ -19,7 +19,7 @@ public class ConNextToDescryptor implements ConDescryptor{
         if(conditionT.getConditionType()==CONDITIONS_OPTIONS.MUST_NEXT_TO){
            PersonT p1= findPersonWithId(conditionT.getId1());
            PersonT p2= findPersonWithId(conditionT.getId2());
-            return (T) new ConditionMustNextTo(p1,p2,conditionT.getConditionID());
+            return (T) new MustNextToCondition(p1,p2,conditionT.getConditionID());
         }
         else {
             return null;

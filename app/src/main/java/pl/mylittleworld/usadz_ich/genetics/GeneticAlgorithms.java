@@ -1,5 +1,7 @@
 package pl.mylittleworld.usadz_ich.genetics;
 
+import android.support.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -44,21 +46,21 @@ public class GeneticAlgorithms {
 
     }
 
-    List<SittingPlan> randFirstPopulation(SittingPlan emptySittingPlan) {
+    List<SittingPlan> randFirstPopulation() {
 
         List<SittingPlan> sittingPlans = new ArrayList<SittingPlan>();
         for (int i = 0; i < populationSize; ++i) {
-            sittingPlans.add(emptySittingPlan);
+            sittingPlans.add(getNewEmptySittingPlan());
         }
 
         int randPersonIndex;
-        int numberOfSits = emptySittingPlan.getNumberOfSits();
+        int numberOfSits = sittingPlans.get(0).getNumberOfSits();
 
         for (SittingPlan sittingPlan : sittingPlans) {
-            randPersonIndex = random.nextInt() % numberOfSits;
+            randPersonIndex = Math.abs(random.nextInt()) % numberOfSits;
             for (int i = 0; i < numberOfSits; ++i) {
                 while (sittingPlan.isPersonUnderThisIndexSitted(randPersonIndex)) {
-                    randPersonIndex = random.nextInt() % numberOfSits;
+                    randPersonIndex = Math.abs(random.nextInt()) % numberOfSits;
                 }
                 sittingPlan.getSitAt(i).setPersonID(randPersonIndex);
             }
@@ -98,7 +100,8 @@ public class GeneticAlgorithms {
             int sitNumber2 = Math.abs(random.nextInt() % sittingPlan.getNumberOfSits());
 
             while (sitNumber1 == sitNumber2) {
-                sitNumber2 = Math.abs(random.nextInt() % sittingPlan.getNumberOfSits());
+                sitNumber2 = Math.abs(random.nextInt()) % sittingPlan.getNumberOfSits();
+                System.out.print("aaaaaaaaaaaaaa");
             }
             sittingPlan.swapPeopleAtSits(sitNumber1, sitNumber2);
 
@@ -135,6 +138,7 @@ public class GeneticAlgorithms {
                 i = endOfMotherGenom;
             }
             while (temporarySittingPlan.isThisPersonSitted(father.getSitAt(index).getPersonID())) {
+                System.out.print("bbbbbbbbbbbbbb");
                 ++index;
             }
             descendantTable[i] = father.getSitAt(index);
@@ -149,7 +153,7 @@ public class GeneticAlgorithms {
         return descendant;
     }
 
-    List<SittingPlan> naturalSelection(List<SittingPlan> sittingPlans) {
+    List<SittingPlan> naturalSelection(List<SittingPlan> sittingPlans,int numberToRemove) {
 
         Collections.sort(sittingPlans, new Comparator<SittingPlan>() {
             @Override
@@ -165,24 +169,31 @@ public class GeneticAlgorithms {
             }
         });
 
-        int listSize = sittingPlans.size() / 2;
-
-        for (int i = 0; i < listSize; ++i) {
+        for (int i = 0; i < numberToRemove; ++i) {
             sittingPlans.remove(0);
         }
 
         return sittingPlans;
     }
-    private isTherePerfectOne()
+    @Nullable
+    private SittingPlan isTherePerfectOne(List<SittingPlan> sittingPlans){
+        for(SittingPlan sittingPlan : sittingPlans){
+            System.out.println(sittingPlan.toString());
+            if(sittingPlan.getAdaptationLvl()==100){
+                return sittingPlan;
+            }
+        }
+        return null;
+    }
 
     public SittingPlan evolution() throws SomethingWentTerriblyWrongException{
 
-        List<SittingPlan> population= randFirstPopulation(getNewEmptySittingPlan());
+        List<SittingPlan> population= randFirstPopulation();
+        SittingPlan perfect=null;
 
-        boolean find=false;
         int rand;
 
-        while(find==false){
+        while(perfect==null){
             int amountOfNewPopulationMembers=0;
 
             rand=Math.abs(random.nextInt())%100;
@@ -206,12 +217,12 @@ public class GeneticAlgorithms {
                 SittingPlan newMember=copulate(population.get(which1),population.get(which2));
                 population.add(newMember);
             }
-           for(int i=0;i<amountOfNewPopulationMembers;++i){
-                population=naturalSelection(population);
-           }
 
+            population=naturalSelection(population,amountOfNewPopulationMembers);
+
+            perfect=isTherePerfectOne(population);
         }
 
-        return null;
+        return perfect;
     }
 }
