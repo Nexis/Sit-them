@@ -48,16 +48,10 @@ public class StorageAssistant implements Storage {
     }
 
     @Override
-    public void deleteGuests(final PersonT... people) {
+    public void deleteGuests(final PersonT... peopleT) {
         ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
             @Override
             public void run() {
-                PersonT[] peopleT= new PersonT[people.length];
-
-                for(int i=0;i<people.length;++i){
-                    peopleT[i]=new PersonT(people[i].getName(),people[i].getPersonID());
-                }
-
                 dataBase.getDao().deletePerson(peopleT);
             }
         });

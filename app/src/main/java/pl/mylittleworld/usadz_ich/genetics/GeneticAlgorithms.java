@@ -1,5 +1,6 @@
 package pl.mylittleworld.usadz_ich.genetics;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -7,16 +8,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicReference;
 
 import pl.mylittleworld.database.Seat;
 import pl.mylittleworld.database.tables.ChairT;
-import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.usadz_ich.SittingPlan;
-import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
-import pl.mylittleworld.usadz_ich.logic.Control;
 
 public class GeneticAlgorithms {
 
@@ -36,13 +33,13 @@ public class GeneticAlgorithms {
 
     SittingPlan getNewEmptySittingPlan() {
 
-        ArrayList<Seat> seats= new ArrayList<>();
+        ArrayList<Seat> seats = new ArrayList<>();
 
-        for(ChairT chairT : chairTS){
-            seats.add(new Seat(chairT,-1));
+        for (ChairT chairT : chairTS) {
+            seats.add(new Seat(chairT, -1));
         }
 
-        return new SittingPlan(seats,conditionTS,people);
+        return new SittingPlan(seats, conditionTS, people);
 
     }
 
@@ -68,40 +65,60 @@ public class GeneticAlgorithms {
         return sittingPlans;
     }
 
+    /**
+     * Function rotate 
+     * @param sittingPlan to mutate
+     * @return mutated sittingPlan
+     */
     SittingPlan mutateBig(SittingPlan sittingPlan) {
 
-        int startIndex = Math.abs(random.nextInt() % sittingPlan.getNumberOfSits());
-        int endIndex = Math.abs(random.nextInt() % sittingPlan.getNumberOfSits());
+        int startIndex = Math.abs(random.nextInt()) % sittingPlan.getNumberOfSits();
+        int endIndex = Math.abs(random.nextInt()) % sittingPlan.getNumberOfSits();
 
         if (startIndex > endIndex) {
             int temp = startIndex;
             startIndex = endIndex;
             endIndex = temp;
         }
-
-        SittingPlan mutated = new SittingPlan(sittingPlan);
+        List<Seat> copiedSittingPlan = getDeepCopyOfSeatList(sittingPlan.getSittingPlan());
+        SittingPlan mutated = new SittingPlan(copiedSittingPlan, conditionTS, people);
         int backIndex = endIndex;
 
         for (int i = 0; i < sittingPlan.getNumberOfSits(); ++i) {
             if (i < startIndex || i > endIndex) {
-                mutated.getSitAt(i).setPersonID(sittingPlan.getSitAt(i).getPersonID());
+                rewrite(i, i, sittingPlan, mutated);
             } else {
-                mutated.getSitAt(i).setPersonID(sittingPlan.getSitAt(backIndex).getPersonID());
+                rewrite(backIndex, i, sittingPlan, mutated);
                 --backIndex;
             }
         }
         return mutated;
+    }
 
+    private void rewrite(int srcIndex, int targetIndex, SittingPlan src, SittingPlan target) {
+        Seat tempSeat = src.getSitAt(srcIndex);
+        target.getSitAt(targetIndex).setPersonID(tempSeat.getPersonID());
+    }
+
+    private static List<Seat> getDeepCopyOfSeatList(final @NonNull List<Seat> seatList) {
+        final List<Seat> copiedList = new ArrayList<>();
+
+        for (Seat tempSeat : seatList) {
+            ChairT chairT = tempSeat.getChairT();
+            int personId = tempSeat.getPersonID();
+
+            copiedList.add(new Seat(chairT, personId));
+        }
+        return copiedList;
     }
 
     SittingPlan mutate(SittingPlan sittingPlan) {
         if (sittingPlan.getNumberOfSits() > 1) {
-            int sitNumber1 = Math.abs(random.nextInt() % sittingPlan.getNumberOfSits());
-            int sitNumber2 = Math.abs(random.nextInt() % sittingPlan.getNumberOfSits());
+            int sitNumber1 = Math.abs(random.nextInt()) % sittingPlan.getNumberOfSits();
+            int sitNumber2 = Math.abs(random.nextInt()) % sittingPlan.getNumberOfSits();
 
             while (sitNumber1 == sitNumber2) {
                 sitNumber2 = Math.abs(random.nextInt()) % sittingPlan.getNumberOfSits();
-                System.out.print("aaaaaaaaaaaaaa");
             }
             sittingPlan.swapPeopleAtSits(sitNumber1, sitNumber2);
 
@@ -113,6 +130,7 @@ public class GeneticAlgorithms {
         if (mother.getNumberOfSits() != father.getNumberOfSits()) {
             throw new SomethingWentTerriblyWrongException();
         }
+
         int numberOfSits = mother.getNumberOfSits();
 
         int startOfMotherGenom = Math.abs(random.nextInt()) % numberOfSits;
@@ -124,36 +142,35 @@ public class GeneticAlgorithms {
             endOfMotherGenom = temp;
         }
 
+/////////////DEEP COPY PROBLEM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        List<Seat> seatList= getDeepCopyOfSeatList(mother.getSittingPlan());
+        SittingPlan descendant = new SittingPlan(seatList,conditionTS, people);
 
-        Seat[] descendantTable = new Seat[numberOfSits];
-        SittingPlan temporarySittingPlan = new SittingPlan();
+        //-1 for all personID
+        for(Seat seat:descendant.getSittingPlan()){
+            seat.setPersonID(-1);
+        }
 
         for (int index = startOfMotherGenom; index < endOfMotherGenom; ++index) {
-            descendantTable[index] = mother.getSitAt(index);
-            temporarySittingPlan.addSit(mother.getSitAt(index));
+            descendant.getSitAt(index).setPersonID(mother.getSitAt(index).getPersonID());
         }
 
         for (int i = 0, index = 0; i < numberOfSits; ++i) {
             if (i == startOfMotherGenom) {
                 i = endOfMotherGenom;
             }
-            while (temporarySittingPlan.isThisPersonSitted(father.getSitAt(index).getPersonID())) {
-                System.out.print("bbbbbbbbbbbbbb");
+            while (descendant.isThisPersonSitted(father.getSitAt(index).getPersonID())) {
                 ++index;
             }
-            descendantTable[i] = father.getSitAt(index);
+            descendant.getSitAt(i).setPersonID(father.getSitAt(index).getPersonID());
             ++index;
         }
 
-        // rewrite sitting plan in proper order to List
-        SittingPlan descendant = new SittingPlan();
-        for (int i = 0; i < numberOfSits; ++i) {
-            descendant.addSit(descendantTable[i]);
-        }
+
         return descendant;
     }
 
-    List<SittingPlan> naturalSelection(List<SittingPlan> sittingPlans,int numberToRemove) {
+    List<SittingPlan> naturalSelection(List<SittingPlan> sittingPlans, int numberToRemove) {
 
         Collections.sort(sittingPlans, new Comparator<SittingPlan>() {
             @Override
@@ -175,52 +192,52 @@ public class GeneticAlgorithms {
 
         return sittingPlans;
     }
+
     @Nullable
-    private SittingPlan isTherePerfectOne(List<SittingPlan> sittingPlans){
-        for(SittingPlan sittingPlan : sittingPlans){
-            System.out.println(sittingPlan.toString());
-            if(sittingPlan.getAdaptationLvl()==100){
+    private SittingPlan isTherePerfectOne(List<SittingPlan> sittingPlans) {
+        for (SittingPlan sittingPlan : sittingPlans) {
+           // System.out.println(sittingPlan.toString());
+            if (sittingPlan.getAdaptationLvl() == 100) {
                 return sittingPlan;
             }
         }
         return null;
     }
 
-    public SittingPlan evolution() throws SomethingWentTerriblyWrongException{
+    public SittingPlan evolution() throws SomethingWentTerriblyWrongException {
 
-        List<SittingPlan> population= randFirstPopulation();
-        SittingPlan perfect=null;
+        List<SittingPlan> population = randFirstPopulation();
+        SittingPlan perfect = null;
 
         int rand;
 
-        while(perfect==null){
-            int amountOfNewPopulationMembers=0;
+        while (perfect == null) {
+            int amountOfNewPopulationMembers = 0;
 
-            rand=Math.abs(random.nextInt())%100;
+            rand = Math.abs(random.nextInt()) % 100;
 
             //MUTATE
-            if(rand<70){
-                int which=Math.abs(random.nextInt())%populationSize;
-               SittingPlan mutated=mutate(population.get(which));
-               population.set(which,mutated);
+            if (rand < 70) {
+                  int which=Math.abs(random.nextInt())%populationSize;
+                   SittingPlan mutated=mutate(population.get(which));
+                   population.set(which,mutated);
             }
             //MUTATE BIG
-            else if(rand<85){
-                int which=Math.abs(random.nextInt())%populationSize;
-                SittingPlan mutated=mutateBig(population.get(which));
-                population.set(which,mutated);
-            }
-            else{
+            else if (rand < 85) {
+                int which = Math.abs(random.nextInt()) % populationSize;
+                SittingPlan mutated = mutateBig(population.get(which));
+                population.set(which, mutated);
+            } else {
                 ++amountOfNewPopulationMembers;
-                int which1=Math.abs(random.nextInt())%populationSize;
-                int which2=Math.abs(random.nextInt())%populationSize;
-                SittingPlan newMember=copulate(population.get(which1),population.get(which2));
+                int which1 = Math.abs(random.nextInt()) % populationSize;
+                int which2 = Math.abs(random.nextInt()) % populationSize;
+                SittingPlan newMember = copulate(population.get(which1), population.get(which2));
                 population.add(newMember);
             }
 
-            population=naturalSelection(population,amountOfNewPopulationMembers);
+            population = naturalSelection(population, amountOfNewPopulationMembers);
 
-            perfect=isTherePerfectOne(population);
+            perfect = isTherePerfectOne(population);
         }
 
         return perfect;

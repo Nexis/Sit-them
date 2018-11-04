@@ -11,6 +11,7 @@ import java.util.List;
 import pl.mylittleworld.database.People;
 import pl.mylittleworld.database.tables.ChairT;
 import pl.mylittleworld.database.tables.PersonT;
+import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
 import pl.mylittleworld.database.Seat;
 import pl.mylittleworld.usadz_ich.SittingPlan;
@@ -25,10 +26,12 @@ public class GeneticAlgorithmsTest {
     @Test()
     public void mutateBigTest() {
 
+        int sitListSize=5;
+
         List<Seat> seatList = new ArrayList<>();
         ChairT chair = Mockito.mock(ChairT.class);
 
-        for (int i = 0; i < 30; ++i) {
+        for (int i = 0; i < sitListSize; ++i) {
             Seat seat = new Seat(chair, i);
             seatList.add(seat);
         }
@@ -36,25 +39,29 @@ public class GeneticAlgorithmsTest {
         List<PersonT> people = new ArrayList<>();
         PersonT personT = Mockito.mock(PersonT.class);
 
-        for (int i = 0; i < 30; ++i) {
+        for (int i = 0; i < sitListSize; ++i) {
             people.add(personT);
         }
 
         SittingPlan sittingPlan = geneticAlgorithms.mutateBig(new SittingPlan(seatList, Mockito.mock(Conditions.class), people));
 
-        int check = -1;
+        int mutationStartIndex = -1;
+        int mutationEndIndex = -1;
 
         for (int i = 0; i < sittingPlan.getNumberOfSits(); ++i) {
             if (sittingPlan.getSitAt(i).getPersonID() != seatList.get(i).getPersonID()) {
-                if (check == -1) {
-                    check = sittingPlan.getSitAt(i).getPersonID();
-                } else {
-                    if (check != sittingPlan.getSitAt(i).getPersonID() - 1) {
-                        fail();
-                    } else {
-                        --check;
-                    }
+                if (mutationStartIndex == -1) {
+                    mutationStartIndex=i;
                 }
+                else {
+                   mutationEndIndex=i;
+                }
+            }
+        }
+        //checking rotated fragment
+        for (int index=0,i = mutationStartIndex; i < mutationEndIndex; ++i, ++index) {
+            if (sittingPlan.getSitAt(i).getPersonID() != seatList.get(mutationEndIndex-index).getPersonID()) {
+               throw new IllegalStateException("Mutation not only rotated the fragment "+sittingPlan.toString()+" \n\n"+ mutationStartIndex +" "+ mutationEndIndex+ "\n"+new SittingPlan(seatList, Mockito.mock(Conditions.class), people).toString());
             }
         }
 

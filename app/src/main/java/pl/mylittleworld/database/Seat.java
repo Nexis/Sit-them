@@ -41,7 +41,7 @@ public class Seat {
 
         }
         if(meansOppositeClose){
-            if(this.getChairT().getX() == seat2.getChairT().getX() && isDifferentAboutOne(this.getChairT().getX(), seat2.getChairT().getY()))
+            if(this.getChairT().getX() == seat2.getChairT().getX() && isDifferentAboutOne(this.getChairT().getY(), seat2.getChairT().getY()))
                 return true;
         }
         if(this.getChairT().getY() == seat2.getChairT().getY() && isDifferentAboutOne(this.getChairT().getX(), seat2.getChairT().getX())) {

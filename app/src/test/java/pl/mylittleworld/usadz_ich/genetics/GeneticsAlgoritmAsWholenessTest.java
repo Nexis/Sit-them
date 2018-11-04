@@ -16,10 +16,10 @@ import pl.mylittleworld.usadz_ich.conditions.MustNextToCondition;
 public class GeneticsAlgoritmAsWholenessTest {
 
     GeneticAlgorithms geneticAlgorithms;
-    private final int generationSize=5;
+    private final int generationSize=10;
 
 
-    @Test
+    @Test//(timeout = 2000)
     public void try1()
     {
         ArrayList<ChairT> chairs= new ArrayList<>();
@@ -40,13 +40,13 @@ public class GeneticsAlgoritmAsWholenessTest {
             System.out.println(chair.getX()+"  "+chair.getY());
         }
 
-       // conditions.addCondition(new CantNextToCondition(people.get(0),people.get(1),1));
+        conditions.addCondition(new CantNextToCondition(people.get(0),people.get(1),1));
         conditions.addCondition(new CantNextToCondition(people.get(2),people.get(3),2));
-       // conditions.addCondition(new CantNextToCondition(people.get(3),people.get(0),3));
-        //conditions.addCondition(new CantNextToCondition(people.get(6),people.get(8),4));
+        conditions.addCondition(new CantNextToCondition(people.get(3),people.get(0),3));
+        conditions.addCondition(new CantNextToCondition(people.get(6),people.get(8),4));
 
         conditions.addCondition(new MustNextToCondition(people.get(2),people.get(4),5));
-        //conditions.addCondition(new MustNextToCondition(people.get(5),people.get(7),6));
+        conditions.addCondition(new MustNextToCondition(people.get(5),people.get(7),6));
 
         for(Condition condition: conditions.getAll()){
             System.out.println(condition.getDescription());

@@ -1,36 +1,41 @@
 package pl.mylittleworld.usadz_ich;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import pl.mylittleworld.database.Seat;
 import pl.mylittleworld.database.tables.ChairT;
 import pl.mylittleworld.database.tables.PersonT;
+import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
 
 public class SittingPlan {
 
     private List<Seat> sittingPlan=new ArrayList<>();
+
+    @NonNull
     private Conditions conditions;
     private List<PersonT> people;
 
-    public SittingPlan(List<ChairT> chairs, Conditions conditions, PersonT... people){
+    public SittingPlan(@NonNull Conditions conditions,List<PersonT> people){
+        this.conditions=conditions;
+        this.people=people;
+    }
 
-    }
-    public SittingPlan(){
-
-    }
-    public SittingPlan(SittingPlan sittingPlan){
-        this.sittingPlan=sittingPlan.sittingPlan;
-        this.conditions=sittingPlan.conditions;
-        this.people=sittingPlan.people;
-    }
-    public SittingPlan(List <Seat> sittingPlan,Conditions conditions,List<PersonT> people){
+    public SittingPlan(List <Seat> sittingPlan, @NonNull Conditions conditions, List<PersonT> people){
         this.sittingPlan=sittingPlan;
         this.conditions=conditions;
         this.people=people;
     }
 
+    public List<Seat> getSittingPlan() {
+        return sittingPlan;
+    }
+
+    @NonNull
     public Conditions getConditions() {
         return conditions;
     }
@@ -43,7 +48,8 @@ public class SittingPlan {
         return conditions.howMuchAreConditionsFullfield(this);
     }
 
-    public void setConditions(Conditions conditions) {
+    public void setConditions(@NonNull Conditions conditions) {
+
         this.conditions = conditions;
     }
 
@@ -79,12 +85,12 @@ public class SittingPlan {
     }
     public boolean swapPeopleAtSits(int sitNumber1,int sitNumber2){
 
-        int tempPersonID=sittingPlan.get(sitNumber1).getPersonID();
+        int tempPersonId1=sittingPlan.get(sitNumber1).getPersonID();
+
         if(sitNumber1 < sittingPlan.size()&&sitNumber2 <sittingPlan.size()) {
 
-
             sittingPlan.get(sitNumber1).setPersonID(sittingPlan.get(sitNumber2).getPersonID());
-            sittingPlan.get(sitNumber2).setPersonID(tempPersonID);
+            sittingPlan.get(sitNumber2).setPersonID(tempPersonId1);
 
             return true;
         }
