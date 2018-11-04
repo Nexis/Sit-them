@@ -66,7 +66,8 @@ public class GeneticAlgorithms {
     }
 
     /**
-     * Function rotate 
+     * Function rotate randomed fragment
+     * parameter can be broken by method
      * @param sittingPlan to mutate
      * @return mutated sittingPlan
      */

@@ -15,11 +15,12 @@ import pl.mylittleworld.usadz_ich.conditions.MustNextToCondition;
 
 public class GeneticsAlgoritmAsWholenessTest {
 
-    GeneticAlgorithms geneticAlgorithms;
-    private final int generationSize=10;
+   private GeneticAlgorithms geneticAlgorithms;
+
+   private final int generationSize=10;
 
 
-    @Test//(timeout = 2000)
+    @Test(timeout = 2000)
     public void try1()
     {
         ArrayList<ChairT> chairs= new ArrayList<>();
@@ -32,9 +33,17 @@ public class GeneticsAlgoritmAsWholenessTest {
 
             System.out.println("Person  "+person.getPersonID());
         }
+        int moduloForNumberOfSits=-1;
 
+        if(generationSize%2==0){
+            //parzysta
+            moduloForNumberOfSits=generationSize/2;
+        }
+        else{
+            moduloForNumberOfSits=(generationSize/2)+1;
+        }
         for(int i=0;i<generationSize;++i) {
-            ChairT chair = new ChairT(1,i%5,i%2);
+            ChairT chair = new ChairT(1,i%moduloForNumberOfSits,i%2);
             chairs.add(chair);
 
             System.out.println(chair.getX()+"  "+chair.getY());

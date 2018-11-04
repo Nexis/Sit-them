@@ -1,6 +1,7 @@
 package pl.mylittleworld.usadz_ich.genetics;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -20,15 +21,17 @@ import static junit.framework.Assert.fail;
 
 @RunWith(org.mockito.junit.MockitoJUnitRunner.class)
 public class GeneticAlgorithmsTest {
+    int sitListSize=5;
+    List<Seat> seatList;
+    List<PersonT> people;
+
 
     private GeneticAlgorithms geneticAlgorithms= new GeneticAlgorithms(null,null,null);
 
-    @Test()
-    public void mutateBigTest() {
+    @Before
+    public void initialize(){
 
-        int sitListSize=5;
-
-        List<Seat> seatList = new ArrayList<>();
+        seatList  = new ArrayList<>();
         ChairT chair = Mockito.mock(ChairT.class);
 
         for (int i = 0; i < sitListSize; ++i) {
@@ -36,12 +39,17 @@ public class GeneticAlgorithmsTest {
             seatList.add(seat);
         }
 
-        List<PersonT> people = new ArrayList<>();
+        people = new ArrayList<>();
         PersonT personT = Mockito.mock(PersonT.class);
 
         for (int i = 0; i < sitListSize; ++i) {
             people.add(personT);
         }
+    }
+
+
+    @Test()
+    public void mutateBigTest() {
 
         SittingPlan sittingPlan = geneticAlgorithms.mutateBig(new SittingPlan(seatList, Mockito.mock(Conditions.class), people));
 
@@ -65,6 +73,21 @@ public class GeneticAlgorithmsTest {
             }
         }
 
+
+    }
+
+    @Test
+    public void mutateBigReturnsOtherObjectThanInParameter(){
+
+
+        SittingPlan sittingPlan = geneticAlgorithms.mutateBig(new SittingPlan(seatList, Mockito.mock(Conditions.class), people));
+        for(int i=0;i< sitListSize;++i){
+            for(int k=0;k< sitListSize;++k) {
+                if(sittingPlan.getSitAt(i)==seatList.get(k)){
+                    throw new IllegalArgumentException("Returned the same object as given, not a deep copy");
+                }
+            }
+        }
 
     }
 
