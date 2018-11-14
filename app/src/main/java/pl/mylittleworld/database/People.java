@@ -14,6 +14,14 @@ public class People {
     public static ArrayList<PersonT> getTemporaryStoragePeople() {
         return temporarySToragePeople;
     }
+    public static ArrayList<NameId> getTemporaryStoragePeopleAsNameId() {
+        ArrayList<NameId> nameIdArrayList= new ArrayList<>();
+        for(PersonT personT :temporarySToragePeople){
+            NameId nameId= new NameId(personT.getName(),personT.getPersonID());
+            nameIdArrayList.add(nameId);
+        }
+        return nameIdArrayList;
+    }
 
     public static boolean isInitialized(){
         return initialized;

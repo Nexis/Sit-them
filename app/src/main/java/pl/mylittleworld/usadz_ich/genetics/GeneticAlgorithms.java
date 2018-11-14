@@ -73,8 +73,8 @@ public class GeneticAlgorithms {
      */
     SittingPlan mutateBig(SittingPlan sittingPlan) {
 
-        int startIndex = Math.abs(random.nextInt()) % sittingPlan.getNumberOfSits();
-        int endIndex = Math.abs(random.nextInt()) % sittingPlan.getNumberOfSits();
+        int startIndex = random.nextInt(sittingPlan.getNumberOfSits());
+        int endIndex =random.nextInt(sittingPlan.getNumberOfSits());
 
         if (startIndex > endIndex) {
             int temp = startIndex;
@@ -115,11 +115,11 @@ public class GeneticAlgorithms {
 
     SittingPlan mutate(SittingPlan sittingPlan) {
         if (sittingPlan.getNumberOfSits() > 1) {
-            int sitNumber1 = Math.abs(random.nextInt()) % sittingPlan.getNumberOfSits();
-            int sitNumber2 = Math.abs(random.nextInt()) % sittingPlan.getNumberOfSits();
+            int sitNumber1 = random.nextInt(sittingPlan.getNumberOfSits());
+            int sitNumber2 = random.nextInt(sittingPlan.getNumberOfSits());
 
             while (sitNumber1 == sitNumber2) {
-                sitNumber2 = Math.abs(random.nextInt()) % sittingPlan.getNumberOfSits();
+                sitNumber2 = random.nextInt(sittingPlan.getNumberOfSits());
             }
             sittingPlan.swapPeopleAtSits(sitNumber1, sitNumber2);
 
@@ -134,7 +134,7 @@ public class GeneticAlgorithms {
 
         int numberOfSits = mother.getNumberOfSits();
 
-        int startOfMotherGenom = Math.abs(random.nextInt()) % numberOfSits;
+        int startOfMotherGenom = random.nextInt(numberOfSits);
         int endOfMotherGenom = (startOfMotherGenom + numberOfSits / 2) % numberOfSits;
 
         if (startOfMotherGenom > endOfMotherGenom) {
@@ -143,7 +143,6 @@ public class GeneticAlgorithms {
             endOfMotherGenom = temp;
         }
 
-/////////////DEEP COPY PROBLEM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         List<Seat> seatList= getDeepCopyOfSeatList(mother.getSittingPlan());
         SittingPlan descendant = new SittingPlan(seatList,conditionTS, people);
 
@@ -170,7 +169,7 @@ public class GeneticAlgorithms {
 
         return descendant;
     }
-
+//todo change method to fortune circle with parent/child difference
     List<SittingPlan> naturalSelection(List<SittingPlan> sittingPlans, int numberToRemove) {
 
         Collections.sort(sittingPlans, new Comparator<SittingPlan>() {
@@ -211,27 +210,27 @@ public class GeneticAlgorithms {
         SittingPlan perfect = null;
 
         int rand;
-
+//todo dobrac eksperymentalnie prawdopodobienstwa
         while (perfect == null) {
             int amountOfNewPopulationMembers = 0;
 
-            rand = Math.abs(random.nextInt()) % 100;
+            rand = random.nextInt(100);
 
             //MUTATE
             if (rand < 70) {
-                  int which=Math.abs(random.nextInt())%populationSize;
+                  int which=random.nextInt(populationSize);
                    SittingPlan mutated=mutate(population.get(which));
                    population.set(which,mutated);
             }
             //MUTATE BIG
             else if (rand < 85) {
-                int which = Math.abs(random.nextInt()) % populationSize;
+                int which = random.nextInt(populationSize);
                 SittingPlan mutated = mutateBig(population.get(which));
                 population.set(which, mutated);
             } else {
                 ++amountOfNewPopulationMembers;
-                int which1 = Math.abs(random.nextInt()) % populationSize;
-                int which2 = Math.abs(random.nextInt()) % populationSize;
+                int which1 = random.nextInt(populationSize);
+                int which2 = random.nextInt(populationSize);
                 SittingPlan newMember = copulate(population.get(which1), population.get(which2));
                 population.add(newMember);
             }

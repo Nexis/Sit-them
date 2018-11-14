@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.AddGuestsActivity"/>
+        <activity android:name=".view.ListViewActivity" />
+        <activity android:name=".view.AddConditionActivity" />
     </application>
 
 </manifest>

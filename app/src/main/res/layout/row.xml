@@ -8,6 +8,8 @@
         android:id="@+id/text_at_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WOOWOWOWOWW"/>
+        android:text="WOOWOWOWOWW"
+        android:tag="id"/>
+
 
 </LinearLayout>
