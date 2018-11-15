@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
     @Override
     public void onGuestsListRetrived(ArrayList<PersonT> list) {
         People.initialize(list);
+        People.update(list);
        setListAdapter(new ListAdapterForGuestsList(this,list));
 
         if(isFinishing() || isDestroyed()) return;

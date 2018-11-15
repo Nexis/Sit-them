@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import pl.mylittleworld.database.NameId;
@@ -36,9 +37,12 @@ public class ListViewActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        int choosenItemId=(Integer)v.findViewById(R.id.text_at_list).getTag();
+        TextView textView=v.findViewById(R.id.text_at_list);
+        int choosenItemId=(Integer)textView.getTag();
+        String choosenItemName=textView.getText().toString();
         Intent data= new Intent();
         data.putExtra("CHOOSEN_ID",choosenItemId);
+        data.putExtra("CHOOSEN_ITEM_NAME",choosenItemName);
         setResult(RESULT_OK,data);
         finish();
     }

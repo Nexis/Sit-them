@@ -3,9 +3,11 @@ package pl.mylittleworld.database;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import pl.mylittleworld.database.tables.PersonT;
 
+//todo not thread safe
 public class People {
 
     private static  ArrayList<PersonT> temporarySToragePeople=null;
@@ -21,6 +23,14 @@ public class People {
             nameIdArrayList.add(nameId);
         }
         return nameIdArrayList;
+    }
+    public static String getNameOfPerson(int id){
+        for(PersonT personT:temporarySToragePeople){
+            if(personT.getPersonID()==id){
+                return personT.getName();
+            }
+        }
+        throw new NoSuchElementException("no such person with that id");
     }
 
     public static boolean isInitialized(){

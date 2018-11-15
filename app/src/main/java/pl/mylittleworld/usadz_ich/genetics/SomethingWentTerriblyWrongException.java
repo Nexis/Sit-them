@@ -1,4 +1,11 @@
 package pl.mylittleworld.usadz_ich.genetics;
 
-class SomethingWentTerriblyWrongException extends Throwable {
+public class SomethingWentTerriblyWrongException extends RuntimeException {
+
+    public SomethingWentTerriblyWrongException(String message) {
+        super(message);
+    }
+
+    public SomethingWentTerriblyWrongException() {
+    }
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 
 import pl.mylittleworld.database.People;
 import pl.mylittleworld.database.Storage;
+import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
@@ -59,8 +60,8 @@ public class Control {
 
     }
 
-    public void userWantsToAddCondition(Condition... conditions){
-
+    public void userWantsToAddCondition(ConditionT... conditions){
+        storageAssistant.addCondition(conditions);
     }
     public void userWantsToDeleteCondition(Condition... conditions){
 

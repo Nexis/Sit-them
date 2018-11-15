@@ -42,4 +42,6 @@ public interface DAOClass {
     @Query("SELECT * FROM ConditionT")
     List<ConditionT> getConditionsList();
 
+    @Insert
+    void addConditions(ConditionT... conditionTS);
 }

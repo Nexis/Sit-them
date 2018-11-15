@@ -11,6 +11,7 @@ import pl.mylittleworld.ThreadPoolExecutorForDatabaseAccess;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tasks.GetConditionsTask;
+import pl.mylittleworld.usadz_ich.conditions.Condition;
 
 public class StorageAssistant implements Storage {
 
@@ -18,7 +19,17 @@ public class StorageAssistant implements Storage {
 
     public StorageAssistant(Context context) {
 
-        dataBase= Room.databaseBuilder(context,DataBaseClass.class,"sit_database").build();
+        dataBase= Room.databaseBuilder(context,DataBaseClass.class,"sit_database").fallbackToDestructiveMigration().build();
+    }
+
+    @Override
+    public void addCondition(final ConditionT... conditionT) {
+        ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
+            @Override
+            public void run() {
+                dataBase.getDao().addConditions(conditionT);
+            }
+        });
     }
 
     @Override

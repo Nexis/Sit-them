@@ -10,7 +10,7 @@ import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.conditions.ConditionTypesConverter;
 
-@Database(entities = {TableT.class,PersonT.class,ChairT.class,ConditionT.class},version=1)
+@Database(entities = {TableT.class,PersonT.class,ChairT.class,ConditionT.class},version=2)
 @TypeConverters({ConditionTypesConverter.class})
 public abstract class DataBaseClass extends RoomDatabase{
 

@@ -20,10 +20,10 @@
         android:layout_width="210dp"
         android:layout_height="53dp"
         android:layout_marginStart="40dp"
-        android:layout_marginBottom="228dp"
+        android:layout_marginTop="36dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thing1" />
 
     <TextView
         android:id="@+id/thing2"
@@ -33,10 +33,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/relation"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thing1"
-        app:layout_constraintVertical_bias="0.549" />
+        app:layout_constraintTop_toBottomOf="@+id/relation"
+        app:layout_constraintVertical_bias="0.13" />
 
     <Button
         android:id="@+id/see_options_1"
@@ -59,7 +59,7 @@
         android:layout_marginEnd="8dp"
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/thing2"
+        app:layout_constraintStart_toEndOf="@+id/relation"
         app:layout_constraintTop_toBottomOf="@+id/see_options_1" />
 
     <Button
@@ -71,7 +71,7 @@
         android:layout_marginEnd="8dp"
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/relation"
+        app:layout_constraintStart_toEndOf="@+id/thing2"
         app:layout_constraintTop_toBottomOf="@+id/see_relations_options" />
 
     <Button

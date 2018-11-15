@@ -9,7 +9,13 @@ import pl.mylittleworld.usadz_ich.conditions.CONDITIONS_OPTIONS;
 @Entity
 public class ConditionT {
 
-    @PrimaryKey
+   public ConditionT(int id1, int id2, CONDITIONS_OPTIONS conditionType) {
+        this.id1 = id1;
+        this.id2 = id2;
+        this.conditionType = conditionType;
+    }
+
+    @PrimaryKey(autoGenerate = true)
     private int conditionID;
 
     private int id1;

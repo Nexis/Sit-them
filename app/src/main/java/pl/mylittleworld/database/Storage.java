@@ -8,6 +8,8 @@ import pl.mylittleworld.usadz_ich.conditions.Condition;
 
 public interface Storage {
 
+    void addCondition(ConditionT... conditionT);
+
     interface GetGuestsListener{
 
         public void onGuestsListRetrived(ArrayList<PersonT> list);
