@@ -17,7 +17,8 @@ import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
-import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConNextToDescryptor;
+import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConCanTNextToDescriptor;
+import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConMustNextToDescriptor;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptors;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptorsProvider;
 import pl.mylittleworld.usadz_ich.logic.Control;
@@ -114,7 +115,8 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
     }
 
     private void addConDescriptors(){
-        conditionDescriptors.addDescryptor(new ConNextToDescryptor());
+        conditionDescriptors.addDescryptor(new ConMustNextToDescriptor());
+        conditionDescriptors.addDescryptor(new ConCanTNextToDescriptor());
     }
 
     private synchronized ArrayAdapter getListAdapter() {
