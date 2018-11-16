@@ -10,4 +10,7 @@
     <string name="add_next_guest">NASTĘPNY</string>
     <string name="problems">WARUNKI</string>
     <string name="condition_firstly">NAJPIERW NALEŻY WYBRAĆ RODZAJ WARUNKU</string>
+    <string name="rectangular">PROSTOKĄTNY</string>
+    <string name="round">OKRĄGŁY</string>
+    <string name="add">DODAJ</string>
 </resources>

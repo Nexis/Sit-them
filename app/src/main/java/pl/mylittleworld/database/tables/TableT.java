@@ -16,9 +16,19 @@ public class TableT {
     private int x;
     private int y;
 
+    private String tableName;
+
     private int tablesPlanId=1;
 
     private TABLE_TYPE tableType=TABLE_TYPE.RECTANGULAR;
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
 
     public TABLE_TYPE getTableType() {
         return tableType;
