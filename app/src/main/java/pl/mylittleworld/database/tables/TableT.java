@@ -3,6 +3,8 @@ package pl.mylittleworld.database.tables;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import pl.mylittleworld.usadz_ich.TABLE_TYPE;
+
 @Entity
 public class TableT {
 
@@ -13,6 +15,18 @@ public class TableT {
     private int tableWidth;
     private int x;
     private int y;
+
+    private int tablesPlanId=1;
+
+    private TABLE_TYPE tableType=TABLE_TYPE.RECTANGULAR;
+
+    public TABLE_TYPE getTableType() {
+        return tableType;
+    }
+
+    public void setTableType(TABLE_TYPE tableType) {
+        this.tableType = tableType;
+    }
 
     public int getTableID() {
         return tableID;
@@ -52,5 +66,13 @@ public class TableT {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getTablesPlanId() {
+        return tablesPlanId;
+    }
+
+    public void setTablesPlanId(int tablesPlanId) {
+        this.tablesPlanId = tablesPlanId;
     }
 }

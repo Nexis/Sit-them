@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
                         break;
 
                     case LOUNGE_PLAN:
+                        intent= new Intent(MainActivity.this, AddTablesPlanActivity.class);
+                        startActivityForResult(intent, 69);
                         break;
                     case CONDITIONS:
                         intent= new Intent(MainActivity.this, AddConditionActivity.class);
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
                         break;
 
                     case LOUNGE_PLAN:
+
                         break;
                     case CONDITIONS:
                         logicController.getConditionsListForDisplay(MainActivity.this);

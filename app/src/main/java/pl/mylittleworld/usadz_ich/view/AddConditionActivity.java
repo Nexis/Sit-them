@@ -10,21 +10,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.datatype.Duration;
 
 import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.database.People;
-import pl.mylittleworld.database.Storage;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.conditions.CONDITIONS_OPTIONS;
-import pl.mylittleworld.usadz_ich.conditions.Condition;
-import pl.mylittleworld.usadz_ich.conditions.ConditionTypesConverter;
 import pl.mylittleworld.usadz_ich.logic.Control;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
-import pl.mylittleworld.usadz_ich.logic.TYPE_FOR_CONDITION;
 
 public class AddConditionActivity extends AppCompatActivity{
 

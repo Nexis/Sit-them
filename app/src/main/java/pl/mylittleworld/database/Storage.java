@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
+import pl.mylittleworld.database.tables.TablesPlanT;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 
 public interface Storage {
@@ -12,18 +13,22 @@ public interface Storage {
 
     interface GetGuestsListener{
 
-        public void onGuestsListRetrived(ArrayList<PersonT> list);
+        void onGuestsListRetrived(ArrayList<PersonT> list);
     }
     interface GetConditionsListener{
 
-        public void onConditionsListRetrived(ArrayList<ConditionT> list);
+        void onConditionsListRetrived(ArrayList<ConditionT> list);
     }
 
-    public void getGuestsList(GetGuestsListener getGuestsListener);
+    void getGuestsList(GetGuestsListener getGuestsListener);
 
-    public void getConditionsList(GetConditionsListener getConditionsListener);
+    void getConditionsList(GetConditionsListener getConditionsListener);
 
-    public void addGuest(String name);
+    void addGuest(String name);
 
-    public void deleteGuests(PersonT[] people);
+    void deleteGuests(PersonT[] people);
+
+    void addTablesPlan(TablesPlanT tablesPlanT);
+
+    void deleteTablesPlan(TablesPlanT tablesPlanT);
 }

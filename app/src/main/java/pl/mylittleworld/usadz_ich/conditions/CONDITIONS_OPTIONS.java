@@ -3,6 +3,7 @@ package pl.mylittleworld.usadz_ich.conditions;
 import java.util.ArrayList;
 
 import pl.mylittleworld.database.NameId;
+import pl.mylittleworld.database.TypesConverter;
 import pl.mylittleworld.usadz_ich.genetics.SomethingWentTerriblyWrongException;
 
 public enum CONDITIONS_OPTIONS {
@@ -26,7 +27,7 @@ public enum CONDITIONS_OPTIONS {
         ArrayList<NameId> nameIdArrayList = new ArrayList<>();
         CONDITIONS_OPTIONS tab[] = CONDITIONS_OPTIONS.values();
         for (CONDITIONS_OPTIONS conditionOption : tab) {
-            String condName = ConditionTypesConverter.conditionToString(conditionOption);
+            String condName = TypesConverter.conditionToString(conditionOption);
             int condId = conditionToValue(conditionOption);
             nameIdArrayList.add(new NameId(condName, condId));
         }

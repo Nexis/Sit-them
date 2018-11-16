@@ -10,6 +10,7 @@ import java.util.List;
 import pl.mylittleworld.ThreadPoolExecutorForDatabaseAccess;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
+import pl.mylittleworld.database.tables.TablesPlanT;
 import pl.mylittleworld.database.tasks.GetConditionsTask;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 
@@ -66,6 +67,16 @@ public class StorageAssistant implements Storage {
                 dataBase.getDao().deletePerson(peopleT);
             }
         });
+    }
+
+    @Override
+    public void addTablesPlan(TablesPlanT tablesPlanT) {
+
+    }
+
+    @Override
+    public void deleteTablesPlan(TablesPlanT tablesPlanT) {
+
     }
 
 

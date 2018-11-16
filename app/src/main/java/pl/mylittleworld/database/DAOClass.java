@@ -12,6 +12,7 @@ import java.util.List;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
+import pl.mylittleworld.database.tables.TablesPlanT;
 
 
 @Dao
@@ -24,6 +25,12 @@ public interface DAOClass {
 
     @Delete
     public int deleteTable(TableT ...tables);
+
+    @Insert
+    void addTablesPlanT(TablesPlanT tablesPlanT);
+
+    @Delete
+    void deleteTablesPlanT(TablesPlanT tablesPlanT);
 
     //People//////////////////////////////////////////////////////////////////////////
 
@@ -44,4 +51,6 @@ public interface DAOClass {
 
     @Insert
     void addConditions(ConditionT... conditionTS);
+
+
 }
