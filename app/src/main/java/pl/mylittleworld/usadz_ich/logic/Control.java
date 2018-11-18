@@ -53,7 +53,8 @@ public class Control {
 
     }
 
-    public void userWantsToAddTables(TableT... tables){
+    public void userWantsToAddTables(int with,String tableName){
+        storageAssistant.addTable(new TableT(with,tableName));
 
     }
     public void userWantsToDeleteTables(TableT ... tables){

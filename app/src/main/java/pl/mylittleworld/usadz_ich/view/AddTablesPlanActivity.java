@@ -20,7 +20,7 @@ public class AddTablesPlanActivity extends Activity {
     private TextView guestsAtBottom;
     private EditText tableName;
 
-    private String tableNameS;
+    private String tableNameS="Name1";
     private int tableWidth;
 
     @Override
@@ -38,7 +38,7 @@ public class AddTablesPlanActivity extends Activity {
         findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                control.userWantsToAddTables();
+                control.userWantsToAddTables(tableWidth,tableNameS);
             }
         });
 
@@ -50,7 +50,7 @@ public class AddTablesPlanActivity extends Activity {
 
                     String tableWidthS=((EditText)v).getText().toString();
                     if(tableWidthS!="") {
-                        int tableWidth = Integer.parseInt(tableWidthS);
+                       tableWidth = Integer.parseInt(tableWidthS);
 
                          String top=getNumbersInString(0,tableWidth-1);
                          guestsAtTop.setText(top);
@@ -63,6 +63,10 @@ public class AddTablesPlanActivity extends Activity {
                 return false;
             }
         });
+
+        //findViewById(R.id.)
+
+
 
 
     }
