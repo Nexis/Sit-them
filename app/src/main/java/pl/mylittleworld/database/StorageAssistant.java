@@ -100,4 +100,17 @@ public class StorageAssistant implements Storage {
             }
         });
     }
+
+    @Override
+    public void getPeopleConditionsAndTables(final Storage.GetGuestsConditionsTablesListener listener){
+        ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<TableT> tables= new ArrayList<>(dataBase.getDao().getTablesList());
+                ArrayList<PersonT> people= new ArrayList<>(dataBase.getDao().getGuests());
+                ArrayList<ConditionT> conditions= new ArrayList<>(dataBase.getDao().getConditionsList());
+                listener.onListsRetrived(tables,conditions,people);
+            }
+        });
+    }
 }

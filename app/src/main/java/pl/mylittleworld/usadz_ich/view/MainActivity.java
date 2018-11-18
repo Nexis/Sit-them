@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
                         startActivityForResult(intent, 70);
                         break;
                     case SITTING_PLAN:
+                        logicController.userWantsToCalculateSittingPlan();
                         break;
                 }
 
