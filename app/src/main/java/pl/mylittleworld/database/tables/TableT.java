@@ -13,7 +13,7 @@ public class TableT {
         this.tableName = tableName;
     }
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int tableID;
 
     private int tableHeight=2;

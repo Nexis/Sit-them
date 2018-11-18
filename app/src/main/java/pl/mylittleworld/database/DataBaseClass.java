@@ -10,7 +10,7 @@ import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.tables.TablesPlanT;
 
-@Database(entities = {TableT.class,PersonT.class,ChairT.class,ConditionT.class,TablesPlanT.class},version=4)
+@Database(entities = {TableT.class,PersonT.class,ChairT.class,ConditionT.class,TablesPlanT.class},version=5)
 @TypeConverters({TypesConverter.class})
 public abstract class DataBaseClass extends RoomDatabase{
 

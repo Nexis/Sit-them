@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
         setListAdapter(new SimpleListAdapter(this, nameIdArrayList, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
             }
         }));
 
