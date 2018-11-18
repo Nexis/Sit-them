@@ -90,5 +90,14 @@ public class StorageAssistant implements Storage {
        });
     }
 
-
+    @Override
+    public void getTablesList(final GetTablesListener listener) {
+        ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
+            @Override
+            public void run() {
+               ArrayList<TableT> tables= new ArrayList<>(dataBase.getDao().getTablesList());
+                listener.onTablesListRetrived(tables);
+            }
+        });
+    }
 }

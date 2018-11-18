@@ -10,11 +10,13 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.database.People;
 import pl.mylittleworld.database.Storage;
 import pl.mylittleworld.database.StorageAssistant;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
+import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConCanTNextToDescriptor;
@@ -24,7 +26,7 @@ import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDes
 import pl.mylittleworld.usadz_ich.logic.Control;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 
-public class MainActivity extends AppCompatActivity implements Storage.GetGuestsListener, Storage.GetConditionsListener {
+public class MainActivity extends AppCompatActivity implements Storage.GetGuestsListener, Storage.GetConditionsListener, Storage.GetTablesListener {
 
     private final int GUESTS_LIST=0;
     private final int LOUNGE_PLAN=1;
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
                         break;
 
                     case LOUNGE_PLAN:
+                        logicController.getTableListForDisplay(MainActivity.this);
 
                         break;
                     case CONDITIONS:
@@ -150,6 +153,32 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
     public void onConditionsListRetrived(ArrayList<ConditionT> list) {
        ArrayList<Condition> conditionsList= conditionDescriptors.descryptConditionT(list);
         setListAdapter(new ListAdapterForConditionsList(this,conditionsList));
+
+        if(isFinishing() || isDestroyed()) return;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(isFinishing() || isDestroyed()) return;
+
+                ListView guestList= findViewById(R.id.list_view);
+                guestList.setAdapter(getListAdapter());
+
+            }
+        });
+    }
+
+    @Override
+    public void onTablesListRetrived(ArrayList<TableT> list) {
+        ArrayList<NameId> nameIdArrayList= new ArrayList<>();
+        for(TableT table : list){
+            nameIdArrayList.add(new NameId(table.getTableName(),table.getTableID()));
+        }
+        setListAdapter(new SimpleListAdapter(this, nameIdArrayList, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        }));
 
         if(isFinishing() || isDestroyed()) return;
         runOnUiThread(new Runnable() {

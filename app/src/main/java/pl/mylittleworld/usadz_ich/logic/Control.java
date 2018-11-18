@@ -13,6 +13,7 @@ import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.view.AddConditionActivity;
 import pl.mylittleworld.usadz_ich.view.ListViewActivity;
+import pl.mylittleworld.usadz_ich.view.MainActivity;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -77,5 +78,9 @@ public class Control {
     }
 
     public void userChoseItem(int requestCode, int resultCode, Intent data, Activity activity) {
+    }
+
+    public void getTableListForDisplay(Storage.GetTablesListener listener) {
+        storageAssistant.getTablesList(listener);
     }
 }

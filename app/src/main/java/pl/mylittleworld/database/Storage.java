@@ -20,6 +20,10 @@ public interface Storage {
 
         void onConditionsListRetrived(ArrayList<ConditionT> list);
     }
+    interface GetTablesListener{
+
+        void onTablesListRetrived(ArrayList<TableT> list);
+    }
 
     void getGuestsList(GetGuestsListener getGuestsListener);
 
@@ -34,4 +38,6 @@ public interface Storage {
     void deleteTablesPlan(TablesPlanT tablesPlanT);
 
     void addTable(TableT tableT);
+
+    void getTablesList(GetTablesListener listener);
 }
