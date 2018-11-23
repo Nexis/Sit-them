@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import pl.mylittleworld.database.NameId;
+import pl.mylittleworld.usadz_ich.DATA_TYPE;
 import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.logic.Control;
@@ -22,11 +23,13 @@ public class SimpleListAdapter extends ArrayAdapter<NameId> {
 
     private Control controler= ControlProvider.getInstance();
     private View.OnClickListener listener;
+    private DATA_TYPE dataType;
 
-    public SimpleListAdapter(Context context, ArrayList<NameId> items,View.OnClickListener listener) {
+    public SimpleListAdapter(Context context, ArrayList<NameId> items,View.OnClickListener listener,DATA_TYPE data_type) {
         super(context,0, items);
         this.listener=listener;
         controler= ControlProvider.getInstance();
+        this.dataType=data_type;
     }
 
     @NonNull
@@ -44,13 +47,13 @@ public class SimpleListAdapter extends ArrayAdapter<NameId> {
 
         convertView.setOnClickListener(listener);
 
-        /*convertView.setOnLongClickListener(new View.OnLongClickListener() {
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                controler.userWantsToDeleteGuests(person);
+                controler.userWantsToDeleteItem(nameId.getId(),dataType);
                 return false;
             }
-        });*/
+        });
 
         return convertView;
     }

@@ -55,5 +55,7 @@ public interface DAOClass {
     @Insert
     void addConditions(ConditionT... conditionTS);
 
+    @Query("DELETE FROM TableT WHERE tableID=:id")
+    void deleteTableWithId(final int id);
 
 }

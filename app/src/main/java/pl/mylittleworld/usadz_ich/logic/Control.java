@@ -15,6 +15,7 @@ import pl.mylittleworld.database.tables.ChairT;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
+import pl.mylittleworld.usadz_ich.DATA_TYPE;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
@@ -145,5 +146,15 @@ public class Control {
         SittingPlan sittingPlan=geneticAlgorithms.evolution();
 
         context.showSittingPlanList(sittingPlan,tableList);
+    }
+
+    public void userWantsToDeleteItem(int id, DATA_TYPE dataType) {
+        if(dataType!=null){
+            switch (dataType){
+                case TABLES:
+                    storageAssistant.deleteTable(id);
+                    break;
+            }
+        }
     }
 }

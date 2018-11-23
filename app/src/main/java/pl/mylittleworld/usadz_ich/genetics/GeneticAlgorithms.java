@@ -25,10 +25,20 @@ public class GeneticAlgorithms {
     private ArrayList<PersonT> people;
     private Conditions conditionTS;
 
+    private int numberOfSits;
+
     public GeneticAlgorithms(ArrayList<ChairT> chairTS, ArrayList<PersonT> people, Conditions conditionTS) {
         this.chairTS = chairTS;
         this.people = people;
         this.conditionTS = conditionTS;
+        numberOfSits = chairTS.size();
+    }
+
+    /**
+     * @return number from 0 (inclusive) to bound (exclusive)
+     **/
+    private int randId() {
+        return random.nextInt(numberOfSits);
     }
 
     SittingPlan getNewEmptySittingPlan() {
@@ -54,10 +64,10 @@ public class GeneticAlgorithms {
         int numberOfSits = sittingPlans.get(0).getNumberOfSits();
 
         for (SittingPlan sittingPlan : sittingPlans) {
-            randPersonIndex = Math.abs(random.nextInt()) % numberOfSits;
+            randPersonIndex = randId();
             for (int i = 0; i < numberOfSits; ++i) {
                 while (sittingPlan.isPersonUnderThisIndexSitted(randPersonIndex)) {
-                    randPersonIndex = Math.abs(random.nextInt()) % numberOfSits;
+                    randPersonIndex = randId();
                 }
                 sittingPlan.getSitAt(i).setPersonID(people.get(randPersonIndex).getPersonID());
             }
@@ -68,13 +78,16 @@ public class GeneticAlgorithms {
     /**
      * Function rotate randomed fragment
      * parameter can be broken by method
+     *
      * @param sittingPlan to mutate
      * @return mutated sittingPlan
      */
     SittingPlan mutateBig(SittingPlan sittingPlan) {
 
-        int startIndex = random.nextInt(sittingPlan.getNumberOfSits());
-        int endIndex =random.nextInt(sittingPlan.getNumberOfSits());
+        int startIndex = randId();
+        ;
+        int endIndex = randId();
+        ;
 
         if (startIndex > endIndex) {
             int temp = startIndex;
@@ -115,11 +128,14 @@ public class GeneticAlgorithms {
 
     SittingPlan mutate(SittingPlan sittingPlan) {
         if (sittingPlan.getNumberOfSits() > 1) {
-            int sitNumber1 = random.nextInt(sittingPlan.getNumberOfSits());
-            int sitNumber2 = random.nextInt(sittingPlan.getNumberOfSits());
+            int sitNumber1 = randId();
+            ;
+            int sitNumber2 = randId();
+            ;
 
             while (sitNumber1 == sitNumber2) {
-                sitNumber2 = random.nextInt(sittingPlan.getNumberOfSits());
+                sitNumber2 = randId();
+                ;
             }
             sittingPlan.swapPeopleAtSits(sitNumber1, sitNumber2);
 
@@ -134,7 +150,8 @@ public class GeneticAlgorithms {
 
         int numberOfSits = mother.getNumberOfSits();
 
-        int startOfMotherGenom = random.nextInt(numberOfSits);
+        int startOfMotherGenom = randId();
+        ;
         int endOfMotherGenom = (startOfMotherGenom + numberOfSits / 2) % numberOfSits;
 
         if (startOfMotherGenom > endOfMotherGenom) {
@@ -143,11 +160,11 @@ public class GeneticAlgorithms {
             endOfMotherGenom = temp;
         }
 
-        List<Seat> seatList= getDeepCopyOfSeatList(mother.getSeatList());
-        SittingPlan descendant = new SittingPlan(seatList,conditionTS, people);
+        List<Seat> seatList = getDeepCopyOfSeatList(mother.getSeatList());
+        SittingPlan descendant = new SittingPlan(seatList, conditionTS, people);
 
         //-1 for all personID
-        for(Seat seat:descendant.getSeatList()){
+        for (Seat seat : descendant.getSeatList()) {
             seat.setPersonID(-1);
         }
 
@@ -169,7 +186,8 @@ public class GeneticAlgorithms {
 
         return descendant;
     }
-//todo change method to fortune circle with parent/child difference
+
+    //todo change method to fortune circle with parent/child difference
     List<SittingPlan> naturalSelection(List<SittingPlan> sittingPlans, int numberToRemove) {
 
         Collections.sort(sittingPlans, new Comparator<SittingPlan>() {
@@ -196,7 +214,7 @@ public class GeneticAlgorithms {
     @Nullable
     private SittingPlan isTherePerfectOne(List<SittingPlan> sittingPlans) {
         for (SittingPlan sittingPlan : sittingPlans) {
-           // System.out.println(sittingPlan.toString());
+            // System.out.println(sittingPlan.toString());
             if (sittingPlan.getAdaptationLvl() == 100) {
                 return sittingPlan;
             }
@@ -218,19 +236,19 @@ public class GeneticAlgorithms {
 
             //MUTATE
             if (rand < 70) {
-                  int which=random.nextInt(populationSize);
-                   SittingPlan mutated=mutate(population.get(which));
-                   population.set(which,mutated);
+                int which = randId();
+                SittingPlan mutated = mutate(population.get(which));
+                population.set(which, mutated);
             }
             //MUTATE BIG
             else if (rand < 85) {
-                int which = random.nextInt(populationSize);
+                int which = randId();
                 SittingPlan mutated = mutateBig(population.get(which));
                 population.set(which, mutated);
             } else {
                 ++amountOfNewPopulationMembers;
-                int which1 = random.nextInt(populationSize);
-                int which2 = random.nextInt(populationSize);
+                int which1 = randId();
+                int which2 = randId();
                 SittingPlan newMember = copulate(population.get(which1), population.get(which2));
                 population.add(newMember);
             }

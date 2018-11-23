@@ -38,6 +38,7 @@ public class AddTablesPlanActivity extends Activity {
         findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tableNameS=tableName.getText().toString();
                 control.userWantsToAddTables(tableWidth,tableNameS);
             }
         });

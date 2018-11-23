@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import pl.mylittleworld.database.NameId;
+import pl.mylittleworld.usadz_ich.DATA_TYPE;
 import pl.mylittleworld.usadz_ich.R;
 
 public class ListViewActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SimpleListAdapter listAdapter;
+    private DATA_TYPE data_type;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class ListViewActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void showList(ArrayList<NameId> list){
-        setListAdapter(new SimpleListAdapter(this,list,this));
+        setListAdapter(new SimpleListAdapter(this,list,this,data_type));
 
         ListView listView= findViewById(R.id.list_view);
         listView.setAdapter(getListAdapter());

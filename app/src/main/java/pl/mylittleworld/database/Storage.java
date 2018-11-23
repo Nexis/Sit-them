@@ -12,6 +12,8 @@ public interface Storage {
 
     void addCondition(ConditionT... conditionT);
 
+    void deleteTable(int id);
+
     interface GetGuestsListener{
 
         void onGuestsListRetrived(ArrayList<PersonT> list);

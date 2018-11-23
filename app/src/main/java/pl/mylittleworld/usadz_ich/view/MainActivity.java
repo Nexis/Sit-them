@@ -20,6 +20,7 @@ import pl.mylittleworld.database.tables.ChairT;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
+import pl.mylittleworld.usadz_ich.DATA_TYPE;
 import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
@@ -181,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
             public void onClick(View v) {
 
             }
-        }));
+        },DATA_TYPE.TABLES));
 
         if(isFinishing() || isDestroyed()) return;
         runOnUiThread(new Runnable() {

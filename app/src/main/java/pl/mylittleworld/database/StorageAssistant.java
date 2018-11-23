@@ -35,6 +35,16 @@ public class StorageAssistant implements Storage {
     }
 
     @Override
+    public void deleteTable(final int id) {
+        ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
+            @Override
+            public void run() {
+                dataBase.getDao().deleteTableWithId(id);
+            }
+        });
+    }
+
+    @Override
     public void getGuestsList(final GetGuestsListener getGuestsListener) {
         ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
             @Override
