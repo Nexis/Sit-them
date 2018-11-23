@@ -15,6 +15,7 @@ import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.database.People;
 import pl.mylittleworld.database.Storage;
 import pl.mylittleworld.database.StorageAssistant;
+import pl.mylittleworld.database.Tables;
 import pl.mylittleworld.database.tables.ChairT;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
@@ -170,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
 
     @Override
     public void onTablesListRetrived(ArrayList<TableT> list) {
+        Tables.initialize(list);
         ArrayList<NameId> nameIdArrayList= new ArrayList<>();
         for(TableT table : list){
             nameIdArrayList.add(new NameId(table.getTableName(),table.getTableID()));

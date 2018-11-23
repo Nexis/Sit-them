@@ -19,6 +19,7 @@ import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConCanTNextToDescriptor;
+import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConMustAtTableDescriptor;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConMustNextToDescriptor;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptors;
 import pl.mylittleworld.usadz_ich.genetics.GeneticAlgorithms;
@@ -120,6 +121,7 @@ public class Control {
     private void addConDescriptors(){
         conditionDescriptors.addDescryptor(new ConMustNextToDescriptor());
         conditionDescriptors.addDescryptor(new ConCanTNextToDescriptor());
+        conditionDescriptors.addDescryptor(new ConMustAtTableDescriptor());
     }
 
     public ConditionDescriptors getConditionDescriptor() {

@@ -7,7 +7,7 @@ import pl.mylittleworld.database.TypesConverter;
 import pl.mylittleworld.usadz_ich.genetics.SomethingWentTerriblyWrongException;
 
 public enum CONDITIONS_OPTIONS {
-    MUST_NEXT_TO, CAN_T_NEXT_TO, MUST_IN_GROUP, MUST_AT_TABLE, FINE_NEXT_TO;
+    MUST_NEXT_TO, CAN_T_NEXT_TO, MUST_IN_GROUP, MUST_AT_TABLE, FINE_NEXT_TO,MUST_HERE;
 
     public static CONDITIONS_OPTIONS conditionFromValue(int value) {
         return CONDITIONS_OPTIONS.values()[value];
