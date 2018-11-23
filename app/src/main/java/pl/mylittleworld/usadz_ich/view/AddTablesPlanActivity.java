@@ -64,14 +64,23 @@ public class AddTablesPlanActivity extends Activity {
             }
         });
 
-        //findViewById(R.id.)
+        ((EditText)findViewById(R.id.table)).setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    tableNameS=((EditText)v).getText().toString();
+                    return true;
+                }
+                return false;
+            }
+        });
 
 
 
 
     }
 
-    private String getNumbersInString(int from, int to){
+    public static String getNumbersInString(int from, int to){
         StringBuilder result=new StringBuilder("");
         for(int i=from;i<=to;++i){
             result.append(i).append(" ");

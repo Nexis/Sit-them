@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -14,19 +15,23 @@ import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.database.People;
 import pl.mylittleworld.database.Storage;
 import pl.mylittleworld.database.StorageAssistant;
+import pl.mylittleworld.database.tables.ChairT;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.R;
+import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
+import pl.mylittleworld.usadz_ich.conditions.Conditions;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConCanTNextToDescriptor;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConMustNextToDescriptor;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptors;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptorsProvider;
+import pl.mylittleworld.usadz_ich.genetics.GeneticAlgorithms;
 import pl.mylittleworld.usadz_ich.logic.Control;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 
-public class MainActivity extends AppCompatActivity implements Storage.GetGuestsListener, Storage.GetConditionsListener, Storage.GetTablesListener {
+public class MainActivity extends AppCompatActivity implements Storage.GetGuestsListener, Storage.GetConditionsListener, Storage.GetTablesListener,Storage.GetGuestsConditionsTablesListener {
 
     private final int GUESTS_LIST=0;
     private final int LOUNGE_PLAN=1;
@@ -35,15 +40,13 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
 
     Control logicController = ControlProvider.getInstance();
     private ArrayAdapter listAdapterForGuestsList;
-    private ConditionDescriptors conditionDescriptors= ConditionDescriptorsProvider.getInstance();
+    private ConditionDescriptors conditionDescriptors= logicController.getConditionDescriptor();
   //  private TabItem [] tabItems= new TabItem[4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        addConDescriptors();
 
         StorageAssistant storageAssistant= new StorageAssistant(getApplicationContext());
         logicController.giveStorageAssistant(storageAssistant);
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
                         startActivityForResult(intent, 70);
                         break;
                     case SITTING_PLAN:
-                        logicController.userWantsToCalculateSittingPlan();
+                        logicController.userWantsToCalculateSittingPlan(MainActivity.this);
                         break;
                 }
 
@@ -121,10 +124,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
         this.listAdapterForGuestsList = myListAdapter;
     }
 
-    private void addConDescriptors(){
-        conditionDescriptors.addDescryptor(new ConMustNextToDescriptor());
-        conditionDescriptors.addDescryptor(new ConCanTNextToDescriptor());
-    }
+
 
     private synchronized ArrayAdapter getListAdapter() {
         return listAdapterForGuestsList;
@@ -192,5 +192,30 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
 
             }
         });
+    }
+
+    @Override
+    public void onListsRetrived(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, ArrayList<PersonT> peopleList) {
+
+        logicController.getSittingPlan(tableList, conditionsList, peopleList,this);
+    }
+
+    public void showSittingPlanList(SittingPlan sittingPlan,ArrayList<TableT> tableList){
+
+        setListAdapter(new ListAdapterForSittingPlan(this,sittingPlan,tableList));
+
+        if(isFinishing() || isDestroyed()) return;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(isFinishing() || isDestroyed()) return;
+
+                ListView guestList= findViewById(R.id.list_view);
+                guestList.setAdapter(getListAdapter());
+
+            }
+        });
+        Log.d("OUTPUT:",sittingPlan.toString());
+
     }
 }

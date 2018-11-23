@@ -4,17 +4,17 @@ import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+import pl.mylittleworld.database.NameId;
+import pl.mylittleworld.database.People;
 import pl.mylittleworld.database.Seat;
-import pl.mylittleworld.database.tables.ChairT;
 import pl.mylittleworld.database.tables.PersonT;
-import pl.mylittleworld.usadz_ich.conditions.Condition;
+import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
 
 public class SittingPlan {
 
-    private List<Seat> sittingPlan=new ArrayList<>();
+    private List<Seat> seatList =new ArrayList<>();
 
     @NonNull
     private Conditions conditions;
@@ -26,13 +26,13 @@ public class SittingPlan {
     }
 
     public SittingPlan(List <Seat> sittingPlan, @NonNull Conditions conditions, List<PersonT> people){
-        this.sittingPlan=sittingPlan;
+        this.seatList =sittingPlan;
         this.conditions=conditions;
         this.people=people;
     }
 
-    public List<Seat> getSittingPlan() {
-        return sittingPlan;
+    public List<Seat> getSeatList() {
+        return seatList;
     }
 
     @NonNull
@@ -54,17 +54,17 @@ public class SittingPlan {
     }
 
     public Seat whereSits(int personID){
-        for (Seat seat : sittingPlan) {
+        for (Seat seat : seatList) {
             if(seat.getPersonID()==personID)
                 return seat;
         }
         return null;
     }
     public Seat getSitAt(int index){
-        return sittingPlan.get(index);
+        return seatList.get(index);
     }
     public boolean addSit(Seat seat) {
-        return sittingPlan.add(seat);
+        return seatList.add(seat);
     }
     public boolean updateSit(){
         return false;
@@ -73,24 +73,24 @@ public class SittingPlan {
         return false;
     }
     public int getNumberOfSits(){
-        return sittingPlan.size();
+        return seatList.size();
     }
 
     public boolean changePersonAtSit(int sitIndex,int newPersonID){
-        if(sitIndex < sittingPlan.size()){
-            sittingPlan.get(sitIndex).setPersonID(newPersonID);
+        if(sitIndex < seatList.size()){
+            seatList.get(sitIndex).setPersonID(newPersonID);
             return true;
         }
         return false;
     }
     public boolean swapPeopleAtSits(int sitNumber1,int sitNumber2){
 
-        int tempPersonId1=sittingPlan.get(sitNumber1).getPersonID();
+        int tempPersonId1= seatList.get(sitNumber1).getPersonID();
 
-        if(sitNumber1 < sittingPlan.size()&&sitNumber2 <sittingPlan.size()) {
+        if(sitNumber1 < seatList.size()&&sitNumber2 < seatList.size()) {
 
-            sittingPlan.get(sitNumber1).setPersonID(sittingPlan.get(sitNumber2).getPersonID());
-            sittingPlan.get(sitNumber2).setPersonID(tempPersonId1);
+            seatList.get(sitNumber1).setPersonID(seatList.get(sitNumber2).getPersonID());
+            seatList.get(sitNumber2).setPersonID(tempPersonId1);
 
             return true;
         }
@@ -99,7 +99,7 @@ public class SittingPlan {
         }
     }
     public boolean isThisPersonSitted(int personID){
-        for (Seat seat : sittingPlan) {
+        for (Seat seat : seatList) {
             if(seat.getPersonID()==personID)
                 return true;
         }
@@ -114,11 +114,35 @@ public class SittingPlan {
     public String toString() {
         String out="";
        for(int i=0;i<getNumberOfSits();++i){
-           out+="czlowiek "+getSitAt(i).getPersonID();
+           out+="czlowiek "+ People.getNameOfPerson(getSitAt(i).getPersonID());
            out+="krzeslo "+getSitAt(i).getChairT().getX()+" "+getSitAt(i).getChairT().getY()+"\n";
        }
        out+="\n";
 
        return out;
     }
+
+    public ArrayList<NameId> getGuestsSittingByThisTable(TableT tableT){
+        ArrayList<NameId> guestsAtTable= new ArrayList<>();
+        People.update((ArrayList)people);
+        for(int y=0;y<2;++y){
+            for(int x=0;x<tableT.getTableWidth();++x){
+                int personId=whoSitsAt(x,y,tableT.getTableID());
+                NameId temp= new NameId(People.getNameOfPerson(personId),personId);
+                guestsAtTable.add(temp);
+            }
+        }
+        return guestsAtTable;
+    }
+
+    private int whoSitsAt(int x, int y, int tableID) {
+        for (Seat seat : seatList) {
+            if(seat.getChairT().getTableID()==tableID && seat.getChairT().getX()==x && seat.getChairT().getY()==y) {
+                return seat.getPersonID();
+            }
+        }
+        return -1;
+    }
+
+
 }

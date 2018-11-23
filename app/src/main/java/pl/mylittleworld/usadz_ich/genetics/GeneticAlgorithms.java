@@ -59,7 +59,7 @@ public class GeneticAlgorithms {
                 while (sittingPlan.isPersonUnderThisIndexSitted(randPersonIndex)) {
                     randPersonIndex = Math.abs(random.nextInt()) % numberOfSits;
                 }
-                sittingPlan.getSitAt(i).setPersonID(randPersonIndex);
+                sittingPlan.getSitAt(i).setPersonID(people.get(randPersonIndex).getPersonID());
             }
         }
         return sittingPlans;
@@ -81,7 +81,7 @@ public class GeneticAlgorithms {
             startIndex = endIndex;
             endIndex = temp;
         }
-        List<Seat> copiedSittingPlan = getDeepCopyOfSeatList(sittingPlan.getSittingPlan());
+        List<Seat> copiedSittingPlan = getDeepCopyOfSeatList(sittingPlan.getSeatList());
         SittingPlan mutated = new SittingPlan(copiedSittingPlan, conditionTS, people);
         int backIndex = endIndex;
 
@@ -143,11 +143,11 @@ public class GeneticAlgorithms {
             endOfMotherGenom = temp;
         }
 
-        List<Seat> seatList= getDeepCopyOfSeatList(mother.getSittingPlan());
+        List<Seat> seatList= getDeepCopyOfSeatList(mother.getSeatList());
         SittingPlan descendant = new SittingPlan(seatList,conditionTS, people);
 
         //-1 for all personID
-        for(Seat seat:descendant.getSittingPlan()){
+        for(Seat seat:descendant.getSeatList()){
             seat.setPersonID(-1);
         }
 

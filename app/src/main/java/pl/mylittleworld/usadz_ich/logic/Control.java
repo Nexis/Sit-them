@@ -4,6 +4,7 @@ package pl.mylittleworld.usadz_ich.logic;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -14,16 +15,23 @@ import pl.mylittleworld.database.tables.ChairT;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
+import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
+import pl.mylittleworld.usadz_ich.conditions.Conditions;
+import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConCanTNextToDescriptor;
+import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConMustNextToDescriptor;
+import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptors;
+import pl.mylittleworld.usadz_ich.genetics.GeneticAlgorithms;
 import pl.mylittleworld.usadz_ich.view.AddConditionActivity;
 import pl.mylittleworld.usadz_ich.view.ListViewActivity;
 import pl.mylittleworld.usadz_ich.view.MainActivity;
 
 import static android.app.Activity.RESULT_OK;
 
-public class Control implements Storage.GetGuestsConditionsTablesListener {
+public class Control {
 
     private Storage storageAssistant;
+    private ConditionDescriptors conditionDescriptors;
 
 
     public void giveStorageAssistant(Storage storage){
@@ -88,19 +96,52 @@ public class Control implements Storage.GetGuestsConditionsTablesListener {
         storageAssistant.getTablesList(listener);
     }
 
-    public void userWantsToCalculateSittingPlan() {
-        storageAssistant.getPeopleConditionsAndTables(this);
+    public void userWantsToCalculateSittingPlan(Storage.GetGuestsConditionsTablesListener storage) {
+        storageAssistant.getPeopleConditionsAndTables(storage);
     }
 
-    @Override
-    public void onListsRetrived(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, ArrayList<PersonT> peopleList) {
-       ArrayList<ChairT> chairTS= new ArrayList<>();
+    private  void addChairsForTable(TableT table, ArrayList<ChairT> chairTS){
 
-       for(TableT table:tableList){
-           for(int i=0,y=0;i<table.getTableWidth()*2;++i, y=(y+1)%2){
+            int width=table.getTableWidth();
+            for(int i=0,y=0;i<width*2;++i){
+                if(i<width){
+                    y=0;
+                }
+                else {
+                    y=1;
+                }
 
-           }
+                chairTS.add(new ChairT(table.getTableID(),i%width,y));
+            }
 
-       }
+    }
+
+
+    private void addConDescriptors(){
+        conditionDescriptors.addDescryptor(new ConMustNextToDescriptor());
+        conditionDescriptors.addDescryptor(new ConCanTNextToDescriptor());
+    }
+
+    public ConditionDescriptors getConditionDescriptor() {
+        if(conditionDescriptors==null){
+            conditionDescriptors= new ConditionDescriptors();
+            addConDescriptors();
+        }
+        return conditionDescriptors;
+    }
+
+    public void getSittingPlan(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, ArrayList<PersonT> peopleList,MainActivity context) {
+        ArrayList<ChairT> chairTS= new ArrayList<>();
+
+        for(TableT table:tableList) {
+            addChairsForTable(table,chairTS);
+        }
+
+        ArrayList<Condition> conditions=conditionDescriptors.descryptConditionT(conditionsList);
+
+        GeneticAlgorithms geneticAlgorithms=new GeneticAlgorithms(chairTS,peopleList,new Conditions(conditions));
+        SittingPlan sittingPlan=geneticAlgorithms.evolution();
+
+        context.showSittingPlanList(sittingPlan,tableList);
     }
 }

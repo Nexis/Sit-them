@@ -27,7 +27,7 @@ public class CantNextToCondition implements Condition {
         Seat seat2 = sittingPlan.whereSits(person2.getPersonID());
 
         if(seat1 !=null && seat2 !=null)
-            return !seat1.areThoseSitsCloseToEachOther(seat2,true,true);
+            return !(seat1.areThoseSitsCloseToEachOther(seat2,true,true));
 
 
         throw new PersonNotSittedException();
