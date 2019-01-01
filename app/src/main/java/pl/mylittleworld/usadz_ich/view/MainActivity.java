@@ -12,11 +12,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import pl.mylittleworld.database.NameId;
-import pl.mylittleworld.database.People;
+import pl.mylittleworld.database.temporary_storage.People;
 import pl.mylittleworld.database.Storage;
 import pl.mylittleworld.database.StorageAssistant;
-import pl.mylittleworld.database.Tables;
-import pl.mylittleworld.database.tables.ChairT;
+import pl.mylittleworld.database.temporary_storage.Tables;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
@@ -24,12 +23,7 @@ import pl.mylittleworld.usadz_ich.DATA_TYPE;
 import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
-import pl.mylittleworld.usadz_ich.conditions.Conditions;
-import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConCanTNextToDescriptor;
-import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConMustNextToDescriptor;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptors;
-import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptorsProvider;
-import pl.mylittleworld.usadz_ich.genetics.GeneticAlgorithms;
 import pl.mylittleworld.usadz_ich.logic.Control;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 
@@ -102,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
                         logicController.getConditionsListForDisplay(MainActivity.this);
                         break;
                     case SITTING_PLAN:
+                        logicController.userWantToSeeCurrentSittingPlan(MainActivity.this);
                         break;
 
 

@@ -9,12 +9,10 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.mylittleworld.database.People;
 import pl.mylittleworld.database.tables.ChairT;
 import pl.mylittleworld.database.tables.PersonT;
-import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
-import pl.mylittleworld.database.Seat;
+import pl.mylittleworld.database.temporary_storage.Seat;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 
 import static junit.framework.Assert.fail;

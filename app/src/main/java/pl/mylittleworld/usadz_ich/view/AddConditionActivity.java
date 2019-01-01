@@ -12,7 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import pl.mylittleworld.database.NameId;
-import pl.mylittleworld.database.People;
+import pl.mylittleworld.database.temporary_storage.People;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.conditions.CONDITIONS_OPTIONS;
@@ -93,10 +93,7 @@ public class AddConditionActivity extends AppCompatActivity{
     }
 
     private boolean conditionParamsAreProper() {
-        if(firstItemId != -1 && secondItemId != -1 && conditionsOption!=null){
-            return true;
-        }
-        return false;
+        return firstItemId != -1 && secondItemId != -1 && conditionsOption != null;
     }
 
     @Nullable

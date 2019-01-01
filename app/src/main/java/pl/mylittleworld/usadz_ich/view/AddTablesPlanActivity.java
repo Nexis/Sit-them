@@ -82,7 +82,7 @@ public class AddTablesPlanActivity extends Activity {
     }
 
     public static String getNumbersInString(int from, int to){
-        StringBuilder result=new StringBuilder("");
+        StringBuilder result=new StringBuilder();
         for(int i=from;i<=to;++i){
             result.append(i).append(" ");
         }

@@ -2,18 +2,14 @@ package pl.mylittleworld.database;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import pl.mylittleworld.ThreadPoolExecutorForDatabaseAccess;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.tables.TablesPlanT;
 import pl.mylittleworld.database.tasks.GetConditionsTask;
-import pl.mylittleworld.usadz_ich.conditions.Condition;
 
 public class StorageAssistant implements Storage {
 
@@ -122,5 +118,10 @@ public class StorageAssistant implements Storage {
                 listener.onListsRetrived(tables,conditions,people);
             }
         });
+    }
+
+    @Override
+    public void getAllForExport(GetAllListener listener) {
+
     }
 }

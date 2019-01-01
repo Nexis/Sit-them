@@ -1,6 +1,6 @@
 package pl.mylittleworld.usadz_ich.conditions;
 
-import pl.mylittleworld.database.Seat;
+import pl.mylittleworld.database.temporary_storage.Seat;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.SittingPlan;
@@ -27,12 +27,7 @@ public class MustAtTableCondition implements Condition {
         Seat seat1 = sittingPlan.whereSits(person.getPersonID());
 
         if(seat1 !=null) {
-           if(seat1.getChairT().getTableID()==table.getTableID()){
-               return true;
-           }
-           else{
-               return false;
-           }
+            return seat1.getChairT().getTableID() == table.getTableID();
         }
 
         throw new PersonNotSittedException();

@@ -34,10 +34,7 @@ public class AddGuestsActivity extends AppCompatActivity{
         ((EditText)findViewById(R.id.guest_name)).setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    return true;
-                }
-                return false;
+                return actionId == EditorInfo.IME_ACTION_DONE;
             }
         });
     }

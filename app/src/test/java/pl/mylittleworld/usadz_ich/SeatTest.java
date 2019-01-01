@@ -6,7 +6,7 @@ import org.mockito.Mockito;
 import org.junit.Assert;
 
 import pl.mylittleworld.database.tables.ChairT;
-import pl.mylittleworld.database.Seat;
+import pl.mylittleworld.database.temporary_storage.Seat;
 
 import static org.mockito.Mockito.when;
 

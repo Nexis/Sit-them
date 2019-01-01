@@ -11,10 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import pl.mylittleworld.database.NameId;
-import pl.mylittleworld.database.Seat;
-import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
-import pl.mylittleworld.database.tables.TablesPlanT;
 import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.logic.Control;
@@ -41,10 +38,10 @@ public class ListAdapterForSittingPlan extends ArrayAdapter<TableT> {
         if(convertView ==null){
             convertView= LayoutInflater.from(getContext()).inflate(R.layout.sitting_plan_row,parent,false);
         }
-        TextView guests1=(TextView)convertView.findViewById(R.id.top);
-        TextView tableName=(TextView)convertView.findViewById(R.id.table);
-        TextView guests2=(TextView)convertView.findViewById(R.id.bottom);
-        TextView guestsList=(TextView)convertView.findViewById(R.id.guests_list);
+        TextView guests1= convertView.findViewById(R.id.top);
+        TextView tableName= convertView.findViewById(R.id.table);
+        TextView guests2= convertView.findViewById(R.id.bottom);
+        TextView guestsList= convertView.findViewById(R.id.guests_list);
 
         int width=tableT.getTableWidth();
 
@@ -58,11 +55,12 @@ public class ListAdapterForSittingPlan extends ArrayAdapter<TableT> {
         return convertView;
     }
     private String getStringFromNameId(ArrayList<NameId> guestList){
-        StringBuilder guestsList=new StringBuilder("");
+        StringBuilder guestsList=new StringBuilder();
         int index=1;
         for(NameId nameId : guestList){
             guestsList.append(index);
-            guestsList.append("\t");
+            guestsList.append(".");
+            guestsList.append(" ");
             guestsList.append(nameId.getName());
             guestsList.append("\n");
 

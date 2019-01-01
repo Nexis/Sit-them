@@ -33,7 +33,7 @@ public class ListAdapterForGuestsList extends ArrayAdapter<PersonT> {
         if(convertView ==null){
             convertView= LayoutInflater.from(getContext()).inflate(R.layout.row,parent,false);
         }
-        TextView guestName=(TextView)convertView.findViewById(R.id.text_at_list);
+        TextView guestName= convertView.findViewById(R.id.text_at_list);
 
         guestName.setText(person.getName());
 

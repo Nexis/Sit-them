@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.mylittleworld.database.NameId;
-import pl.mylittleworld.database.People;
-import pl.mylittleworld.database.Seat;
+import pl.mylittleworld.database.temporary_storage.People;
+import pl.mylittleworld.database.temporary_storage.Seat;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;

@@ -1,4 +1,4 @@
-package pl.mylittleworld;
+package pl.mylittleworld.database;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

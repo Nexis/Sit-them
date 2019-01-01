@@ -6,6 +6,7 @@ import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.tables.TablesPlanT;
+import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 
 public interface Storage {
@@ -31,6 +32,10 @@ public interface Storage {
 
         void onListsRetrived(ArrayList<TableT> tableList,ArrayList<ConditionT> conditionsList,ArrayList<PersonT> peopleList);
     }
+    interface GetAllListener{
+        void onListsRetrived(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, ArrayList<PersonT> peopleList, SittingPlan sittingPlan);
+    }
+
 
     void getGuestsList(GetGuestsListener getGuestsListener);
 
@@ -49,4 +54,6 @@ public interface Storage {
     void getTablesList(GetTablesListener listener);
 
     void getPeopleConditionsAndTables(GetGuestsConditionsTablesListener listener);
+
+    void getAllForExport(GetAllListener listener);
 }

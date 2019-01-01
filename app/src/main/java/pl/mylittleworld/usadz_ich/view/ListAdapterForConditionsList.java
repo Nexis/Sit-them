@@ -32,7 +32,7 @@ public class ListAdapterForConditionsList extends ArrayAdapter<Condition> {
         if(convertView ==null){
             convertView= LayoutInflater.from(getContext()).inflate(R.layout.row,parent,false);
         }
-        TextView conditionName=(TextView)convertView.findViewById(R.id.text_at_list);
+        TextView conditionName= convertView.findViewById(R.id.text_at_list);
 
         conditionName.setText(condition.getDescription());
 

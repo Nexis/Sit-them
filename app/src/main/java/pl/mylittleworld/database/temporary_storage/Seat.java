@@ -1,4 +1,4 @@
-package pl.mylittleworld.database;
+package pl.mylittleworld.database.temporary_storage;
 
 import pl.mylittleworld.database.tables.ChairT;
 
@@ -44,17 +44,12 @@ public class Seat {
             if(this.getChairT().getX() == seat2.getChairT().getX() && isDifferentAboutOne(this.getChairT().getY(), seat2.getChairT().getY()))
                 return true;
         }
-        if(this.getChairT().getY() == seat2.getChairT().getY() && isDifferentAboutOne(this.getChairT().getX(), seat2.getChairT().getX())) {
-            return true;
-        }
-            return false;
+        return this.getChairT().getY() == seat2.getChairT().getY() && isDifferentAboutOne(this.getChairT().getX(), seat2.getChairT().getX());
 
     }
     private boolean isDifferentAboutOne(int a, int b){
-        if(a==b+1||a==b-1)
-            return true;
+        return a == b + 1 || a == b - 1;
 
-        return false;
     }
 
 }

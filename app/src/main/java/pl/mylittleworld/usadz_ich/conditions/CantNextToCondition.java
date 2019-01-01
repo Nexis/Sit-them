@@ -1,6 +1,6 @@
 package pl.mylittleworld.usadz_ich.conditions;
 
-import pl.mylittleworld.database.Seat;
+import pl.mylittleworld.database.temporary_storage.Seat;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.genetics.PersonNotSittedException;

@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-import pl.mylittleworld.database.Seat;
+import pl.mylittleworld.database.temporary_storage.Seat;
 import pl.mylittleworld.database.tables.ChairT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.usadz_ich.SittingPlan;
@@ -31,7 +31,7 @@ public class GeneticAlgorithms {
         this.chairTS = chairTS;
         this.people = people;
         this.conditionTS = conditionTS;
-        numberOfSits = chairTS.size();
+        numberOfSits = people.size();
     }
 
     /**
@@ -85,9 +85,7 @@ public class GeneticAlgorithms {
     SittingPlan mutateBig(SittingPlan sittingPlan) {
 
         int startIndex = randId();
-        ;
         int endIndex = randId();
-        ;
 
         if (startIndex > endIndex) {
             int temp = startIndex;
@@ -129,13 +127,10 @@ public class GeneticAlgorithms {
     SittingPlan mutate(SittingPlan sittingPlan) {
         if (sittingPlan.getNumberOfSits() > 1) {
             int sitNumber1 = randId();
-            ;
             int sitNumber2 = randId();
-            ;
 
             while (sitNumber1 == sitNumber2) {
                 sitNumber2 = randId();
-                ;
             }
             sittingPlan.swapPeopleAtSits(sitNumber1, sitNumber2);
 
@@ -151,7 +146,6 @@ public class GeneticAlgorithms {
         int numberOfSits = mother.getNumberOfSits();
 
         int startOfMotherGenom = randId();
-        ;
         int endOfMotherGenom = (startOfMotherGenom + numberOfSits / 2) % numberOfSits;
 
         if (startOfMotherGenom > endOfMotherGenom) {

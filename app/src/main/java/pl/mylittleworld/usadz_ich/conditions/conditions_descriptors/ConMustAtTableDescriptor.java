@@ -4,15 +4,14 @@ import android.support.annotation.Nullable;
 
 import java.util.NoSuchElementException;
 
-import pl.mylittleworld.database.People;
-import pl.mylittleworld.database.Tables;
+import pl.mylittleworld.database.temporary_storage.People;
+import pl.mylittleworld.database.temporary_storage.Tables;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.conditions.CONDITIONS_OPTIONS;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.MustAtTableCondition;
-import pl.mylittleworld.usadz_ich.conditions.MustNextToCondition;
 
 public class ConMustAtTableDescriptor implements ConDescryptor{
 

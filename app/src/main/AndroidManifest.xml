@@ -8,18 +8,19 @@
         android:label="@string/official_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.AddGuestsActivity"/>
-        <activity android:name=".view.ListViewActivity" />
-        <activity android:name=".view.AddConditionActivity" />
-        <activity android:name=".view.AddTablesPlanActivity" />
+        <activity android:name=".view.AddGuestsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".view.ListViewActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".view.AddConditionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".view.AddTablesPlanActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -40,7 +40,7 @@ public class SimpleListAdapter extends ArrayAdapter<NameId> {
         if(convertView ==null){
             convertView= LayoutInflater.from(getContext()).inflate(R.layout.simple_row,parent,false);
         }
-        TextView content=(TextView)convertView.findViewById(R.id.text_at_list);
+        TextView content= convertView.findViewById(R.id.text_at_list);
 
         content.setText(nameId.getName());
         content.setTag(nameId.getId());

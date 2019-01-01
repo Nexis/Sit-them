@@ -1,10 +1,11 @@
-package pl.mylittleworld.database;
+package pl.mylittleworld.database.temporary_storage;
 
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.database.tables.PersonT;
 
 //todo not thread safe

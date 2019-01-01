@@ -21,10 +21,10 @@ public interface DAOClass {
     //Tables///////////////////////////////////////////////////////////////////////////
 
     @Insert
-    public void insertTable(TableT... tables);
+    void insertTable(TableT... tables);
 
     @Delete
-    public int deleteTable(TableT ...tables);
+    int deleteTable(TableT... tables);
 
     @Insert
     void addTablesPlanT(TablesPlanT tablesPlanT);
@@ -35,13 +35,13 @@ public interface DAOClass {
     //People//////////////////////////////////////////////////////////////////////////
 
     @Insert
-    public void insertPerson(PersonT...people);
+    void insertPerson(PersonT... people);
 
     @Update
-    public int updatePerson(PersonT ...people);
+    int updatePerson(PersonT... people);
 
     @Delete
-    public int deletePerson(PersonT ...people);
+    int deletePerson(PersonT... people);
 
     @Query("SELECT *  FROM PersonT")
     List<PersonT> getGuests();
