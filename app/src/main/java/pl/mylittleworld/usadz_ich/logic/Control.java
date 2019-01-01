@@ -38,8 +38,8 @@ public class Control {
     public void getPeopleListForDisplay(Storage.GetGuestsListener listener){
         storageAssistant.getGuestsList(listener);
     }
-    public void getAllForExport(Storage.GetAllListener listener){
-
+    public void getAllForExport(Storage.GetGuestsConditionsTablesListener listener){
+        storageAssistant.getPeopleConditionsAndTables(listener);
     }
 
     public void userWantsToAddGuest(String personName){

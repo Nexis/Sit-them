@@ -13,4 +13,7 @@
     <string name="rectangular">PROSTOKĄTNY</string>
     <string name="round">OKRĄGŁY</string>
     <string name="add">DODAJ</string>
+    <string name="tittle">MENU</string>
+    <string name="export_json">Export do formatu aplikacji</string>
+    <string name="export_csv">Eksport do druku</string>
 </resources>
