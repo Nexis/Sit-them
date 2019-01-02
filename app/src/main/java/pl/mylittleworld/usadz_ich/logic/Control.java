@@ -22,6 +22,8 @@ import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConMustAtTab
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConMustNextToDescriptor;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptors;
 import pl.mylittleworld.usadz_ich.genetics.GeneticAlgorithms;
+import pl.mylittleworld.usadz_ich.json_service.ImportDataListener;
+import pl.mylittleworld.usadz_ich.json_service.Json_format;
 import pl.mylittleworld.usadz_ich.view.MainActivity;
 
 public class Control {
@@ -41,10 +43,14 @@ public class Control {
     public void getAllForExport(Storage.GetGuestsConditionsTablesListener listener){
         storageAssistant.getPeopleConditionsAndTables(listener);
     }
+    public void userWantsToImportDataFromJson(ImportDataListener listener, Json_format json){
+        storageAssistant.cleanAndImportData(listener,json);
+    }
 
     public void userWantsToAddGuest(String personName){
         if(checkIfNameIsProper(personName)){
             storageAssistant.addGuest(personName);
+            TemporaryStorageSittingPlan.setActual(false);
         }
     }
 
@@ -60,21 +66,26 @@ public class Control {
     }
     public void userWantsToDeleteGuests(PersonT... people){
         storageAssistant.deleteGuests(people);
+        TemporaryStorageSittingPlan.setActual(false);
     }
 
 
     public void userWantsToAddTables(int with,String tableName){
         storageAssistant.addTable(new TableT(with,tableName));
+        TemporaryStorageSittingPlan.setActual(false);
 
     }
     public void userWantsToDeleteTables(TableT ... tables){
-
+        TemporaryStorageSittingPlan.setActual(false);
     }
 
     public void userWantsToAddCondition(ConditionT... conditions){
         storageAssistant.addCondition(conditions);
+        TemporaryStorageSittingPlan.setActual(false);
     }
-    public void userWantsToDeleteCondition(Condition... conditions){
+    public void userWantsToDeleteCondition(int conditionId){
+        storageAssistant.deleteCondition(conditionId);
+        TemporaryStorageSittingPlan.setActual(false);
 
     }
 
@@ -155,6 +166,7 @@ public class Control {
             switch (dataType){
                 case TABLES:
                     storageAssistant.deleteTable(id);
+                    TemporaryStorageSittingPlan.setActual(false);
                     break;
             }
         }

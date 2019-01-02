@@ -37,13 +37,13 @@ public class ListAdapterForConditionsList extends ArrayAdapter<Condition> {
         conditionName.setText(condition.getDescription());
 
 
-        /*convertView.setOnLongClickListener(new View.OnLongClickListener() {
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                controler.userWantsToDeleteGuests(person);
+                controler.userWantsToDeleteCondition(condition.getConditionId());
                 return false;
             }
-        });*/
+        });
 
         return convertView;
     }

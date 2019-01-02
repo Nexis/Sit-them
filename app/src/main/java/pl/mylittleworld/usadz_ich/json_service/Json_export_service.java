@@ -20,7 +20,7 @@ import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.temporary_storage.TemporaryStorageSittingPlan;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 
-public class Json_service implements Storage.GetGuestsConditionsTablesListener {
+public class Json_export_service implements Storage.GetGuestsConditionsTablesListener {
 
     public void packJson() {
         ControlProvider.getInstance().getAllForExport(this);

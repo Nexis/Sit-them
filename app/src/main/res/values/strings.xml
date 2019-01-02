@@ -16,4 +16,5 @@
     <string name="tittle">MENU</string>
     <string name="export_json">Export do formatu aplikacji</string>
     <string name="export_csv">Eksport do druku</string>
+    <string name="import_json">Import całego planu</string>
 </resources>

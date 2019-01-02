@@ -8,12 +8,16 @@ import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.tables.TablesPlanT;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
+import pl.mylittleworld.usadz_ich.json_service.ImportDataListener;
+import pl.mylittleworld.usadz_ich.json_service.Json_format;
 
 public interface Storage {
 
     void addCondition(ConditionT... conditionT);
 
     void deleteTable(int id);
+
+    void deleteCondition(int conditionId);
 
     interface GetGuestsListener{
 
@@ -55,5 +59,5 @@ public interface Storage {
 
     void getPeopleConditionsAndTables(GetGuestsConditionsTablesListener listener);
 
-    void getAllForExport(GetAllListener listener);
+    void cleanAndImportData(ImportDataListener listener,Json_format json_format);
 }

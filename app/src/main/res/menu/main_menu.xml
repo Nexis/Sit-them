@@ -3,5 +3,7 @@
             <item android:id="@+id/csv"
                 android:title="@string/export_csv" />
             <item android:id="@+id/json"
-                android:title="@string/export_json" />
+    android:title="@string/export_json" />
+    <item android:id="@+id/json_import"
+        android:title="@string/import_json" />
         </menu>

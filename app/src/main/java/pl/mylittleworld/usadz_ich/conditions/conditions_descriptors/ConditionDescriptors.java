@@ -39,4 +39,7 @@ public class ConditionDescriptors {
         }
         return conditionsList;
     }
+    public Condition descryptOneConditionT(ConditionT condition){
+        return askAllDescryptorsAbout(condition);
+    }
 }

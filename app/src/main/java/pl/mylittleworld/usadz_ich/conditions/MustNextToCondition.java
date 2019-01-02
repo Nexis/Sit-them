@@ -11,12 +11,13 @@ public class MustNextToCondition implements Condition {
     private PersonT person1;
     private PersonT person2;
 
-    private int conitionId;
+    private int conditionId;
+    private final CONDITIONS_OPTIONS conditionType=CONDITIONS_OPTIONS.MUST_NEXT_TO;
 
     public MustNextToCondition(PersonT person1ID, PersonT person2ID, int id) {
         this.person1 = person1ID;
         this.person2 = person2ID;
-        this.conitionId=id;
+        this.conditionId =id;
     }
 
 
@@ -40,7 +41,7 @@ public class MustNextToCondition implements Condition {
 
     @Override
     public int getConditionId() {
-        return conitionId;
+        return conditionId;
     }
 
 }

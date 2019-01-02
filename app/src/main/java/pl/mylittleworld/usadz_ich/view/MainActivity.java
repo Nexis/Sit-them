@@ -1,8 +1,10 @@
 package pl.mylittleworld.usadz_ich.view;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -17,9 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.xml.datatype.Duration;
 
 import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.database.temporary_storage.People;
@@ -34,11 +35,13 @@ import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptors;
-import pl.mylittleworld.usadz_ich.json_service.Json_service;
+import pl.mylittleworld.usadz_ich.json_service.ImportDataListener;
+import pl.mylittleworld.usadz_ich.json_service.Json_export_service;
+import pl.mylittleworld.usadz_ich.json_service.Json_import_service;
 import pl.mylittleworld.usadz_ich.logic.Control;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 
-public class MainActivity extends AppCompatActivity implements Storage.GetGuestsListener, Storage.GetConditionsListener, Storage.GetTablesListener, Storage.GetGuestsConditionsTablesListener {
+public class MainActivity extends AppCompatActivity implements Storage.GetGuestsListener, Storage.GetConditionsListener, Storage.GetTablesListener, Storage.GetGuestsConditionsTablesListener, ImportDataListener {
 
     private final int GUESTS_LIST = 0;
     private final int LOUNGE_PLAN = 1;
@@ -263,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
-                    new Json_service().packJson();
+                    new Json_export_service().packJson();
                     Toast.makeText(this, "Eksportowanie", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(this, "Niepowodzenie eksportu", Toast.LENGTH_LONG).show();
@@ -286,13 +289,16 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
                     return true;
                 case R.id.json:
                     if (permissionAsk()) {
-                        new Json_service().packJson();
+                        new Json_export_service().packJson();
                         Toast.makeText(this, "Eksportowanie", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(this, "Niepowodzenie eksportu", Toast.LENGTH_LONG).show();
                     }
 
                     return true;
+                case R.id.json_import:
+                    Json_import_service.performFileSearch(this);
+                    return  true;
                 default:
                     return super.onOptionsItemSelected(item);
             }
@@ -303,5 +309,36 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return true;
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,
+                                 Intent resultData) {
+
+        // The ACTION_OPEN_DOCUMENT intent was sent with the request code
+        // READ_REQUEST_CODE. If the request code seen here doesn't match, it's the
+        // response to some other intent, and the code below shouldn't run at all.
+
+        if (requestCode == Json_import_service.READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            // The document selected by the user won't be returned in the intent.
+            // Instead, a URI to that document will be contained in the return intent
+            // provided to this method as a parameter.
+            // Pull that URI using resultData.getData().
+            Uri uri = null;
+            if (resultData != null) {
+                uri = resultData.getData();
+                Log.i("I", "Uri: " + uri.toString());
+                try {
+                    Json_import_service.readTextFromUri(uri, this);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onDataImported() {
+        Toast.makeText(this,"Dane zostały zaimportowane poprawnie",Toast.LENGTH_LONG).show();
     }
 }

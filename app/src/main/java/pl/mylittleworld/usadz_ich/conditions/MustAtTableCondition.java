@@ -12,12 +12,13 @@ public class MustAtTableCondition implements Condition {
     private PersonT person;
     private TableT table;
 
-    private int conitionId;
+    private int conditionId;
+    private final CONDITIONS_OPTIONS conditionType=CONDITIONS_OPTIONS.MUST_AT_TABLE;
 
     public MustAtTableCondition(PersonT person, TableT tableT, int id) {
         this.person = person;
         this.table = tableT;
-        this.conitionId=id;
+        this.conditionId =id;
     }
 
 
@@ -40,7 +41,7 @@ public class MustAtTableCondition implements Condition {
 
     @Override
     public int getConditionId() {
-        return conitionId;
+        return conditionId;
     }
 }
 

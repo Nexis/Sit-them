@@ -13,6 +13,7 @@ public class Json_format {
     private ArrayList<ConditionT> conditionsList;
     private ArrayList<PersonT> peopleList;
 
+
     public Json_format(SittingPlan sittingPlan, ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, ArrayList<PersonT> peopleList) {
         this.sittingPlan = sittingPlan;
         this.tableList = tableList;

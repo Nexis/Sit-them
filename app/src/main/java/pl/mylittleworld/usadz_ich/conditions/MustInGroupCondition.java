@@ -10,12 +10,13 @@ public class MustInGroupCondition  implements Condition {
     private PersonT person;
     private GroupT group;
 
-    private int conitionId;
+    private int conditionId;
+    private final CONDITIONS_OPTIONS conditionType=CONDITIONS_OPTIONS.MUST_IN_GROUP;
 
     public MustInGroupCondition(PersonT person, GroupT groupT, int id) {
         this.person = person;
         this.group = groupT;
-        this.conitionId=id;
+        this.conditionId =id;
     }
 
 
@@ -32,6 +33,6 @@ public class MustInGroupCondition  implements Condition {
 
     @Override
     public int getConditionId() {
-        return conitionId;
+        return conditionId;
     }
 }

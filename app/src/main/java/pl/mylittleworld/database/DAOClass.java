@@ -58,4 +58,15 @@ public interface DAOClass {
     @Query("DELETE FROM TableT WHERE tableID=:id")
     void deleteTableWithId(final int id);
 
+    @Query ("DELETE FROM TableT")
+    void dropTables();
+
+    @Query ("DELETE FROM ConditionT")
+    void dropConditions();
+
+    @Query ("DELETE FROM PersonT")
+    void dropPeople();
+
+    @Query("DELETE FROM ConditionT WHERE conditionID=:id")
+    void deleteConditionWithId(int id);
 }

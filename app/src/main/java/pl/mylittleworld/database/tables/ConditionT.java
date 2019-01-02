@@ -15,6 +15,7 @@ public class ConditionT {
         this.conditionType = conditionType;
     }
 
+
     @PrimaryKey(autoGenerate = true)
     private int conditionID;
 

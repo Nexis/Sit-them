@@ -4,12 +4,17 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.tables.TablesPlanT;
 import pl.mylittleworld.database.tasks.GetConditionsTask;
+import pl.mylittleworld.database.temporary_storage.TemporaryStorageSittingPlan;
+import pl.mylittleworld.usadz_ich.json_service.ImportDataListener;
+import pl.mylittleworld.usadz_ich.json_service.Json_format;
 
 public class StorageAssistant implements Storage {
 
@@ -36,6 +41,16 @@ public class StorageAssistant implements Storage {
             @Override
             public void run() {
                 dataBase.getDao().deleteTableWithId(id);
+            }
+        });
+    }
+
+    @Override
+    public void deleteCondition(final int conditionId) {
+        ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
+            @Override
+            public void run() {
+                dataBase.getDao().deleteConditionWithId(conditionId);
             }
         });
     }
@@ -120,8 +135,24 @@ public class StorageAssistant implements Storage {
         });
     }
 
-    @Override
-    public void getAllForExport(GetAllListener listener) {
 
+    @Override
+    public void cleanAndImportData(final ImportDataListener listener, final Json_format json_format) {
+        ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
+            @Override
+            public void run() {
+               dataBase.getDao().dropConditions();
+               dataBase.getDao().dropPeople();
+               dataBase.getDao().dropTables();
+
+               dataBase.getDao().insertTable(json_format.getTableList().toArray(new TableT[json_format.getTableList().size()]));
+               dataBase.getDao().insertPerson(json_format.getPeopleList().toArray(new PersonT[json_format.getPeopleList().size()]));
+               dataBase.getDao().addConditions(json_format.getConditionsList().toArray(new ConditionT[json_format.getConditionsList().size()]));
+
+                TemporaryStorageSittingPlan.insertActualSittingPlan(json_format.getSittingPlan());
+
+                listener.onDataImported();
+            }
+        });
     }
 }
