@@ -37,14 +37,15 @@ public class Control {
     }
 
 
-    public void getPeopleListForDisplay(Storage.GetGuestsListener listener){
+    public void getPeopleListForDisplay(Storage.GetDataListener listener){
         storageAssistant.getGuestsList(listener);
     }
-    public void getAllForExport(Storage.GetGuestsConditionsTablesListener listener){
+    public void getAllForExport(Storage.GetDataListener listener){
         storageAssistant.getPeopleConditionsAndTables(listener);
     }
     public void userWantsToImportDataFromJson(ImportDataListener listener, Json_format json){
         storageAssistant.cleanAndImportData(listener,json);
+
     }
 
     public void userWantsToAddGuest(String personName){
@@ -57,7 +58,7 @@ public class Control {
     private boolean checkIfNameIsProper(String proposedName){
 
         for(int i=0;i<proposedName.length();++i){
-            if(!Character.isLetter(proposedName.codePointAt(i))){
+            if(!Character.isLetter(proposedName.codePointAt(i))&& proposedName.charAt(i)!=' '){
                 return false;
             }
         }
@@ -89,7 +90,7 @@ public class Control {
 
     }
 
-    public void getConditionsListForDisplay(Storage.GetConditionsListener listener) {
+    public void getConditionsListForDisplay(Storage.GetDataListener listener) {
         storageAssistant.getConditionsList(listener);
     }
 
@@ -100,17 +101,20 @@ public class Control {
     public void userChoseItem(int requestCode, int resultCode, Intent data, Activity activity) {
     }
 
-    public void getTableListForDisplay(Storage.GetTablesListener listener) {
+    public void getTableListForDisplay(Storage.GetDataListener listener) {
         storageAssistant.getTablesList(listener);
     }
 
-    public void userWantsToCalculateSittingPlan(Storage.GetGuestsConditionsTablesListener storage) {
+    public void userWantsToCalculateSittingPlan(Storage.GetDataListener storage) {
         storageAssistant.getPeopleConditionsAndTables(storage);
     }
     public void userWantToSeeCurrentSittingPlan(MainActivity context){
         if(TemporaryStorageSittingPlan.exists() && TemporaryStorageSittingPlan.isActual() && Tables.isInitialized()){
             SittingPlan sittingPlan=TemporaryStorageSittingPlan.getActualSittingPlan();
             context.showSittingPlanList(sittingPlan,Tables.getTemporaryStorageTables());
+        }
+        else{
+            context.noContent();
         }
     }
 
@@ -171,4 +175,6 @@ public class Control {
             }
         }
     }
+
+
 }

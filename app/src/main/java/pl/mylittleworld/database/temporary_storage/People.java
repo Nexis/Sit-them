@@ -9,7 +9,7 @@ import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.database.tables.PersonT;
 
 //todo not thread safe
-public class People {
+public class People  {
 
     private static  ArrayList<PersonT> temporarySToragePeople=null;
     private static boolean initialized=false;

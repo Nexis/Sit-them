@@ -4,8 +4,6 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
@@ -56,18 +54,18 @@ public class StorageAssistant implements Storage {
     }
 
     @Override
-    public void getGuestsList(final GetGuestsListener getGuestsListener) {
+    public void getGuestsList(final GetDataListener getDataListener) {
         ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
             @Override
             public void run() {
                ArrayList<PersonT> people= new ArrayList<>(dataBase.getDao().getGuests());
-                getGuestsListener.onGuestsListRetrived(people);
+                getDataListener.onGuestsListRetrived(people);
             }
         });
     }
 
     @Override
-    public void getConditionsList(final GetConditionsListener getConditionsListener) {
+    public void getConditionsList(final GetDataListener getConditionsListener) {
         ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new GetConditionsTask(dataBase.getDao(),getConditionsListener));
     }
 
@@ -112,7 +110,7 @@ public class StorageAssistant implements Storage {
     }
 
     @Override
-    public void getTablesList(final GetTablesListener listener) {
+    public void getTablesList(final GetDataListener listener) {
         ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
             @Override
             public void run() {
@@ -123,7 +121,7 @@ public class StorageAssistant implements Storage {
     }
 
     @Override
-    public void getPeopleConditionsAndTables(final Storage.GetGuestsConditionsTablesListener listener){
+    public void getPeopleConditionsAndTables(final Storage.GetDataListener listener){
         ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
             @Override
             public void run() {

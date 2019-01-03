@@ -7,6 +7,11 @@
     tools:context=".view.MainActivity"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/no_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addButton"
         android:layout_width="72dp"

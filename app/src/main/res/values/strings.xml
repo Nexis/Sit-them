@@ -15,6 +15,7 @@
     <string name="add">DODAJ</string>
     <string name="tittle">MENU</string>
     <string name="export_json">Export do formatu aplikacji</string>
-    <string name="export_csv">Eksport do druku</string>
+    <string name="import_csv">Import listy gości csv</string>
     <string name="import_json">Import całego planu</string>
+    <string name="no_content">TA ZAKŁADKA JEST PUSTA</string>
 </resources>

@@ -27,7 +27,7 @@ public class ListAdapterForGuestsList extends ArrayAdapter<PersonT> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent){
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent){
         final PersonT person = getItem(position);
 
         if(convertView ==null){
@@ -42,6 +42,8 @@ public class ListAdapterForGuestsList extends ArrayAdapter<PersonT> {
             @Override
             public boolean onLongClick(View v) {
                 controler.userWantsToDeleteGuests(person);
+                remove(getItem(position));
+                notifyDataSetChanged();
                 return false;
             }
         });

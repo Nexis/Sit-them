@@ -1,9 +1,6 @@
 package pl.mylittleworld.usadz_ich.json_service;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -20,10 +17,25 @@ import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.temporary_storage.TemporaryStorageSittingPlan;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 
-public class Json_export_service implements Storage.GetGuestsConditionsTablesListener {
+public class Json_export_service implements Storage.GetDataListener {
 
     public void packJson() {
         ControlProvider.getInstance().getAllForExport(this);
+    }
+
+    @Override
+    public void onGuestsListRetrived(ArrayList<PersonT> list) {
+
+    }
+
+    @Override
+    public void onConditionsListRetrived(ArrayList<ConditionT> list) {
+
+    }
+
+    @Override
+    public void onTablesListRetrived(ArrayList<TableT> list) {
+
     }
 
     @Override

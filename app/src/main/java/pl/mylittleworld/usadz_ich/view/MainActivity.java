@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -35,13 +36,14 @@ import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptors;
+import pl.mylittleworld.usadz_ich.csv_service.CsvImport;
 import pl.mylittleworld.usadz_ich.json_service.ImportDataListener;
 import pl.mylittleworld.usadz_ich.json_service.Json_export_service;
 import pl.mylittleworld.usadz_ich.json_service.Json_import_service;
 import pl.mylittleworld.usadz_ich.logic.Control;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 
-public class MainActivity extends AppCompatActivity implements Storage.GetGuestsListener, Storage.GetConditionsListener, Storage.GetTablesListener, Storage.GetGuestsConditionsTablesListener, ImportDataListener {
+public class MainActivity extends AppCompatActivity implements Storage.GetDataListener, ImportDataListener {
 
     private final int GUESTS_LIST = 0;
     private final int LOUNGE_PLAN = 1;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
     private final int SITTING_PLAN = 3;
 
     private final int WRITE_EXTERNAL_STORAGE=13;
+
+    private TextView noList;
 
     Control logicController = ControlProvider.getInstance();
     private ArrayAdapter listAdapterForGuestsList;
@@ -64,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
         logicController.giveStorageAssistant(storageAssistant);
         logicController.getPeopleListForDisplay(this);
 
+        noList=findViewById(R.id.no_list);
+
         findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,21 +80,24 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
                 switch (tempCardNumber) {
                     case GUESTS_LIST:
                         intent = new Intent(MainActivity.this, AddGuestsActivity.class);
-                        startActivityForResult(intent, 69);
+                        startActivityForResult(intent, GUESTS_LIST);
                         break;
 
                     case LOUNGE_PLAN:
                         intent = new Intent(MainActivity.this, AddTablesPlanActivity.class);
-                        startActivityForResult(intent, 69);
+                        startActivityForResult(intent, LOUNGE_PLAN);
+
                         break;
                     case CONDITIONS:
                         intent = new Intent(MainActivity.this, AddConditionActivity.class);
-                        startActivityForResult(intent, 70);
+                        startActivityForResult(intent, CONDITIONS);
+
                         break;
                     case SITTING_PLAN:
                         logicController.userWantsToCalculateSittingPlan(MainActivity.this);
                         break;
                 }
+
 
             }
         });
@@ -121,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                noList.setVisibility(View.GONE);
             }
 
             @Override
@@ -130,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
             }
         });
 
+    }
+    public void noContent(){
+        noList.setVisibility(View.VISIBLE);
     }
 
     private synchronized void setListAdapter(ArrayAdapter myListAdapter) {
@@ -285,7 +297,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
             // Handle item selection
             switch (item.getItemId()) {
                 case R.id.csv:
-
+                    CsvImport.performFileSearch(this);
                     return true;
                 case R.id.json:
                     if (permissionAsk()) {
@@ -313,7 +325,19 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
     @Override
     public void onActivityResult(int requestCode, int resultCode,
                                  Intent resultData) {
+        switch (requestCode) {
+            case GUESTS_LIST:
+                logicController.getPeopleListForDisplay(MainActivity.this);
+                break;
 
+            case LOUNGE_PLAN:
+                logicController.getTableListForDisplay(MainActivity.this);
+                break;
+            case CONDITIONS:
+                logicController.getConditionsListForDisplay(MainActivity.this);
+                break;
+
+        }
         // The ACTION_OPEN_DOCUMENT intent was sent with the request code
         // READ_REQUEST_CODE. If the request code seen here doesn't match, it's the
         // response to some other intent, and the code below shouldn't run at all.
@@ -335,10 +359,34 @@ public class MainActivity extends AppCompatActivity implements Storage.GetGuests
                 }
             }
         }
+        else if(requestCode == CsvImport.READ_CSV_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            Uri uri = null;
+            if (resultData != null) {
+                uri = resultData.getData();
+                Log.i("I", "Uri: " + uri.toString());
+                try {
+                    CsvImport.parse(uri,this);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
     public void onDataImported() {
+
+        logicController.getTableListForDisplay(MainActivity.this);
+
+        logicController.getConditionsListForDisplay(MainActivity.this);
+
+        logicController.userWantToSeeCurrentSittingPlan(MainActivity.this);
+
+        logicController.getPeopleListForDisplay(MainActivity.this);
+
+
+
         Toast.makeText(this,"Dane zostały zaimportowane poprawnie",Toast.LENGTH_LONG).show();
     }
 }

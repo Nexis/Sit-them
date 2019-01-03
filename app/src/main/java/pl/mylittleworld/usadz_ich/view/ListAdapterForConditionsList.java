@@ -26,7 +26,7 @@ public class ListAdapterForConditionsList extends ArrayAdapter<Condition> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent){
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent){
         final Condition condition = getItem(position);
 
         if(convertView ==null){
@@ -41,6 +41,8 @@ public class ListAdapterForConditionsList extends ArrayAdapter<Condition> {
             @Override
             public boolean onLongClick(View v) {
                 controler.userWantsToDeleteCondition(condition.getConditionId());
+                remove(getItem(position));
+                notifyDataSetChanged();
                 return false;
             }
         });

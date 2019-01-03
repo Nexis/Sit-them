@@ -6,8 +6,6 @@ import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.tables.TablesPlanT;
-import pl.mylittleworld.usadz_ich.SittingPlan;
-import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.json_service.ImportDataListener;
 import pl.mylittleworld.usadz_ich.json_service.Json_format;
 
@@ -19,31 +17,23 @@ public interface Storage {
 
     void deleteCondition(int conditionId);
 
-    interface GetGuestsListener{
+    interface GetDataListener {
 
         void onGuestsListRetrived(ArrayList<PersonT> list);
-    }
-    interface GetConditionsListener{
 
         void onConditionsListRetrived(ArrayList<ConditionT> list);
-    }
-    interface GetTablesListener{
 
         void onTablesListRetrived(ArrayList<TableT> list);
-    }
-
-    interface GetGuestsConditionsTablesListener{
 
         void onListsRetrived(ArrayList<TableT> tableList,ArrayList<ConditionT> conditionsList,ArrayList<PersonT> peopleList);
-    }
-    interface GetAllListener{
-        void onListsRetrived(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, ArrayList<PersonT> peopleList);
+
     }
 
 
-    void getGuestsList(GetGuestsListener getGuestsListener);
 
-    void getConditionsList(GetConditionsListener getConditionsListener);
+    void getGuestsList(GetDataListener getDataListener);
+
+    void getConditionsList(GetDataListener getConditionsListener);
 
     void addGuest(String name);
 
@@ -55,9 +45,9 @@ public interface Storage {
 
     void addTable(TableT tableT);
 
-    void getTablesList(GetTablesListener listener);
+    void getTablesList(GetDataListener listener);
 
-    void getPeopleConditionsAndTables(GetGuestsConditionsTablesListener listener);
+    void getPeopleConditionsAndTables(GetDataListener listener);
 
-    void cleanAndImportData(ImportDataListener listener,Json_format json_format);
+    void cleanAndImportData(ImportDataListener listener, Json_format json_format);
 }

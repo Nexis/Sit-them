@@ -1,7 +1,6 @@
 package pl.mylittleworld.usadz_ich.view;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.usadz_ich.DATA_TYPE;
 import pl.mylittleworld.usadz_ich.R;
-import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.logic.Control;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 
@@ -34,7 +32,7 @@ public class SimpleListAdapter extends ArrayAdapter<NameId> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         final NameId nameId = getItem(position);
 
         if(convertView ==null){
@@ -51,6 +49,8 @@ public class SimpleListAdapter extends ArrayAdapter<NameId> {
             @Override
             public boolean onLongClick(View v) {
                 controler.userWantsToDeleteItem(nameId.getId(),dataType);
+                remove(getItem(position));
+                notifyDataSetChanged();
                 return false;
             }
         });
