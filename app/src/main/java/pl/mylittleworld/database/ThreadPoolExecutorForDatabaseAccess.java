@@ -3,6 +3,9 @@ package pl.mylittleworld.database;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * This class give a ThreadExecutor with one thread
+ */
 public class ThreadPoolExecutorForDatabaseAccess {
 
 

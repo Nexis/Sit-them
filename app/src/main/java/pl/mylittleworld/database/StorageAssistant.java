@@ -14,6 +14,9 @@ import pl.mylittleworld.database.temporary_storage.TemporaryStorageSittingPlan;
 import pl.mylittleworld.usadz_ich.json_service.ImportDataListener;
 import pl.mylittleworld.usadz_ich.json_service.Json_format;
 
+/**
+ * This class implements the Storage interface, it operates on SqlLite database using Room
+ */
 public class StorageAssistant implements Storage {
 
     private DataBaseClass dataBase;

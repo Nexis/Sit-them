@@ -3,6 +3,10 @@ package pl.mylittleworld.database;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * This class represents in some space universal type to which can be convert people tables or group list
+ * for display them as a list
+ */
 public class NameId implements Parcelable {
 
     private String name;

@@ -9,6 +9,9 @@ import pl.mylittleworld.database.tables.TablesPlanT;
 import pl.mylittleworld.usadz_ich.json_service.ImportDataListener;
 import pl.mylittleworld.usadz_ich.json_service.Json_format;
 
+/**
+ * interface which defines storage access functions which Controler can invoke and which model part should implements
+ */
 public interface Storage {
 
     void addCondition(ConditionT... conditionT);
