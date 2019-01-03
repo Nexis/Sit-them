@@ -40,6 +40,7 @@ public class AddTablesPlanActivity extends Activity {
             public void onClick(View v) {
                 tableNameS=tableName.getText().toString();
                 control.userWantsToAddTables(tableWidth,tableNameS);
+                finish();
             }
         });
 
@@ -58,7 +59,7 @@ public class AddTablesPlanActivity extends Activity {
 
                          String bottom=getNumbersInString(tableWidth,2*tableWidth-1);
                           guestsAtBottom.setText(bottom);
-                        return false;
+
                     }
                 }
                 return false;
@@ -70,7 +71,7 @@ public class AddTablesPlanActivity extends Activity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     tableNameS=((EditText)v).getText().toString();
-                    return true;
+
                 }
                 return false;
             }

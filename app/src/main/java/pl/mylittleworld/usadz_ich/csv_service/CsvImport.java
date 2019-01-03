@@ -27,7 +27,10 @@ public class CsvImport {
         CSVReader csvReader = new CSVReader(reader);
         List<String[]> records = csvReader.readAll();
         for(String[] names: records) {
-            if(names.length==2) {
+            if(names.length==3) {
+                ControlProvider.getInstance().userWantsToAddGuest(names[0]+" "+names[1]+ " "+names[2]);
+            }
+            else if(names.length==2){
                 ControlProvider.getInstance().userWantsToAddGuest(names[0]+" "+names[1]);
             }
             else {

@@ -11,7 +11,7 @@
         android:layout_height="53dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="56dp"
-        android:text="TextView"
+        android:text="człon1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,7 +21,7 @@
         android:layout_height="53dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="36dp"
-        android:text="TextView"
+        android:text="TYP"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thing1" />
 
@@ -32,7 +32,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:text="człon2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relation"
@@ -45,7 +45,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
-        android:text="Button"
+        android:text="PRZEGLĄDAJ"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/thing1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +57,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="44dp"
         android:layout_marginEnd="8dp"
-        android:text="Button"
+        android:text="PRZEGLĄDAJ"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/relation"
         app:layout_constraintTop_toBottomOf="@+id/see_options_1" />
@@ -69,7 +69,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
-        android:text="Button"
+        android:text="PRZEGLĄDAJ"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/thing2"
         app:layout_constraintTop_toBottomOf="@+id/see_relations_options" />
@@ -81,7 +81,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="36dp"
-        android:text="Button"
+        android:text="DODAJ"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.94"

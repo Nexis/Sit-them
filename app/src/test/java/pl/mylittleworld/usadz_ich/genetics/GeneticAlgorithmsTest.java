@@ -24,7 +24,7 @@ public class GeneticAlgorithmsTest {
     List<PersonT> people;
 
 
-    private GeneticAlgorithms geneticAlgorithms= new GeneticAlgorithms(null,null,null);
+    private GeneticAlgorithms geneticAlgorithms;
 
     @Before
     public void initialize(){
@@ -43,6 +43,7 @@ public class GeneticAlgorithmsTest {
         for (int i = 0; i < sitListSize; ++i) {
             people.add(personT);
         }
+        geneticAlgorithms= new GeneticAlgorithms(null,(ArrayList)people,null);
     }
 
 

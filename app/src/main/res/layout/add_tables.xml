@@ -50,7 +50,7 @@
             android:textAlignment="center"
             android:textSize="@dimen/text_size"
             android:gravity="center_vertical"
-            android:text="TextView" />
+            android:text="goście" />
 
         <EditText
             android:id="@+id/table"
@@ -59,7 +59,10 @@
             android:layout_weight="1"
             android:background="@color/cardview_dark_background"
             android:padding="20dp"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:inputType="text"
+            android:hint="nazwa stołu"
+            android:imeOptions="actionDone"/>
 
 
         <TextView
@@ -71,7 +74,7 @@
             android:layout_weight="1"
             android:padding="20dp"
             android:textSize="@dimen/text_size"
-            android:text="bottom" />
+            android:text="goście" />
 
     </LinearLayout>
 
@@ -87,7 +90,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/line_height"
-            android:text="TextView"
+            android:text="Szerokość stołu"
             tools:layout_editor_absoluteX="221dp"
             tools:layout_editor_absoluteY="379dp" />
 
