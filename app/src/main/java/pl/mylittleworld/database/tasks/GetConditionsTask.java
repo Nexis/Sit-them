@@ -6,6 +6,9 @@ import pl.mylittleworld.database.DAOClass;
 import pl.mylittleworld.database.Storage;
 import pl.mylittleworld.database.tables.ConditionT;
 
+/**
+ * This class is a task for getting Conditions from database
+ */
 public class GetConditionsTask implements Runnable {
 
     private DAOClass dao;

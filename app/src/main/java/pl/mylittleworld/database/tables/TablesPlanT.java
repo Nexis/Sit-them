@@ -3,7 +3,10 @@ package pl.mylittleworld.database.tables;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-
+/**
+ * This class repersents one tablesPlan it is used becouse of being more efficient when some function want to see,
+ * calculate something becouse of tables
+ */
 @Entity
 public class TablesPlanT {
 

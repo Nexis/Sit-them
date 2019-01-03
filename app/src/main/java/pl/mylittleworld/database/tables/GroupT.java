@@ -3,6 +3,9 @@ package pl.mylittleworld.database.tables;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+/**
+ * A group which can gather some people each group has a name and the id
+ */
 @Entity
 public class GroupT {
 

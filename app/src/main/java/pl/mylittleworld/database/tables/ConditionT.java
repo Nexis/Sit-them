@@ -5,7 +5,10 @@ import android.arch.persistence.room.PrimaryKey;
 
 import pl.mylittleworld.usadz_ich.conditions.CONDITIONS_OPTIONS;
 
-
+/**
+ * This class represents a condition witch user give on planning algortm
+ * It has two ids which represents two instances and a type which tells what relation should be between this instances
+ */
 @Entity
 public class ConditionT {
 

@@ -31,6 +31,13 @@ public class Seat {
         return chair;
     }
 
+    /**
+     *
+     * @param seat2 seat reletively to witch is considered if this one is close or not
+     * @param meansOppositeClose if opposite chairs are considered as close to each other
+     * @param meansDiagonallyClose if diagonally chairs are considered as close to each other
+     * @return if this seat and a given one are close to each other including fact what is define as close
+     */
     public boolean areThoseSitsCloseToEachOther(Seat seat2, boolean meansOppositeClose, boolean meansDiagonallyClose){
         if(this.getChairT().getTableID()!= seat2.getChairT().getTableID()){
             return false;

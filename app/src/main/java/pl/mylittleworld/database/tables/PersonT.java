@@ -4,6 +4,9 @@ package pl.mylittleworld.database.tables;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+/**
+ * This class represents one person, party participant, contains name and id
+ */
 @Entity
 public class PersonT {
 

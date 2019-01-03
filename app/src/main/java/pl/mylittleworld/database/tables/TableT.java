@@ -5,6 +5,10 @@ import android.arch.persistence.room.PrimaryKey;
 
 import pl.mylittleworld.usadz_ich.TABLE_TYPE;
 
+/**
+ * This class represents one table has information about its shape, height, width, name, coordinates relatively to room,
+ * it has also information about TablesPlanId witch it belongs to
+ */
 @Entity
 public class TableT {
 

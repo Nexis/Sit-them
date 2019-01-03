@@ -3,6 +3,9 @@ package pl.mylittleworld.database.tables;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+/**
+ * This class represents a chair- one place to sit x,y are coordinates reletivly to table
+ */
 @Entity
 public class ChairT {
 
