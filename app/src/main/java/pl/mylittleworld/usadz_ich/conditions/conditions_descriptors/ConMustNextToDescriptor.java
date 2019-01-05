@@ -11,8 +11,17 @@ import pl.mylittleworld.usadz_ich.conditions.CONDITIONS_OPTIONS;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.MustNextToCondition;
 
+/**
+ * This is descriptor class for MustNextToCondition class
+ */
 public class ConMustNextToDescriptor implements ConDescryptor{
 
+    /**
+     * It describes conditionT creating a MustNextToCondition object if types are compatible
+     * @param conditionT condition to describe
+     * @param <T> MustNextToCondition
+     * @return MustNextToCondition object with values from conditionT or null
+     */
     @Nullable
     @Override
     public <T extends Condition> T constructConditionObject(ConditionT conditionT) {

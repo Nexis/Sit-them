@@ -11,8 +11,17 @@ import pl.mylittleworld.usadz_ich.conditions.CONDITIONS_OPTIONS;
 import pl.mylittleworld.usadz_ich.conditions.CantNextToCondition;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 
+/**
+ * This is descriptor class for CantNextToCondition class
+ */
 public class ConCanTNextToDescriptor implements ConDescryptor{
 
+    /**
+     * It describes conditionT creating a CantNextToCondition object if types are compatible
+     * @param conditionT condition to describe
+     * @param <T> CantNextToCondition
+     * @return CantNextToCondition object with values from conditionT or null
+     */
     @Nullable
     @Override
     public <T extends Condition> T constructConditionObject(ConditionT conditionT) {

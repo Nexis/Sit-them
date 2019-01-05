@@ -13,8 +13,17 @@ import pl.mylittleworld.usadz_ich.conditions.CONDITIONS_OPTIONS;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.MustAtTableCondition;
 
+/**
+ * This is descriptor class for MustAtTableCondition class
+ */
 public class ConMustAtTableDescriptor implements ConDescryptor{
 
+    /**
+     * It describes conditionT creating a MustAtTableCondition object if types are compatible
+     * @param conditionT condition to describe
+     * @param <T> MustAtTableCondition
+     * @return MustAtTableCondition object with values from conditionT or null
+     */
     @Nullable
     @Override
     public <T extends Condition> T constructConditionObject(ConditionT conditionT) {
