@@ -40,16 +40,16 @@ public class Conditions {
         return true;
     }
     public int howMuchAreConditionsFullfield(SittingPlan sittingPlan){
-        int numberOfConditions=0;
-        int numberOfFullFieldConditions=0;
+        int weightOfConditions=0;
+        int weightOfFullFieldConditions=0;
         for(Condition condition : conditions){
             if(condition.isThisConditionFulfilled(sittingPlan)) {
-                ++numberOfFullFieldConditions;
+                weightOfFullFieldConditions+=condition.getPriority();
             }
-            ++numberOfConditions;
+            weightOfConditions+=condition.getPriority();
         }
-       if(numberOfConditions!=0){
-            return (numberOfFullFieldConditions*100 /numberOfConditions);
+       if(weightOfConditions!=0){
+            return (weightOfFullFieldConditions*100 /weightOfConditions);
        }
        else return 0;
     }

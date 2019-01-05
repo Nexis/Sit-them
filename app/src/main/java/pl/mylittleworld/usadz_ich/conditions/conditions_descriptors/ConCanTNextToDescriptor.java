@@ -19,7 +19,8 @@ public class ConCanTNextToDescriptor implements ConDescryptor{
         if(conditionT.getConditionType()==CONDITIONS_OPTIONS.CAN_T_NEXT_TO){
             PersonT p1= findPersonWithId(conditionT.getId1());
             PersonT p2= findPersonWithId(conditionT.getId2());
-            return (T) new CantNextToCondition(p1,p2,conditionT.getConditionID());
+            int priority= conditionT.getPriority();
+            return (T) new CantNextToCondition(p1,p2,conditionT.getConditionID(),priority);
         }
         else {
             return null;

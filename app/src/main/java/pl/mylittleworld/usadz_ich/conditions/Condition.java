@@ -8,5 +8,7 @@ public interface Condition {
 
     String getDescription();
 
+    int getPriority();
+
    int getConditionId();
 }

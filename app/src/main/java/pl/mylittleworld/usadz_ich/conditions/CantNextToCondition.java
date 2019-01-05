@@ -14,10 +14,13 @@ public class CantNextToCondition implements Condition {
     private int conditionId;
     private final CONDITIONS_OPTIONS conditionType=CONDITIONS_OPTIONS.CAN_T_NEXT_TO;
 
-    public CantNextToCondition(PersonT person1ID, PersonT person2ID, int id) {
+    private int priority;
+
+    public CantNextToCondition(PersonT person1ID, PersonT person2ID, int id, int priority) {
         this.person1 = person1ID;
         this.person2 = person2ID;
         this.conditionId=id;
+        this.priority = priority;
     }
 
 
@@ -36,7 +39,12 @@ public class CantNextToCondition implements Condition {
 
     @Override
     public String getDescription() {
-        return person1.getName() + " NIE MOŻE OBOK " + person2.getName() ;
+        return person1.getName() + " NIE MOŻE OBOK " + person2.getName() +  "   PRIORYTET: " + priority ;
+    }
+
+    @Override
+    public int getPriority() {
+        return priority;
     }
 
     @Override

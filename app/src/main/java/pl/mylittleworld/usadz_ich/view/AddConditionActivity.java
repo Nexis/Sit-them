@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,8 @@ public class AddConditionActivity extends AppCompatActivity{
     private int secondItemId = -1;
 
     private ListView listView;
+    private int priority=1;
+    private SeekBar seekBar;
 
 
     @Override
@@ -83,9 +86,33 @@ public class AddConditionActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if (conditionParamsAreProper()){
-                    logicController.userWantsToAddCondition(new ConditionT(firstItemId,secondItemId,conditionsOption));
+                    logicController.userWantsToAddCondition(new ConditionT(firstItemId,secondItemId,conditionsOption,priority));
                     finish();
                 }
+            }
+        });
+        seekBar=findViewById(R.id.priority_seekBar);
+        seekBar.setProgress(1);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(progress>0){
+                    priority=progress;
+                }
+                else {
+                    priority=1;
+                    seekBar.setProgress(1);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
 

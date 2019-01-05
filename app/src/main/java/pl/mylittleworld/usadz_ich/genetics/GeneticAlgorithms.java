@@ -16,7 +16,7 @@ import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
 
 public class GeneticAlgorithms {
-
+  //todo kolo fortuny   sam obok sb     okragle stoly   testy   genetyczne dobor prawdopodobienstwa
     private Random random = new Random();
 
     private final int populationSize = 10;

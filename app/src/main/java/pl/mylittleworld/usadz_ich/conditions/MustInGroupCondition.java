@@ -9,14 +9,16 @@ public class MustInGroupCondition  implements Condition {
 
     private PersonT person;
     private GroupT group;
+    private int priority;
 
     private int conditionId;
     private final CONDITIONS_OPTIONS conditionType=CONDITIONS_OPTIONS.MUST_IN_GROUP;
 
-    public MustInGroupCondition(PersonT person, GroupT groupT, int id) {
+    public MustInGroupCondition(PersonT person, GroupT groupT, int id, int priority) {
         this.person = person;
         this.group = groupT;
         this.conditionId =id;
+        this.priority = priority;
     }
 
 
@@ -28,11 +30,16 @@ public class MustInGroupCondition  implements Condition {
 
     @Override
     public String getDescription() {
-        return person.getName() + " MUSI W GRUPIE " + group.getGroupName() ;
+        return person.getName() + " MUSI W GRUPIE " + group.getGroupName() +  "   PRIORYTET: " + priority ;
     }
 
     @Override
     public int getConditionId() {
         return conditionId;
+    }
+
+    @Override
+    public int getPriority() {
+        return priority;
     }
 }

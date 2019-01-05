@@ -21,7 +21,8 @@ public class ConMustAtTableDescriptor implements ConDescryptor{
         if(conditionT.getConditionType()==CONDITIONS_OPTIONS.MUST_AT_TABLE){
             PersonT p= findPersonWithId(conditionT.getId1());
             TableT t= findTableWithId(conditionT.getId2());
-            return (T) new MustAtTableCondition(p,t,conditionT.getConditionID());
+            int priority=conditionT.getPriority();
+            return (T) new MustAtTableCondition(p,t,conditionT.getConditionID(),priority);
         }
         else {
             return null;

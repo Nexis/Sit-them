@@ -13,11 +13,13 @@ public class MustNextToCondition implements Condition {
 
     private int conditionId;
     private final CONDITIONS_OPTIONS conditionType=CONDITIONS_OPTIONS.MUST_NEXT_TO;
+    private int priority;
 
-    public MustNextToCondition(PersonT person1ID, PersonT person2ID, int id) {
+    public MustNextToCondition(PersonT person1ID, PersonT person2ID, int id, int priority) {
         this.person1 = person1ID;
         this.person2 = person2ID;
         this.conditionId =id;
+        this.priority = priority;
     }
 
 
@@ -36,12 +38,17 @@ public class MustNextToCondition implements Condition {
 
     @Override
     public String getDescription() {
-        return person1.getName() + "MUSI OBOK " + person2.getName() ;
+        return person1.getName() + "MUSI OBOK " + person2.getName()  + "   PRIORYTET: " + priority;
     }
 
     @Override
     public int getConditionId() {
         return conditionId;
+    }
+
+    @Override
+    public int getPriority() {
+        return priority;
     }
 
 }

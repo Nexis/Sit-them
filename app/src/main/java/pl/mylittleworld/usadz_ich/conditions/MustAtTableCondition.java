@@ -12,13 +12,16 @@ public class MustAtTableCondition implements Condition {
     private PersonT person;
     private TableT table;
 
+    private int priority;
+
     private int conditionId;
     private final CONDITIONS_OPTIONS conditionType=CONDITIONS_OPTIONS.MUST_AT_TABLE;
 
-    public MustAtTableCondition(PersonT person, TableT tableT, int id) {
+    public MustAtTableCondition(PersonT person, TableT tableT, int id, int priority) {
         this.person = person;
         this.table = tableT;
         this.conditionId =id;
+        this.priority = priority;
     }
 
 
@@ -36,12 +39,17 @@ public class MustAtTableCondition implements Condition {
 
     @Override
     public String getDescription() {
-        return person.getName() + " MUSI PRZY STOLE " + table.getTableName() ;
+        return person.getName() + " MUSI PRZY STOLE " + table.getTableName() +  "   PRIORYTET: " + priority ;
     }
 
     @Override
     public int getConditionId() {
         return conditionId;
+    }
+
+    @Override
+    public int getPriority() {
+        return priority;
     }
 }
 

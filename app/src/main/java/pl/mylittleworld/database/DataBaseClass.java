@@ -11,7 +11,7 @@ import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.tables.TablesPlanT;
 
-@Database(entities = {TableT.class,PersonT.class,ChairT.class,ConditionT.class,TablesPlanT.class,GroupT.class},version=7)
+@Database(entities = {TableT.class,PersonT.class,ChairT.class,ConditionT.class,TablesPlanT.class,GroupT.class},version=8)
 @TypeConverters({TypesConverter.class})
 public abstract class DataBaseClass extends RoomDatabase{
 

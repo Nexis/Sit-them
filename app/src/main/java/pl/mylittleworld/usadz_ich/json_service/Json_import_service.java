@@ -1,13 +1,11 @@
 package pl.mylittleworld.usadz_ich.json_service;
 
-import android.animation.TypeConverter;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.InstanceCreator;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -19,14 +17,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.nio.channels.AcceptPendingException;
 
 import pl.mylittleworld.database.TypesConverter;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.usadz_ich.conditions.CantNextToCondition;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.MustNextToCondition;
-import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptors;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 import pl.mylittleworld.usadz_ich.view.MainActivity;
 
@@ -86,6 +82,7 @@ public class Json_import_service {
             String name1 = ((JsonObject) (((JsonObject) json).get("person1"))).get("name").getAsString();
             int person1ID = ((JsonObject) (((JsonObject) json).get("person1"))).get("personID").getAsInt();
 
+            int priority= (((JsonObject) json).get("priority")).getAsInt();
             int conditionId = (((JsonObject) json).get("conditionId")).getAsInt();
             switch (TypesConverter.stringToCondition(((JsonObject) json).get("conditionType").getAsString())) {
 
@@ -93,7 +90,7 @@ public class Json_import_service {
                 case CAN_T_NEXT_TO:
                     String name2 = ((JsonObject) (((JsonObject) json).get("person2"))).get("name").getAsString();
                     int person2ID = ((JsonObject) (((JsonObject) json).get("person2"))).get("personID").getAsInt();
-                    return new CantNextToCondition(new PersonT(name1, person1ID), new PersonT(name2, person2ID), conditionId);
+                    return new CantNextToCondition(new PersonT(name1, person1ID), new PersonT(name2, person2ID), conditionId,priority);
                 case FINE_NEXT_TO:
                     name2 = ((JsonObject) (((JsonObject) json).get("person2"))).get("name").getAsString();
                     person2ID = ((JsonObject) (((JsonObject) json).get("person2"))).get("personID").getAsInt();
@@ -101,7 +98,7 @@ public class Json_import_service {
                 case MUST_NEXT_TO:
                     name2 = ((JsonObject) (((JsonObject) json).get("person2"))).get("name").getAsString();
                     person2ID = ((JsonObject) (((JsonObject) json).get("person2"))).get("personID").getAsInt();
-                    return new MustNextToCondition(new PersonT(name1, person1ID), new PersonT(name2, person2ID), conditionId);
+                    return new MustNextToCondition(new PersonT(name1, person1ID), new PersonT(name2, person2ID), conditionId,priority);
                 case MUST_HERE:
                 case MUST_IN_GROUP:
             }

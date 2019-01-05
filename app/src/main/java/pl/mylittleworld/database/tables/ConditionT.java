@@ -12,10 +12,11 @@ import pl.mylittleworld.usadz_ich.conditions.CONDITIONS_OPTIONS;
 @Entity
 public class ConditionT {
 
-   public ConditionT(int id1, int id2, CONDITIONS_OPTIONS conditionType) {
+   public ConditionT(int id1, int id2, CONDITIONS_OPTIONS conditionType,int priority) {
         this.id1 = id1;
         this.id2 = id2;
         this.conditionType = conditionType;
+        this.priority=priority;
     }
 
 
@@ -24,6 +25,8 @@ public class ConditionT {
 
     private int id1;
     private int id2;
+
+    private int priority;
 
     private CONDITIONS_OPTIONS conditionType;
 
@@ -53,6 +56,14 @@ public class ConditionT {
 
     public CONDITIONS_OPTIONS getConditionType() {
         return conditionType;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public void setConditionType(CONDITIONS_OPTIONS conditionType) {
