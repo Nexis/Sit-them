@@ -26,7 +26,6 @@ public class SimpleListAdapter extends ArrayAdapter<NameId> {
     public SimpleListAdapter(Context context, ArrayList<NameId> items,View.OnClickListener listener,DATA_TYPE data_type) {
         super(context,0, items);
         this.listener=listener;
-        controler= ControlProvider.getInstance();
         this.dataType=data_type;
     }
 

@@ -45,7 +45,7 @@ public class MustNextToCondition implements Condition {
      */
     @Override
     public String getDescription() {
-        return person1.getName() + "MUSI OBOK " + person2.getName()  + "   PRIORYTET: " + priority;
+        return person1.getName() + " MUSI OBOK " + person2.getName()  + "   PRIORYTET: " + priority;
     }
 
     @Override

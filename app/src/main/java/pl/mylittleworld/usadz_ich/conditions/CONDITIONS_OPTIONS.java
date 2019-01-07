@@ -3,14 +3,13 @@ package pl.mylittleworld.usadz_ich.conditions;
 import java.util.ArrayList;
 
 import pl.mylittleworld.database.NameId;
-import pl.mylittleworld.database.TypesConverter;
 import pl.mylittleworld.usadz_ich.genetics.SomethingWentTerriblyWrongException;
 
 /**
  * This class is enum one, it contains possible types of conditions and provides methods to deal with them
  */
 public enum CONDITIONS_OPTIONS {
-    MUST_NEXT_TO, CAN_T_NEXT_TO, MUST_IN_GROUP, MUST_AT_TABLE, FINE_NEXT_TO,MUST_HERE;
+    MUST_NEXT_TO, CAN_T_NEXT_TO, MUST_IN_GROUP, MUST_AT_TABLE, MUST_HERE;
 
     /**
      *
@@ -43,10 +42,26 @@ public enum CONDITIONS_OPTIONS {
         ArrayList<NameId> nameIdArrayList = new ArrayList<>();
         CONDITIONS_OPTIONS tab[] = CONDITIONS_OPTIONS.values();
         for (CONDITIONS_OPTIONS conditionOption : tab) {
-            String condName = TypesConverter.conditionToString(conditionOption);
+            String condName = conditionOption.toString();
             int condId = conditionToValue(conditionOption);
             nameIdArrayList.add(new NameId(condName, condId));
         }
         return nameIdArrayList;
+    }
+    @Override
+    public String toString(){
+        switch (this){
+            case MUST_IN_GROUP: return "MUSI W GRUPIE";
+
+            case MUST_HERE: return "MUSI TUTAJ";
+
+            case MUST_NEXT_TO: return "MUSI OBOK";
+
+            case CAN_T_NEXT_TO: return "NIE MOŻE OBOK";
+
+            case MUST_AT_TABLE: return "MUSI PRZY STOLE";
+
+        }
+        return "NO OPTIONS";
     }
 }

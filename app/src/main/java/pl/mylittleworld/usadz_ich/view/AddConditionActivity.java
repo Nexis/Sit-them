@@ -128,7 +128,7 @@ public class AddConditionActivity extends AppCompatActivity{
             Toast.makeText(this,"NIE WYBRANO TYPU WARUNKU",Toast.LENGTH_LONG).show();
             return false;
         }
-        else if( conditionsOption==CONDITIONS_OPTIONS.CAN_T_NEXT_TO || conditionsOption==CONDITIONS_OPTIONS.MUST_NEXT_TO || conditionsOption==CONDITIONS_OPTIONS.FINE_NEXT_TO) {
+        else if( conditionsOption==CONDITIONS_OPTIONS.CAN_T_NEXT_TO || conditionsOption==CONDITIONS_OPTIONS.MUST_NEXT_TO ) {
             if(firstItemId==secondItemId){
                 Toast.makeText(this,"WYBRANO DWA RAZY TĘ SAMĄ OSOBĘ",Toast.LENGTH_LONG).show();
                 return false;
@@ -141,7 +141,6 @@ public class AddConditionActivity extends AppCompatActivity{
     private ArrayList<NameId> getSecondItemList() {
         switch (conditionsOption) {
             case MUST_NEXT_TO:
-            case FINE_NEXT_TO:
             case CAN_T_NEXT_TO:
                 return People.getTemporaryStoragePeopleAsNameId();
 

@@ -91,10 +91,7 @@ public class Json_import_service {
                     String name2 = ((JsonObject) (((JsonObject) json).get("person2"))).get("name").getAsString();
                     int person2ID = ((JsonObject) (((JsonObject) json).get("person2"))).get("personID").getAsInt();
                     return new CantNextToCondition(new PersonT(name1, person1ID), new PersonT(name2, person2ID), conditionId,priority);
-                case FINE_NEXT_TO:
-                    name2 = ((JsonObject) (((JsonObject) json).get("person2"))).get("name").getAsString();
-                    person2ID = ((JsonObject) (((JsonObject) json).get("person2"))).get("personID").getAsInt();
-                    return null;
+
                 case MUST_NEXT_TO:
                     name2 = ((JsonObject) (((JsonObject) json).get("person2"))).get("name").getAsString();
                     person2ID = ((JsonObject) (((JsonObject) json).get("person2"))).get("personID").getAsInt();
