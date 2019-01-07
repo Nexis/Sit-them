@@ -15,10 +15,20 @@ import java.util.List;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 import pl.mylittleworld.usadz_ich.view.MainActivity;
 
+/**
+ * This class enable import csv file with names of guests
+ */
 public class CsvImport {
     public static final int READ_CSV_REQUEST_CODE =155;
 
-    public static void parse(Uri uri,MainActivity activity) throws IOException {
+    /**
+     * This method is parsing given file, get out data and try import them for guests names list
+     * @param uri uri to file
+     * @param activity
+     * @throws IOException throws when something is wrong with file from given uri
+     *
+     */
+    public static void parse(Uri uri, MainActivity activity) throws IOException {
         InputStream inputStream = activity.getContentResolver().openInputStream(uri);
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 inputStream));

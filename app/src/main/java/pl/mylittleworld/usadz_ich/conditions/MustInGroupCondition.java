@@ -22,12 +22,19 @@ public class MustInGroupCondition  implements Condition {
     }
 
 
+    /**
+     *
+     * @param sittingPlan in which the condition fulfillment will be checked
+     * @return if this condition is fulfilled in a given sittingPlan
+     */
     @Override
     public boolean isThisConditionFulfilled(SittingPlan sittingPlan) {
 
        return false;
     }
-
+    /**
+     * @return description of condition
+     */
     @Override
     public String getDescription() {
         return person.getName() + " MUSI W GRUPIE " + group.getGroupName() +  "   PRIORYTET: " + priority ;

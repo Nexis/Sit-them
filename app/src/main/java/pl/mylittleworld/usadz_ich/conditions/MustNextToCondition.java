@@ -23,6 +23,11 @@ public class MustNextToCondition implements Condition {
     }
 
 
+    /**
+     *
+     * @param sittingPlan in which the condition fulfillment will be checked
+     * @return if this condition is fulfilled in a given sittingPlan
+     */
     @Override
     public boolean isThisConditionFulfilled(SittingPlan sittingPlan) {
 
@@ -35,7 +40,9 @@ public class MustNextToCondition implements Condition {
 
         throw new PersonNotSittedException();
     }
-
+    /**
+     * @return description of condition
+     */
     @Override
     public String getDescription() {
         return person1.getName() + "MUSI OBOK " + person2.getName()  + "   PRIORYTET: " + priority;

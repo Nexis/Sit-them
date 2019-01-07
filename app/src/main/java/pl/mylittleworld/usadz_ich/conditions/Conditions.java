@@ -6,6 +6,10 @@ import java.util.List;
 
 import pl.mylittleworld.usadz_ich.SittingPlan;
 
+/**
+ * This class can storage pack of conditions and provides method to access them
+ * here is also implemented a target function
+ */
 public class Conditions {
 
     private List<Condition> conditions;
@@ -18,27 +22,39 @@ public class Conditions {
         this.conditions = conditions;
     }
 
+    /**
+     *
+     * @param condition
+     * @return add given condition to stored
+     */
     public boolean addCondition(Condition condition){
         return conditions.add(condition);
     }
 
+    /**
+     *
+     * @return all stored conditions
+     */
     public List<Condition> getAll(){
         return conditions;
     }
 
+    /**
+     *
+     * @param condition
+     * @return remove same condition as given from stored
+     */
     public boolean removeCondition(Condition condition){
 
         return conditions.remove(condition);
     }
 
-    public boolean areAllConditionsFulfilled(SittingPlan sittingPlan){
-        for(Condition condition : conditions){
-            if(!condition.isThisConditionFulfilled(sittingPlan)) {
-                return false;
-            }
-        }
-        return true;
-    }
+    /**
+     * This is a target function
+     * @param sittingPlan for which it will calculate
+     * @return % of fulfilled conditions considering theirs priority
+     * in given sittingPlan
+     */
     public int howMuchAreConditionsFullfield(SittingPlan sittingPlan){
         int weightOfConditions=0;
         int weightOfFullFieldConditions=0;

@@ -5,6 +5,9 @@ import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.genetics.PersonNotSittedException;
 
+/**
+ * This class represents condition of type CAN_T_NEXT_TO which means that two people who are given can t seat close to each other
+ */
 public class CantNextToCondition implements Condition {
 
 
@@ -24,6 +27,11 @@ public class CantNextToCondition implements Condition {
     }
 
 
+    /**
+     *
+     * @param sittingPlan in which the condition fulfillment will be checked
+     * @return if this condition is fulfilled in a given sittingPlan
+     */
     @Override
     public boolean isThisConditionFulfilled(SittingPlan sittingPlan) {
 
@@ -36,7 +44,9 @@ public class CantNextToCondition implements Condition {
 
         throw new PersonNotSittedException();
     }
-
+    /**
+     * @return description of condition
+     */
     @Override
     public String getDescription() {
         return person1.getName() + " NIE MOŻE OBOK " + person2.getName() +  "   PRIORYTET: " + priority ;

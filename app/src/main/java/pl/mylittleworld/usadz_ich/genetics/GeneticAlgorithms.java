@@ -15,6 +15,9 @@ import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
 
+/**
+ * This class implements genetic algorithms
+ */
 public class GeneticAlgorithms {
   //todo kolo fortuny   sam obok sb     okragle stoly   testy   genetyczne dobor prawdopodobienstwa
     private Random random = new Random();
@@ -41,6 +44,10 @@ public class GeneticAlgorithms {
         return random.nextInt(numberOfSits);
     }
 
+    /**
+     * creates new empty sitting plan with all object but with default values
+     * @return this sittingPlan
+     */
     SittingPlan getNewEmptySittingPlan() {
 
         ArrayList<Seat> seats = new ArrayList<>();
@@ -53,6 +60,10 @@ public class GeneticAlgorithms {
 
     }
 
+    /**
+     * generates N random sitting plans- first population for genetics algoritms
+     * @return list of generated sitting plans
+     */
     List<SittingPlan> randFirstPopulation() {
 
         List<SittingPlan> sittingPlans = new ArrayList<SittingPlan>();
@@ -76,7 +87,7 @@ public class GeneticAlgorithms {
     }
 
     /**
-     * Function rotate randomed fragment
+     * Function rotate random fragment
      * parameter can be broken by method
      *
      * @param sittingPlan to mutate
@@ -107,11 +118,24 @@ public class GeneticAlgorithms {
         return mutated;
     }
 
+    /**
+     * This method rewrites values from seat at srcIndex in src to seat at targetIndex at target
+     * @param srcIndex
+     * @param targetIndex
+     * @param src source sitting plan
+     * @param target target sitting plan
+     *
+     */
     private void rewrite(int srcIndex, int targetIndex, SittingPlan src, SittingPlan target) {
         Seat tempSeat = src.getSitAt(srcIndex);
         target.getSitAt(targetIndex).setPersonID(tempSeat.getPersonID());
     }
 
+    /**
+     * This method makes and returns deep copy of given seatList
+     * @param seatList seat List to copy
+     * @return deep copy of given list
+     */
     private static List<Seat> getDeepCopyOfSeatList(final @NonNull List<Seat> seatList) {
         final List<Seat> copiedList = new ArrayList<>();
 
@@ -124,6 +148,11 @@ public class GeneticAlgorithms {
         return copiedList;
     }
 
+    /**
+     * This method makes mutation of genome, swap people at two seats -- in genetics algorithms naming convention
+     * @param sittingPlan -- genom
+     * @return mutated sitting plan
+     */
     SittingPlan mutate(SittingPlan sittingPlan) {
         if (sittingPlan.getNumberOfSits() > 1) {
             int sitNumber1 = randId();
@@ -138,6 +167,14 @@ public class GeneticAlgorithms {
         return sittingPlan;
     }
 
+    /**
+     *This function make from two given sitting plans one new-- it's crossover in in genetics algorithms naming
+     * @param mother sitting plan
+     * @param father sitting plan
+     * @return new sitting plan -- child in genetics alghorithms naming
+     * @throws SomethingWentTerriblyWrongException it is thrown for example when in father's plan
+     * is not the same amount of places
+     */
     SittingPlan copulate(SittingPlan mother, SittingPlan father) throws SomethingWentTerriblyWrongException {
         if (mother.getNumberOfSits() != father.getNumberOfSits()) {
             throw new SomethingWentTerriblyWrongException();
@@ -181,6 +218,14 @@ public class GeneticAlgorithms {
         return descendant;
     }
 
+    /**
+     * This method removes as many sitting plans as many new was created since last call, chance
+     * that particular sitting plan would be removed is proportional to attitude of its target function
+     * @param sittingPlans list of sitting plans
+     * @param numberToRemove how many new sitting plans were created
+     * @return list of sitting plans after removal some of them
+     */
+
     //todo change method to fortune circle with parent/child difference
     List<SittingPlan> naturalSelection(List<SittingPlan> sittingPlans, int numberToRemove) {
 
@@ -205,6 +250,11 @@ public class GeneticAlgorithms {
         return sittingPlans;
     }
 
+    /**
+     * Check if in a given list of sitting plans is one which suits perfect-- its target function returns 100%
+     * @param sittingPlans list of sitting plans
+     * @return perfect sitting plan if found otherwise null
+     */
     @Nullable
     private SittingPlan isTherePerfectOne(List<SittingPlan> sittingPlans) {
         for (SittingPlan sittingPlan : sittingPlans) {
@@ -216,6 +266,11 @@ public class GeneticAlgorithms {
         return null;
     }
 
+    /**
+     * This function is randomly invoking other genetics methods
+     * @return as good as can produce in given time or perfect sitting plan
+     * @throws SomethingWentTerriblyWrongException
+     */
     public SittingPlan evolution() throws SomethingWentTerriblyWrongException {
 
         List<SittingPlan> population = randFirstPopulation();
