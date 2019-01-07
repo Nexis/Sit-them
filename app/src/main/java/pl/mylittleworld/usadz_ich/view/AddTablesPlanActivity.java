@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import pl.mylittleworld.usadz_ich.R;
+import pl.mylittleworld.usadz_ich.TABLE_TYPE;
 import pl.mylittleworld.usadz_ich.logic.Control;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 
@@ -20,8 +22,10 @@ public class AddTablesPlanActivity extends Activity {
     private TextView guestsAtBottom;
     private EditText tableName;
 
-    private String tableNameS="Name1";
+    private String tableNameS="Table1";
     private int tableWidth;
+
+    private TABLE_TYPE tableType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,9 +42,14 @@ public class AddTablesPlanActivity extends Activity {
         findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tableNameS=tableName.getText().toString();
-                control.userWantsToAddTables(tableWidth,tableNameS);
-                finish();
+                if(tableType!= null && tableWidth >0) {
+                    tableNameS = tableName.getText().toString();
+                    control.userWantsToAddTables(tableWidth, tableNameS,tableType);
+                    finish();
+                }
+                else {
+                    Toast.makeText(AddTablesPlanActivity.this,"NALEŻY WYPEŁNIĆ WSZYSTKIE PARAMETRY",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -76,6 +85,23 @@ public class AddTablesPlanActivity extends Activity {
                 return false;
             }
         });
+
+        findViewById(R.id.radioButton1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               tableType=TABLE_TYPE.ROUND;
+                tableName.setBackground(getDrawable(R.drawable.circle));
+            }
+        });
+        findViewById(R.id.radioButton2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tableType=TABLE_TYPE.RECTANGULAR;
+                tableName.setBackground(null);
+                tableName.setBackgroundColor(getColor(R.color.cardview_dark_background));
+            }
+        });
+
 
 
 

@@ -1,9 +1,6 @@
 package pl.mylittleworld.usadz_ich.logic;
 
 
-import android.app.Activity;
-import android.content.Intent;
-
 import java.util.ArrayList;
 
 import pl.mylittleworld.database.Storage;
@@ -15,6 +12,7 @@ import pl.mylittleworld.database.temporary_storage.Tables;
 import pl.mylittleworld.database.temporary_storage.TemporaryStorageSittingPlan;
 import pl.mylittleworld.usadz_ich.DATA_TYPE;
 import pl.mylittleworld.usadz_ich.SittingPlan;
+import pl.mylittleworld.usadz_ich.TABLE_TYPE;
 import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConCanTNextToDescriptor;
@@ -71,14 +69,12 @@ public class Control {
     }
 
 
-    public void userWantsToAddTables(int with,String tableName){
-        storageAssistant.addTable(new TableT(with,tableName));
+    public void userWantsToAddTables(int with, String tableName, TABLE_TYPE tableType){
+        storageAssistant.addTable(new TableT(with,tableName,tableType));
         TemporaryStorageSittingPlan.setActual(false);
 
     }
-    public void userWantsToDeleteTables(TableT ... tables){
-        TemporaryStorageSittingPlan.setActual(false);
-    }
+
 
     public void userWantsToAddCondition(ConditionT... conditions){
         storageAssistant.addCondition(conditions);
@@ -94,12 +90,6 @@ public class Control {
         storageAssistant.getConditionsList(listener);
     }
 
-    public void userWantsToBrowseItems(TYPE_FOR_CONDITION type, Activity context) {
-
-    }
-
-    public void userChoseItem(int requestCode, int resultCode, Intent data, Activity activity) {
-    }
 
     public void getTableListForDisplay(Storage.GetDataListener listener) {
         storageAssistant.getTablesList(listener);

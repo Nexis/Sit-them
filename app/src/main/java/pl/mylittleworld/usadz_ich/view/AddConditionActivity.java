@@ -120,7 +120,21 @@ public class AddConditionActivity extends AppCompatActivity{
     }
 
     private boolean conditionParamsAreProper() {
-        return firstItemId != -1 && secondItemId != -1 && conditionsOption != null;
+        if(firstItemId == -1 || secondItemId == -1){
+            Toast.makeText(this,"NIE WYBRANO CZŁONÓW",Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else if(conditionsOption== null){
+            Toast.makeText(this,"NIE WYBRANO TYPU WARUNKU",Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else if( conditionsOption==CONDITIONS_OPTIONS.CAN_T_NEXT_TO || conditionsOption==CONDITIONS_OPTIONS.MUST_NEXT_TO || conditionsOption==CONDITIONS_OPTIONS.FINE_NEXT_TO) {
+            if(firstItemId==secondItemId){
+                Toast.makeText(this,"WYBRANO DWA RAZY TĘ SAMĄ OSOBĘ",Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+        return true;
     }
 
     @Nullable

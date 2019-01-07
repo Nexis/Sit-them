@@ -12,9 +12,10 @@ import pl.mylittleworld.usadz_ich.TABLE_TYPE;
 @Entity
 public class TableT {
 
-    public TableT(int tableWidth, String tableName) {
+    public TableT(int tableWidth, String tableName,TABLE_TYPE tableType) {
         this.tableWidth = tableWidth;
         this.tableName = tableName;
+        this.tableType=tableType;
     }
 
     @PrimaryKey(autoGenerate = true)
@@ -29,7 +30,7 @@ public class TableT {
 
     private int tablesPlanId=1;
 
-    private TABLE_TYPE tableType=TABLE_TYPE.RECTANGULAR;
+    private TABLE_TYPE tableType;
 
     public String getTableName() {
         return tableName;

@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 
 import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.database.tables.TableT;
+import pl.mylittleworld.usadz_ich.genetics.SomethingWentTerriblyWrongException;
 
 /**
  * This class is a temporary storage for tables list
@@ -62,6 +63,20 @@ public class Tables {
             temporaryStorageTables = tableTS;
             initialized = true;
         }
+    }
+
+    /**
+     *
+     * @param tableID
+     * @return  table with given id
+     */
+    public static TableT getTable(int tableID){
+        for(TableT tableT: temporaryStorageTables){
+            if(tableT.getTableID()==tableID) {
+                return tableT;
+            }
+        }
+        throw new SomethingWentTerriblyWrongException("NO TABLE WITH GIVEN ID");
     }
     /**
      * Provides posibility to update tables temporary storage

@@ -220,7 +220,8 @@ public class MainActivity extends AppCompatActivity implements Storage.GetDataLi
 
     @Override
     public void onListsRetrived(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, ArrayList<PersonT> peopleList) {
-
+        Tables.initialize(tableList);
+        Tables.update(tableList);
         logicController.getSittingPlan(tableList, conditionsList, peopleList, this);
     }
 

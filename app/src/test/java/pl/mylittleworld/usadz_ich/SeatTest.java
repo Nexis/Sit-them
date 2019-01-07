@@ -1,12 +1,16 @@
 package pl.mylittleworld.usadz_ich;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.junit.Assert;
+
+import java.util.ArrayList;
 
 import pl.mylittleworld.database.tables.ChairT;
+import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.temporary_storage.Seat;
+import pl.mylittleworld.database.temporary_storage.Tables;
 
 import static org.mockito.Mockito.when;
 
@@ -15,12 +19,23 @@ public class SeatTest {
     ChairT mockChair1= Mockito.mock(ChairT.class);
 
     Seat seat= new Seat(mockChair1,6);
+    ArrayList<TableT> tableTS= new ArrayList<>();
+
+    TableT table1= Mockito.mock(TableT.class);
+
 
     @Before
     public void initialize() {
         when(mockChair1.getX()).thenReturn(1);
         when(mockChair1.getY()).thenReturn(5);
         when(mockChair1.getTableID()).thenReturn(3);
+
+        Mockito.when(table1.getTableID()).thenReturn(3);
+        Mockito.when(table1.getTableType()).thenReturn(TABLE_TYPE.RECTANGULAR);
+        tableTS.add(table1);
+
+        Tables.initialize(tableTS);
+        Tables.update(tableTS);
     }
     @Test
     public void areThoseSitsCloseToEachOther(){

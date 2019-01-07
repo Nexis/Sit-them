@@ -1,6 +1,7 @@
 package pl.mylittleworld.usadz_ich.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.SittingPlan;
+import pl.mylittleworld.usadz_ich.TABLE_TYPE;
 import pl.mylittleworld.usadz_ich.logic.Control;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 
@@ -44,6 +46,14 @@ public class ListAdapterForSittingPlan extends ArrayAdapter<TableT> {
         TextView guestsList= convertView.findViewById(R.id.guests_list);
 
         int width=tableT.getTableWidth();
+
+        if(tableT.getTableType()==TABLE_TYPE.ROUND){
+            tableName.setBackground(getContext().getDrawable(R.drawable.circle));
+        }
+        else{
+            tableName.setBackground(null);
+            tableName.setBackgroundColor(Color.parseColor("#FF000000"));
+        }
 
         guests1.setText(AddTablesPlanActivity.getNumbersInString(1, width));
         tableName.setText(tableT.getTableName());
