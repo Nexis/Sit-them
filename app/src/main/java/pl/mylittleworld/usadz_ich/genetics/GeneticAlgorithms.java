@@ -19,7 +19,7 @@ import pl.mylittleworld.usadz_ich.conditions.Conditions;
  * This class implements genetic algorithms
  */
 public class GeneticAlgorithms {
-  //todo kolo fortuny   testy   genetyczne dobor prawdopodobienstwa
+  //todo kolo fortuny   genetyczne dobor prawdopodobienstwa javadoc diagonally opossite timeout
     private Random random = new Random();
 
     private final int populationSize = 10;
@@ -271,6 +271,7 @@ public class GeneticAlgorithms {
      * @return as good as can produce in given time or perfect sitting plan
      * @throws SomethingWentTerriblyWrongException
      */
+
     public SittingPlan evolution() throws SomethingWentTerriblyWrongException {
 
         List<SittingPlan> population = randFirstPopulation();

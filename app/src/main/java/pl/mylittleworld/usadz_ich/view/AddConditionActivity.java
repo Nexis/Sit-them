@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import pl.mylittleworld.database.NameId;
+import pl.mylittleworld.database.TypesConverter;
 import pl.mylittleworld.database.temporary_storage.People;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.usadz_ich.R;
@@ -86,7 +87,7 @@ public class AddConditionActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if (conditionParamsAreProper()){
-                    logicController.userWantsToAddCondition(new ConditionT(firstItemId,secondItemId,conditionsOption,priority));
+                    logicController.userWantsToAddCondition(new ConditionT(firstItemId,secondItemId,TypesConverter.stringToCondition(conditionsOption.name()),priority));
                     finish();
                 }
             }

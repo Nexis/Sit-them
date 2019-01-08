@@ -42,14 +42,14 @@ public enum CONDITIONS_OPTIONS {
         ArrayList<NameId> nameIdArrayList = new ArrayList<>();
         CONDITIONS_OPTIONS tab[] = CONDITIONS_OPTIONS.values();
         for (CONDITIONS_OPTIONS conditionOption : tab) {
-            String condName = conditionOption.toString();
+            String condName = conditionOption.polishRepresentation();
             int condId = conditionToValue(conditionOption);
             nameIdArrayList.add(new NameId(condName, condId));
         }
         return nameIdArrayList;
     }
-    @Override
-    public String toString(){
+
+    public String polishRepresentation(){
         switch (this){
             case MUST_IN_GROUP: return "MUSI W GRUPIE";
 
