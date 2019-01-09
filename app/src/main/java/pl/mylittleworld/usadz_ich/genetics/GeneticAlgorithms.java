@@ -9,9 +9,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-import pl.mylittleworld.database.temporary_storage.Seat;
 import pl.mylittleworld.database.tables.ChairT;
 import pl.mylittleworld.database.tables.PersonT;
+import pl.mylittleworld.database.temporary_storage.Seat;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
 
@@ -19,7 +19,7 @@ import pl.mylittleworld.usadz_ich.conditions.Conditions;
  * This class implements genetic algorithms
  */
 public class GeneticAlgorithms {
-  //todo kolo fortuny   genetyczne dobor prawdopodobienstwa javadoc diagonally opossite timeout rozmiar podgrup
+  //todo genetyczne dobor prawdopodobienstwa rozmiar podgrup grupy
     private Random random = new Random();
 
     private final int populationSize = 10;
@@ -226,7 +226,6 @@ public class GeneticAlgorithms {
      * @return list of sitting plans after removal some of them
      */
 
-    //todo change method to fortune circle with parent/child difference
     List<SittingPlan> naturalSelection(List<SittingPlan> sittingPlans, int numberToRemove) {
 
         Collections.sort(sittingPlans, new Comparator<SittingPlan>() {
@@ -244,7 +243,16 @@ public class GeneticAlgorithms {
         });
 
         for (int i = 0; i < numberToRemove; ++i) {
-            sittingPlans.remove(0);
+            boolean removed=false;
+            while(removed==false) {
+                int rand=random.nextInt(100);
+                int index=0;
+                if(rand > sittingPlans.get(index).getAdaptationLvl()) {
+                    sittingPlans.remove(index);
+                    removed= true;
+                }
+                ++index;
+            }
         }
 
         return sittingPlans;
@@ -276,22 +284,25 @@ public class GeneticAlgorithms {
 
         List<SittingPlan> population = randFirstPopulation();
         SittingPlan perfect = null;
+        SittingPlan currentBest=null;
 
         int rand;
+        long startTime = System.currentTimeMillis();
+        long duration= System.currentTimeMillis()-startTime;
 //todo dobrac eksperymentalnie prawdopodobienstwa
-        while (perfect == null) {
+        while (perfect == null && duration< 60000) {
             int amountOfNewPopulationMembers = 0;
 
             rand = random.nextInt(100);
 
             //MUTATE
-            if (rand < 70) {
+            if (rand < 20) {
                 int which = randId();
                 SittingPlan mutated = mutate(population.get(which));
                 population.set(which, mutated);
             }
             //MUTATE BIG
-            else if (rand < 85) {
+            else if (rand < 25) {
                 int which = randId();
                 SittingPlan mutated = mutateBig(population.get(which));
                 population.set(which, mutated);
@@ -305,9 +316,28 @@ public class GeneticAlgorithms {
 
             population = naturalSelection(population, amountOfNewPopulationMembers);
 
+            currentBest=getCurrentBest(population);
             perfect = isTherePerfectOne(population);
+            duration= System.currentTimeMillis()-startTime;
         }
+        if(perfect!=null) {
+            return perfect;
+        }
+        else {
+            return currentBest;
+        }
+    }
 
-        return perfect;
+    private SittingPlan getCurrentBest(List<SittingPlan> sittingPlans) {
+        SittingPlan currentBest= sittingPlans.get(0);
+        int currentAdaptationLvl=currentBest.getAdaptationLvl();
+            for (SittingPlan sittingPlan : sittingPlans) {
+                if (sittingPlan.getAdaptationLvl() > currentAdaptationLvl) {
+                    currentBest= sittingPlan;
+                    currentAdaptationLvl=currentBest.getAdaptationLvl();
+                }
+            }
+            return currentBest;
+
     }
 }

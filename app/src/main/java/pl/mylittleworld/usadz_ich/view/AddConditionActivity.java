@@ -16,6 +16,7 @@ import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.database.TypesConverter;
 import pl.mylittleworld.database.temporary_storage.People;
 import pl.mylittleworld.database.tables.ConditionT;
+import pl.mylittleworld.database.temporary_storage.Tables;
 import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.conditions.CONDITIONS_OPTIONS;
 import pl.mylittleworld.usadz_ich.logic.Control;
@@ -146,7 +147,7 @@ public class AddConditionActivity extends AppCompatActivity{
                 return People.getTemporaryStoragePeopleAsNameId();
 
             case MUST_AT_TABLE:
-                return null;
+                return Tables.getTemporaryStorageTablesAsNameId();
             default:
                 return null;
         }
