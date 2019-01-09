@@ -49,6 +49,10 @@ public enum CONDITIONS_OPTIONS {
         return nameIdArrayList;
     }
 
+    /**
+     *
+     * @return Polish representation, names of  CONDITIONS_OPTIONS
+     */
     public String polishRepresentation(){
         switch (this){
             case MUST_IN_GROUP: return "MUSI W GRUPIE";

@@ -5,7 +5,6 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
-import android.database.Cursor;
 
 import java.util.List;
 
@@ -14,6 +13,9 @@ import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.tables.TablesPlanT;
 
+/**
+ * This class is a room Dao-- Data access object
+ */
 
 @Dao
 public interface DAOClass {

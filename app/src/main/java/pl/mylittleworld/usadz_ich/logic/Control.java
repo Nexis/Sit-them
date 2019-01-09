@@ -24,17 +24,25 @@ import pl.mylittleworld.usadz_ich.json_service.ImportDataListener;
 import pl.mylittleworld.usadz_ich.json_service.Json_format;
 import pl.mylittleworld.usadz_ich.view.MainActivity;
 
+/**
+ * This class knows who to ask about data and how to react on users actions
+ */
 public class Control {
 
     private Storage storageAssistant;
     private ConditionDescriptors conditionDescriptors;
 
-
+    /**
+     * @param storage it s given for storage access assistant
+     */
     public void giveStorageAssistant(Storage storage){
         storageAssistant=storage;
     }
 
-
+    /**
+     * It's invoked when user goes into Guests list view
+     * @param listener which should be called when guests list data is ready
+     */
     public void getPeopleListForDisplay(Storage.GetDataListener listener){
         storageAssistant.getGuestsList(listener);
     }
@@ -46,6 +54,10 @@ public class Control {
 
     }
 
+    /**
+     * It's invoked when user wants add guest
+     * @param personName name of person to add
+     */
     public void userWantsToAddGuest(String personName){
         if(checkIfNameIsProper(personName)){
             storageAssistant.addGuest(personName);
@@ -63,41 +75,72 @@ public class Control {
         return true;
 
     }
+    /**
+     * It's invoked when user wants delete guests
+     * @param people list pf guests which user wants to delete
+     */
     public void userWantsToDeleteGuests(PersonT... people){
         storageAssistant.deleteGuests(people);
         TemporaryStorageSittingPlan.setActual(false);
     }
 
 
+    /**
+     * It's invoked when user wants add tables
+     * @param with of new table
+     * @param tableName name of table
+     * @param tableType type of table
+     */
     public void userWantsToAddTables(int with, String tableName, TABLE_TYPE tableType){
         storageAssistant.addTable(new TableT(with,tableName,tableType));
         TemporaryStorageSittingPlan.setActual(false);
 
     }
 
-
+    /**
+     * It's invoked when user wants add condition
+     * @param conditions list of conditions to add
+     */
     public void userWantsToAddCondition(ConditionT... conditions){
         storageAssistant.addCondition(conditions);
         TemporaryStorageSittingPlan.setActual(false);
     }
+    /**
+     * It's invoked when user wants delete condition
+     * @param conditionId id of condition which user wants to delete
+     */
     public void userWantsToDeleteCondition(int conditionId){
         storageAssistant.deleteCondition(conditionId);
         TemporaryStorageSittingPlan.setActual(false);
 
     }
-
+    /**
+     * It's invoked when user goes into Condition list view
+     * @param listener which should be called when conditions list data is ready
+     */
     public void getConditionsListForDisplay(Storage.GetDataListener listener) {
         storageAssistant.getConditionsList(listener);
     }
 
-
+    /**
+     * It's invoked when user goes into Tables list view
+     * @param listener which should be called when tables list data is ready
+     */
     public void getTableListForDisplay(Storage.GetDataListener listener) {
         storageAssistant.getTablesList(listener);
     }
 
+    /**
+     * It's invoked when user goes into Sitting plan view and wants a new one to be generated
+     * @param storage listener which should be called when all needed is ready
+     */
     public void userWantsToCalculateSittingPlan(Storage.GetDataListener storage) {
         storageAssistant.getPeopleConditionsAndTables(storage);
     }
+    /**
+     * It's invoked when user goes into Sitting plan view
+     * @param context which should be called when sitting plan data is ready
+     */
     public void userWantToSeeCurrentSittingPlan(MainActivity context){
         if(TemporaryStorageSittingPlan.exists() && TemporaryStorageSittingPlan.isActual() && Tables.isInitialized()){
             SittingPlan sittingPlan=TemporaryStorageSittingPlan.getActualSittingPlan();
@@ -107,6 +150,7 @@ public class Control {
             context.noContent();
         }
     }
+
 
     private  void addChairsForTable(TableT table, ArrayList<ChairT> chairTS){
 
@@ -139,6 +183,13 @@ public class Control {
         return conditionDescriptors;
     }
 
+    /**
+     * This method invokes generating new sitting plan
+     * @param tableList data which will be used to generate proper sitting plan
+     * @param conditionsList data which will be used to generate proper sitting plan
+     * @param peopleList data which will be used to generate proper sitting plan
+     * @param context listener to inform and give generated sitting plan
+     */
     public void getSittingPlan(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, ArrayList<PersonT> peopleList,MainActivity context) {
         ArrayList<ChairT> chairTS= new ArrayList<>();
 
@@ -155,6 +206,11 @@ public class Control {
         context.showSittingPlanList(sittingPlan,tableList);
     }
 
+    /**
+     * This function is invoked when item from universal list
+     * @param id of thing which will be delated
+     * @param dataType type of list
+     */
     public void userWantsToDeleteItem(int id, DATA_TYPE dataType) {
         if(dataType!=null){
             switch (dataType){

@@ -7,6 +7,9 @@ import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 
+/**
+ * This class has references to all object which will be stored in json, to store them easily in one file
+ */
 public class Json_format {
     private SittingPlan sittingPlan;
     private ArrayList<TableT> tableList;

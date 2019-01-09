@@ -26,6 +26,9 @@ import pl.mylittleworld.usadz_ich.conditions.MustNextToCondition;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 import pl.mylittleworld.usadz_ich.view.MainActivity;
 
+/**
+ * This class provides import all app data from json
+ */
 public class Json_import_service {
 
 
@@ -53,6 +56,12 @@ public class Json_import_service {
         activity.startActivityForResult(intent, READ_REQUEST_CODE);
     }
 
+    /**
+     * This function read data from file under given uri and insert into class object
+     * @param uri to file which will be read
+     * @param activity -- current n which inputStream is created
+     * @throws IOException when someting is wrong with file under given uri
+     */
     public static void readTextFromUri(Uri uri, MainActivity activity) throws IOException {
         InputStream inputStream = activity.getContentResolver().openInputStream(uri);
         BufferedReader reader = new BufferedReader(new InputStreamReader(

@@ -2,6 +2,9 @@ package pl.mylittleworld.usadz_ich;
 
 import android.support.annotation.Nullable;
 
+/**
+ * Avilable table types
+ */
 public enum TABLE_TYPE { ROUND, RECTANGULAR;
 
     /**

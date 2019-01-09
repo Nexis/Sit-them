@@ -17,8 +17,14 @@ import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.temporary_storage.TemporaryStorageSittingPlan;
 import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 
+/**
+ * This class supports json export
+ */
 public class Json_export_service implements Storage.GetDataListener {
 
+    /**
+     * This function start packing data for json-- asks data storage for data to pack
+     */
     public void packJson() {
         ControlProvider.getInstance().getAllForExport(this);
     }
@@ -38,6 +44,13 @@ public class Json_export_service implements Storage.GetDataListener {
 
     }
 
+    /**
+     * This function gets informations and pack them in json named plan.json
+     * @param tableList to pack
+     * @param conditionsList to pack
+     * @param peopleList to pack
+     *
+     */
     @Override
     public void onListsRetrived(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, ArrayList<PersonT> peopleList) {
         Gson gson = new Gson();
@@ -45,7 +58,7 @@ public class Json_export_service implements Storage.GetDataListener {
         String json = gson.toJson(json_format);
 
         if (isExternalStorageWritable()) {
-            File file = getPublicAlbumStorageDir("kmk.json");
+            File file = getPublicAlbumStorageDir("plan.json");
             if (file.canWrite()) {
 
                 try {

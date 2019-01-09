@@ -12,6 +12,9 @@ import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
 
+/**
+ * This class represents plan of seats -- what people at which places what conditions should be included
+ */
 public class SittingPlan {
 
     private List<Seat> seatList =new ArrayList<>();
@@ -53,6 +56,11 @@ public class SittingPlan {
         this.conditions = conditions;
     }
 
+    /**
+     * This method returns information where sit person with given id
+     * @param personID id of person whose sitting place is asked
+     * @return Seat where person with given id sits
+     */
     public Seat whereSits(int personID){
         for (Seat seat : seatList) {
             if(seat.getPersonID()==personID)
@@ -60,18 +68,18 @@ public class SittingPlan {
         }
         return null;
     }
+
+    /**
+     * @param index of Seat
+     * @return Seat at given index
+     */
     public Seat getSitAt(int index){
         return seatList.get(index);
     }
-    public boolean addSit(Seat seat) {
-        return seatList.add(seat);
-    }
-    public boolean updateSit(){
-        return false;
-    }
-    public boolean removeSit(){
-        return false;
-    }
+
+    /**
+     * @return amount of places to seat
+     */
     public int getNumberOfSits(){
         return seatList.size();
     }
@@ -83,6 +91,13 @@ public class SittingPlan {
         }
         return false;
     }
+
+    /**
+     * This method swaps people at seats of given indexed
+     * @param sitNumber1 index of first sit
+     * @param sitNumber2 index of second sit
+     * @return if swap at given seats is available -- if swap is done
+     */
     public boolean swapPeopleAtSits(int sitNumber1,int sitNumber2){
 
         int tempPersonId1= seatList.get(sitNumber1).getPersonID();
@@ -98,6 +113,11 @@ public class SittingPlan {
             return false;
         }
     }
+
+    /**
+     * @param personID id of person
+     * @return if person with given id has assigned seat
+     */
     public boolean isThisPersonSitted(int personID){
         for (Seat seat : seatList) {
             if(seat.getPersonID()==personID)
@@ -105,6 +125,11 @@ public class SittingPlan {
         }
         return false;
     }
+
+    /**
+     * @param index in personm list
+     * @return if person under given index has assigned seat
+     */
     public boolean isPersonUnderThisIndexSitted(int index){
         int personID=people.get(index).getPersonID();
         return isThisPersonSitted(personID);
@@ -122,6 +147,11 @@ public class SittingPlan {
        return out;
     }
 
+    /**
+     *
+     * @param tableT object of table
+     * @return list of guests who sits at table given as a param
+     */
     public ArrayList<NameId> getGuestsSittingByThisTable(TableT tableT){
         ArrayList<NameId> guestsAtTable= new ArrayList<>();
         People.update((ArrayList)people);
@@ -134,7 +164,6 @@ public class SittingPlan {
         }
         return guestsAtTable;
     }
-
     private int whoSitsAt(int x, int y, int tableID) {
         for (Seat seat : seatList) {
             if(seat.getChairT().getTableID()==tableID && seat.getChairT().getX()==x && seat.getChairT().getY()==y) {

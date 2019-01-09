@@ -19,7 +19,7 @@ import pl.mylittleworld.usadz_ich.conditions.Conditions;
  * This class implements genetic algorithms
  */
 public class GeneticAlgorithms {
-  //todo kolo fortuny   genetyczne dobor prawdopodobienstwa javadoc diagonally opossite timeout
+  //todo kolo fortuny   genetyczne dobor prawdopodobienstwa javadoc diagonally opossite timeout rozmiar podgrup
     private Random random = new Random();
 
     private final int populationSize = 10;

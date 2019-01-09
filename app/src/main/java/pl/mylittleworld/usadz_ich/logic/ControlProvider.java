@@ -1,7 +1,8 @@
 package pl.mylittleworld.usadz_ich.logic;
 
-import pl.mylittleworld.usadz_ich.logic.Control;
-
+/**
+ * This class provides Control object to all others
+ */
 public final class ControlProvider {
 
     private static final Control control= new Control();
