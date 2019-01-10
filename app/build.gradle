@@ -1,7 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        sign {
+            keyAlias 'sign'
+            keyPassword 'sign'
+            storePassword 'sign'
+        }
+    }
     compileSdkVersion 27
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
     defaultConfig {
         applicationId "pl.mylittleworld.usadz_ich"
         minSdkVersion 21
@@ -23,7 +34,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation "com.opencsv:opencsv:4.0"
+    implementation 'com.opencsv:opencsv:4.0'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.20.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

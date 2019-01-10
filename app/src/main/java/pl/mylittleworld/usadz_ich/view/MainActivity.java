@@ -240,13 +240,13 @@ public class MainActivity extends AppCompatActivity implements Storage.GetDataLi
 
             }
         });
-        Log.d("OUTPUT:", sittingPlan.toString());
+        Log.d("OUTPUT:", sittingPlan.getDescription());
 
     }
 
     private boolean permissionAsk() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED){
             // Permission is not granted
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,

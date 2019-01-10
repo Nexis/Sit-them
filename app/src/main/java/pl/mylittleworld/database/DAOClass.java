@@ -43,7 +43,7 @@ public interface DAOClass {
     int updatePerson(PersonT... people);
 
     @Delete
-    int deletePerson(PersonT... people);
+    int deletePerson(PersonT people);
 
     @Query("SELECT *  FROM PersonT")
     List<PersonT> getGuests();
@@ -71,4 +71,10 @@ public interface DAOClass {
 
     @Query("DELETE FROM ConditionT WHERE conditionID=:id")
     void deleteConditionWithId(int id);
+
+    @Query("DELETE FROM ConditionT WHERE ((conditionType=\"MUST_NEXT_TO\" OR conditionType=\"CAN_T_NEXT_TO\") AND id2=:personID) OR id1=:personID")
+    void deleteRelatedWithPersonConditions(int personID);
+
+    @Query("DELETE FROM ConditionT WHERE (conditionType=\"MUST_AT_TABLE\" OR conditionType=\"MUST_HERE\") AND id2=:id")
+    void deleteRelatedWithTableConditions(int id);
 }

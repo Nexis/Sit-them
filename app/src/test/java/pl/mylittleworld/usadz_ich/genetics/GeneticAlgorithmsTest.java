@@ -68,7 +68,7 @@ public class GeneticAlgorithmsTest {
         //checking rotated fragment
         for (int index=0,i = mutationStartIndex; i < mutationEndIndex; ++i, ++index) {
             if (sittingPlan.getSitAt(i).getPersonID() != seatList.get(mutationEndIndex-index).getPersonID()) {
-               throw new IllegalStateException("Mutation not only rotated the fragment "+sittingPlan.toString()+" \n\n"+ mutationStartIndex +" "+ mutationEndIndex+ "\n"+new SittingPlan(seatList, Mockito.mock(Conditions.class), people).toString());
+               throw new IllegalStateException("Mutation not only rotated the fragment "+sittingPlan.getDescription()+" \n\n"+ mutationStartIndex +" "+ mutationEndIndex+ "\n"+new SittingPlan(seatList, Mockito.mock(Conditions.class), people).getDescription());
             }
         }
 
@@ -162,7 +162,7 @@ public class GeneticAlgorithmsTest {
 
             //check if all people are sitted
             for(int i=0;i<30;++i){
-                if(!sittingPlan3.isThisPersonSitted(i)){
+                if(!sittingPlan3.isPersonUnderThisIndexSitted(i)){
                     fail();
                 }
             }

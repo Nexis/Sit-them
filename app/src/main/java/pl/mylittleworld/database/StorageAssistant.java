@@ -10,6 +10,7 @@ import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.tables.TablesPlanT;
 import pl.mylittleworld.database.tasks.GetConditionsTask;
+import pl.mylittleworld.database.temporary_storage.Tables;
 import pl.mylittleworld.database.temporary_storage.TemporaryStorageSittingPlan;
 import pl.mylittleworld.usadz_ich.json_service.ImportDataListener;
 import pl.mylittleworld.usadz_ich.json_service.Json_format;
@@ -41,6 +42,7 @@ public class StorageAssistant implements Storage {
         ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
             @Override
             public void run() {
+                dataBase.getDao().deleteRelatedWithTableConditions(id);
                 dataBase.getDao().deleteTableWithId(id);
             }
         });
@@ -83,11 +85,12 @@ public class StorageAssistant implements Storage {
     }
 
     @Override
-    public void deleteGuests(final PersonT... peopleT) {
+    public void deleteGuests(final PersonT personT) {
         ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
             @Override
             public void run() {
-                dataBase.getDao().deletePerson(peopleT);
+                dataBase.getDao().deleteRelatedWithPersonConditions(personT.getPersonID());
+                dataBase.getDao().deletePerson(personT);
             }
         });
     }
@@ -108,6 +111,7 @@ public class StorageAssistant implements Storage {
            @Override
            public void run() {
                dataBase.getDao().insertTable(tableT);
+               getTablesList(new Tables());
            }
        });
     }

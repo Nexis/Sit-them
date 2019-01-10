@@ -1,6 +1,8 @@
 package pl.mylittleworld.usadz_ich.logic;
 
 
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import pl.mylittleworld.database.Storage;
@@ -51,7 +53,6 @@ public class Control {
     }
     public void userWantsToImportDataFromJson(ImportDataListener listener, Json_format json){
         storageAssistant.cleanAndImportData(listener,json);
-
     }
 
     /**
@@ -79,7 +80,7 @@ public class Control {
      * It's invoked when user wants delete guests
      * @param people list pf guests which user wants to delete
      */
-    public void userWantsToDeleteGuests(PersonT... people){
+    public void userWantsToDeleteGuests(PersonT people){
         storageAssistant.deleteGuests(people);
         TemporaryStorageSittingPlan.setActual(false);
     }
@@ -190,11 +191,24 @@ public class Control {
      * @param peopleList data which will be used to generate proper sitting plan
      * @param context listener to inform and give generated sitting plan
      */
-    public void getSittingPlan(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, ArrayList<PersonT> peopleList,MainActivity context) {
-        ArrayList<ChairT> chairTS= new ArrayList<>();
+    public void getSittingPlan(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, final ArrayList<PersonT> peopleList,final MainActivity context) {
+        final ArrayList<ChairT> chairTS= new ArrayList<>();
+
+
 
         for(TableT table:tableList) {
             addChairsForTable(table,chairTS);
+        }
+        if(peopleList.size()!=chairTS.size()){
+            if (context.isFinishing() || context.isDestroyed()) return;
+            context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (context.isFinishing() || context.isDestroyed()) return;
+                    Toast.makeText(context,"ILOŚĆ MIEJSC AKTUALNIE "+ chairTS.size()+" I ILOŚĆ OSÓB AKTUALNIE " +peopleList.size() +" MUSZĄ BYĆ TAKIE SAME",Toast.LENGTH_LONG).show();
+                }
+            });
+           return;
         }
 
         ArrayList<Condition> conditions=conditionDescriptors.descryptConditionT(conditionsList);

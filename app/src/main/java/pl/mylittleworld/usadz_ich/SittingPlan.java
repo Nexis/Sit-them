@@ -135,8 +135,8 @@ public class SittingPlan {
         return isThisPersonSitted(personID);
     }
 
-    @Override
-    public String toString() {
+
+    public String getDescription() {
         String out="";
        for(int i=0;i<getNumberOfSits();++i){
            out+="czlowiek "+ People.getNameOfPerson(getSitAt(i).getPersonID());

@@ -71,18 +71,17 @@ public class GeneticAlgorithms {
             sittingPlans.add(getNewEmptySittingPlan());
         }
 
-        int randPersonIndex;
-        int numberOfSits = sittingPlans.get(0).getNumberOfSits();
+        List <Integer> idList=new ArrayList<>();
 
-        for (SittingPlan sittingPlan : sittingPlans) {
-            randPersonIndex = randId();
             for (int i = 0; i < numberOfSits; ++i) {
-                while (sittingPlan.isPersonUnderThisIndexSitted(randPersonIndex)) {
-                    randPersonIndex = randId();
-                }
-                sittingPlan.getSitAt(i).setPersonID(people.get(randPersonIndex).getPersonID());
+               idList.add(people.get(i).getPersonID());
             }
-        }
+            for(SittingPlan sittingPlan: sittingPlans) {
+                Collections.shuffle(idList);
+                for (int i = 0; i < numberOfSits; ++i) {
+                    sittingPlan.getSitAt(i).setPersonID(idList.get(i));
+                }
+            }
         return sittingPlans;
     }
 
@@ -176,11 +175,6 @@ public class GeneticAlgorithms {
      * is not the same amount of places
      */
     SittingPlan copulate(SittingPlan mother, SittingPlan father) throws SomethingWentTerriblyWrongException {
-        if (mother.getNumberOfSits() != father.getNumberOfSits()) {
-            throw new SomethingWentTerriblyWrongException();
-        }
-
-        int numberOfSits = mother.getNumberOfSits();
 
         int startOfMotherGenom = randId();
         int endOfMotherGenom = (startOfMotherGenom + numberOfSits / 2) % numberOfSits;
@@ -289,35 +283,38 @@ public class GeneticAlgorithms {
         int rand;
         long startTime = System.currentTimeMillis();
         long duration= System.currentTimeMillis()-startTime;
-//todo dobrac eksperymentalnie prawdopodobienstwa
-        while (perfect == null && duration< 60000) {
+
+        while (duration< 60000) {
             int amountOfNewPopulationMembers = 0;
 
             rand = random.nextInt(100);
 
             //MUTATE
             if (rand < 20) {
-                int which = randId();
+                int which = randPopulationMember();
                 SittingPlan mutated = mutate(population.get(which));
                 population.set(which, mutated);
             }
             //MUTATE BIG
             else if (rand < 25) {
-                int which = randId();
+                int which = randPopulationMember();
                 SittingPlan mutated = mutateBig(population.get(which));
                 population.set(which, mutated);
             } else {
                 ++amountOfNewPopulationMembers;
-                int which1 = randId();
-                int which2 = randId();
+                int which1 = randPopulationMember();
+                int which2 = randPopulationMember();
                 SittingPlan newMember = copulate(population.get(which1), population.get(which2));
                 population.add(newMember);
             }
-
-            population = naturalSelection(population, amountOfNewPopulationMembers);
+            perfect = isTherePerfectOne(population);
+            if(perfect!=null){
+                break;
+            }
+                population = naturalSelection(population, amountOfNewPopulationMembers);
 
             currentBest=getCurrentBest(population);
-            perfect = isTherePerfectOne(population);
+
             duration= System.currentTimeMillis()-startTime;
         }
         if(perfect!=null) {
@@ -326,6 +323,10 @@ public class GeneticAlgorithms {
         else {
             return currentBest;
         }
+    }
+
+    private int randPopulationMember() {
+        return random.nextInt(populationSize);
     }
 
     private SittingPlan getCurrentBest(List<SittingPlan> sittingPlans) {

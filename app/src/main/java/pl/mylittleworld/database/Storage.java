@@ -40,7 +40,7 @@ public interface Storage {
 
     void addGuest(String name);
 
-    void deleteGuests(PersonT[] people);
+    void deleteGuests(PersonT person);
 
     void addTablesPlan(TablesPlanT tablesPlanT);
 

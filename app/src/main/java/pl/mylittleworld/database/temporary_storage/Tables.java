@@ -6,13 +6,16 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import pl.mylittleworld.database.NameId;
+import pl.mylittleworld.database.Storage;
+import pl.mylittleworld.database.tables.ConditionT;
+import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.genetics.SomethingWentTerriblyWrongException;
 
 /**
  * This class is a temporary storage for tables list
  */
-public class Tables {
+public class Tables implements Storage.GetDataListener {
 
     private static ArrayList<TableT> temporaryStorageTables=null;
     private static boolean initialized=false;
@@ -87,5 +90,26 @@ public class Tables {
         if(temporaryStorageTables!=null) {
             temporaryStorageTables = tableTS;
         }
+    }
+
+
+    @Override
+    public void onGuestsListRetrived(ArrayList<PersonT> list) {
+
+    }
+
+    @Override
+    public void onConditionsListRetrived(ArrayList<ConditionT> list) {
+
+    }
+
+    @Override
+    public void onTablesListRetrived(ArrayList<TableT> list) {
+        Tables.update(list);
+    }
+
+    @Override
+    public void onListsRetrived(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, ArrayList<PersonT> peopleList) {
+
     }
 }
