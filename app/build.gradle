@@ -2,11 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        sign {
-            keyAlias 'sign'
-            keyPassword 'sign'
-            storePassword 'sign'
-        }
     }
     compileSdkVersion 27
     lintOptions {

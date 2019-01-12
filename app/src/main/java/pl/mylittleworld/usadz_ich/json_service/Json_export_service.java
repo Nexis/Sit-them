@@ -9,9 +9,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import pl.mylittleworld.database.Storage;
 import pl.mylittleworld.database.tables.ConditionT;
+import pl.mylittleworld.database.tables.GroupT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.temporary_storage.TemporaryStorageSittingPlan;
@@ -71,6 +73,11 @@ public class Json_export_service implements Storage.GetDataListener {
                 }
             }
         }
+    }
+
+    @Override
+    public void onPersonGroupListsRetrived(List<GroupT> groups) {
+
     }
 
     private boolean isExternalStorageWritable() {

@@ -22,6 +22,7 @@
         <activity android:name=".view.ListViewActivity" android:screenOrientation="portrait"/>
         <activity android:name=".view.AddConditionActivity" android:screenOrientation="portrait"/>
         <activity android:name=".view.AddTablesPlanActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".view.AddGroupActivity" />
     </application>
 
 </manifest>

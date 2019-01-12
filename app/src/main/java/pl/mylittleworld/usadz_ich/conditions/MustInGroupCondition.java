@@ -2,6 +2,8 @@ package pl.mylittleworld.usadz_ich.conditions;
 
 import pl.mylittleworld.database.tables.GroupT;
 import pl.mylittleworld.database.tables.PersonT;
+import pl.mylittleworld.database.temporary_storage.Seat;
+import pl.mylittleworld.usadz_ich.Group;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 
 public class MustInGroupCondition  implements Condition {
@@ -21,15 +23,31 @@ public class MustInGroupCondition  implements Condition {
         this.priority = priority;
     }
 
+    public int getPersonId() {
+        return person.getPersonID();
+    }
+
+    public int getGroupId() {
+        return group.getGroupID();
+    }
 
     /**
-     *
+     *Check if at least one other person from group sits next to this one
      * @param sittingPlan in which the condition fulfillment will be checked
      * @return if this condition is fulfilled in a given sittingPlan
      */
     @Override
     public boolean isThisConditionFulfilled(SittingPlan sittingPlan) {
-
+        Group groupPerson=sittingPlan.getConditions().getPeopleInThisGroup(group.getGroupID());
+            for(int id : groupPerson.getPeopleInGroup()){
+                if(id!=person.getPersonID()) {
+                    Seat seat1 = sittingPlan.whereSits(id);
+                    Seat seat2 = sittingPlan.whereSits(person.getPersonID());
+                    if (seat1.areThoseSitsCloseToEachOther(seat2, true, false)) {
+                        return true;
+                    }
+                }
+            }
        return false;
     }
     /**
@@ -49,4 +67,11 @@ public class MustInGroupCondition  implements Condition {
     public int getPriority() {
         return priority;
     }
+
+    @Override
+    public CONDITIONS_OPTIONS getType() {
+        return conditionType;
+    }
+
+
 }

@@ -18,4 +18,5 @@
     <string name="import_csv">Import listy gości csv</string>
     <string name="import_json">Import całego planu</string>
     <string name="no_content">TA ZAKŁADKA JEST PUSTA</string>
+    <string name="groups">GRUPY</string>
 </resources>

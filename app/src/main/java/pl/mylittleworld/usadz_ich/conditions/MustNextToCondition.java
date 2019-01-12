@@ -58,4 +58,9 @@ public class MustNextToCondition implements Condition {
         return priority;
     }
 
+    @Override
+    public CONDITIONS_OPTIONS getType() {
+        return conditionType;
+    }
+
 }

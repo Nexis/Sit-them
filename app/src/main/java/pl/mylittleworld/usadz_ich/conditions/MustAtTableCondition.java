@@ -58,5 +58,10 @@ public class MustAtTableCondition implements Condition {
     public int getPriority() {
         return priority;
     }
+
+    @Override
+    public CONDITIONS_OPTIONS getType() {
+        return conditionType;
+    }
 }
 

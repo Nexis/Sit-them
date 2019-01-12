@@ -58,6 +58,11 @@ public class CantNextToCondition implements Condition {
     }
 
     @Override
+    public CONDITIONS_OPTIONS getType() {
+        return conditionType;
+    }
+
+    @Override
     public int getConditionId() {
         return conditionId;
     }

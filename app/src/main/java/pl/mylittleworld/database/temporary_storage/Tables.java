@@ -3,11 +3,13 @@ package pl.mylittleworld.database.temporary_storage;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.database.Storage;
 import pl.mylittleworld.database.tables.ConditionT;
+import pl.mylittleworld.database.tables.GroupT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.usadz_ich.genetics.SomethingWentTerriblyWrongException;
@@ -110,6 +112,11 @@ public class Tables implements Storage.GetDataListener {
 
     @Override
     public void onListsRetrived(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, ArrayList<PersonT> peopleList) {
+
+    }
+
+    @Override
+    public void onPersonGroupListsRetrived(List<GroupT> groups) {
 
     }
 }

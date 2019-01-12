@@ -5,11 +5,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,20 +17,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import pl.mylittleworld.database.NameId;
-import pl.mylittleworld.database.temporary_storage.People;
 import pl.mylittleworld.database.Storage;
 import pl.mylittleworld.database.StorageAssistant;
-import pl.mylittleworld.database.temporary_storage.Tables;
 import pl.mylittleworld.database.tables.ConditionT;
+import pl.mylittleworld.database.tables.GroupT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
+import pl.mylittleworld.database.temporary_storage.Groups;
+import pl.mylittleworld.database.temporary_storage.People;
+import pl.mylittleworld.database.temporary_storage.Tables;
 import pl.mylittleworld.usadz_ich.DATA_TYPE;
 import pl.mylittleworld.usadz_ich.R;
 import pl.mylittleworld.usadz_ich.SittingPlan;
@@ -46,18 +49,20 @@ import pl.mylittleworld.usadz_ich.logic.ControlProvider;
 public class MainActivity extends AppCompatActivity implements Storage.GetDataListener, ImportDataListener {
 
     private final int GUESTS_LIST = 0;
-    private final int LOUNGE_PLAN = 1;
-    private final int CONDITIONS = 2;
-    private final int SITTING_PLAN = 3;
+    private final int GROUPS=1;
+    private final int LOUNGE_PLAN = 2;
+    private final int CONDITIONS = 3;
+    private final int SITTING_PLAN = 4;
+
 
     private final int WRITE_EXTERNAL_STORAGE=13;
 
-    private TextView noList;
+    private ProgressBar progressBar;
+    private ListView listView;
 
     Control logicController = ControlProvider.getInstance();
     private ArrayAdapter listAdapterForGuestsList;
     private ConditionDescriptors conditionDescriptors = logicController.getConditionDescriptor();
-    //  private TabItem [] tabItems= new TabItem[4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements Storage.GetDataLi
         logicController.giveStorageAssistant(storageAssistant);
         logicController.getPeopleListForDisplay(this);
 
-        noList=findViewById(R.id.no_list);
+        progressBar=findViewById(R.id.progressBar);
+        listView=findViewById(R.id.list_view);
 
         findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +87,11 @@ public class MainActivity extends AppCompatActivity implements Storage.GetDataLi
                     case GUESTS_LIST:
                         intent = new Intent(MainActivity.this, AddGuestsActivity.class);
                         startActivityForResult(intent, GUESTS_LIST);
+                        break;
+
+                    case GROUPS:
+                        intent = new Intent(MainActivity.this, AddGroupActivity.class);
+                        startActivityForResult(intent, GROUPS);
                         break;
 
                     case LOUNGE_PLAN:
@@ -113,14 +124,18 @@ public class MainActivity extends AppCompatActivity implements Storage.GetDataLi
                         logicController.getPeopleListForDisplay(MainActivity.this);
                         break;
 
+                    case GROUPS:
+                        logicController.getGroupsForDisplay(MainActivity.this);
+                        break;
+
                     case LOUNGE_PLAN:
                         logicController.getTableListForDisplay(MainActivity.this);
-
                         break;
                     case CONDITIONS:
                         logicController.getConditionsListForDisplay(MainActivity.this);
                         break;
                     case SITTING_PLAN:
+                        listView.setVisibility(View.INVISIBLE);
                         logicController.userWantToSeeCurrentSittingPlan(MainActivity.this);
                         break;
 
@@ -130,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements Storage.GetDataLi
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                noList.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -138,10 +153,12 @@ public class MainActivity extends AppCompatActivity implements Storage.GetDataLi
 
             }
         });
+        onDataImported();
 
     }
+
     public void noContent(){
-        noList.setVisibility(View.VISIBLE);
+        listView.setVisibility(View.INVISIBLE);
     }
 
     private synchronized void setListAdapter(ArrayAdapter myListAdapter) {
@@ -225,8 +242,31 @@ public class MainActivity extends AppCompatActivity implements Storage.GetDataLi
         logicController.getSittingPlan(tableList, conditionsList, peopleList, this);
     }
 
-    public void showSittingPlanList(SittingPlan sittingPlan, ArrayList<TableT> tableList) {
+    @Override
+    public void onPersonGroupListsRetrived(List<GroupT> groups) {
+        setListAdapter(new SimpleListAdapter(this, Groups.getGroupsAsNameId(groups), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        }, DATA_TYPE.GROUPS));
+
+        if (isFinishing() || isDestroyed()) return;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isFinishing() || isDestroyed()) return;
+
+                ListView guestList = findViewById(R.id.list_view);
+                guestList.setAdapter(getListAdapter());
+
+            }
+        });
+    }
+
+    public void showSittingPlanList(SittingPlan sittingPlan, ArrayList<TableT> tableList) {
+        listView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
         setListAdapter(new ListAdapterForSittingPlan(this, sittingPlan, tableList));
 
         if (isFinishing() || isDestroyed()) return;
@@ -330,6 +370,9 @@ public class MainActivity extends AppCompatActivity implements Storage.GetDataLi
             case GUESTS_LIST:
                 logicController.getPeopleListForDisplay(MainActivity.this);
                 break;
+            case GROUPS:
+                logicController.getGroupsForDisplay(MainActivity.this);
+                break;
 
             case LOUNGE_PLAN:
                 logicController.getTableListForDisplay(MainActivity.this);
@@ -352,12 +395,8 @@ public class MainActivity extends AppCompatActivity implements Storage.GetDataLi
             if (resultData != null) {
                 uri = resultData.getData();
                 Log.i("I", "Uri: " + uri.toString());
-                try {
                     Json_import_service.readTextFromUri(uri, this);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         }
         else if(requestCode == CsvImport.READ_CSV_REQUEST_CODE && resultCode == Activity.RESULT_OK){
@@ -380,14 +419,22 @@ public class MainActivity extends AppCompatActivity implements Storage.GetDataLi
 
         logicController.getTableListForDisplay(MainActivity.this);
 
+        logicController.getGroupsForDisplay(MainActivity.this);
+
         logicController.getConditionsListForDisplay(MainActivity.this);
 
         logicController.userWantToSeeCurrentSittingPlan(MainActivity.this);
 
+        listView.setVisibility(View.VISIBLE);
         logicController.getPeopleListForDisplay(MainActivity.this);
 
 
 
         Toast.makeText(this,"Dane zostały zaimportowane poprawnie",Toast.LENGTH_LONG).show();
+    }
+
+    public void showWaitingSymbol() {
+        listView.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 }

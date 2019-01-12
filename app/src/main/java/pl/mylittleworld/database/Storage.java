@@ -1,8 +1,10 @@
 package pl.mylittleworld.database;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pl.mylittleworld.database.tables.ConditionT;
+import pl.mylittleworld.database.tables.GroupT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.tables.TablesPlanT;
@@ -20,6 +22,8 @@ public interface Storage {
 
     void deleteCondition(int conditionId);
 
+    void addGroup(String tempGroupName);
+
     interface GetDataListener {
 
         void onGuestsListRetrived(ArrayList<PersonT> list);
@@ -30,9 +34,11 @@ public interface Storage {
 
         void onListsRetrived(ArrayList<TableT> tableList,ArrayList<ConditionT> conditionsList,ArrayList<PersonT> peopleList);
 
+        void onPersonGroupListsRetrived(List<GroupT> groups);
     }
 
 
+    void deleteGroup(int id);
 
     void getGuestsList(GetDataListener getDataListener);
 
@@ -45,6 +51,8 @@ public interface Storage {
     void addTablesPlan(TablesPlanT tablesPlanT);
 
     void deleteTablesPlan(TablesPlanT tablesPlanT);
+
+    void getGroupsForDisplay(GetDataListener listener);
 
     void addTable(TableT tableT);
 

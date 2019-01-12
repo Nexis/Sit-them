@@ -21,5 +21,7 @@ public interface Condition {
 
     int getPriority();
 
+    CONDITIONS_OPTIONS getType();
+
    int getConditionId();
 }

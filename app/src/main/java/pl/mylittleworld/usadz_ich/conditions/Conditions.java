@@ -4,6 +4,7 @@ package pl.mylittleworld.usadz_ich.conditions;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.mylittleworld.usadz_ich.Group;
 import pl.mylittleworld.usadz_ich.SittingPlan;
 
 /**
@@ -45,9 +46,10 @@ public class Conditions {
      * @return remove same condition as given from stored
      */
     public boolean removeCondition(Condition condition){
-
         return conditions.remove(condition);
+
     }
+
 
     /**
      * This is a target function
@@ -69,4 +71,16 @@ public class Conditions {
        }
        else return 0;
     }
+
+    public Group getPeopleInThisGroup(int groupId){
+       Group groups=new Group(groupId);
+
+        for(Condition condition : conditions){
+            if(condition.getType()== CONDITIONS_OPTIONS.MUST_IN_GROUP){
+                groups.addPerson(((MustInGroupCondition)condition).getPersonId());
+              }
+        }
+        return groups;
+    }
+
 }

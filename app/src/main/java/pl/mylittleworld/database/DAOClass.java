@@ -9,6 +9,7 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 import pl.mylittleworld.database.tables.ConditionT;
+import pl.mylittleworld.database.tables.GroupT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.tables.TablesPlanT;
@@ -63,6 +64,9 @@ public interface DAOClass {
     @Query ("DELETE FROM TableT")
     void dropTables();
 
+    @Query ("DELETE FROM GroupT")
+    void dropGroups();
+
     @Query ("DELETE FROM ConditionT")
     void dropConditions();
 
@@ -77,4 +81,16 @@ public interface DAOClass {
 
     @Query("DELETE FROM ConditionT WHERE (conditionType=\"MUST_AT_TABLE\" OR conditionType=\"MUST_HERE\") AND id2=:id")
     void deleteRelatedWithTableConditions(int id);
+
+    @Query("SELECT * FROM GroupT")
+    List<GroupT> getGroupsT();
+
+    @Insert
+    void addGroup(GroupT group);
+
+    @Query("DELETE FROM GroupT WHERE groupID=:id")
+    void deleteGroupWithId(int id);
+
+    @Query("DELETE FROM ConditionT WHERE conditionType=\"MUST_IN_GROUP\" AND id2=:groupId")
+        void deleteRelatedConditions(int groupId);
 }

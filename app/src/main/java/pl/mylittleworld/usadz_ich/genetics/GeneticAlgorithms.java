@@ -284,7 +284,7 @@ public class GeneticAlgorithms {
         long startTime = System.currentTimeMillis();
         long duration= System.currentTimeMillis()-startTime;
 
-        while (duration< 60000) {
+        while (duration< 6000) {
             int amountOfNewPopulationMembers = 0;
 
             rand = random.nextInt(100);

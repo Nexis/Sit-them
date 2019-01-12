@@ -3,6 +3,7 @@ package pl.mylittleworld.usadz_ich.json_service;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,6 +12,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -62,8 +64,10 @@ public class Json_import_service {
      * @param activity -- current n which inputStream is created
      * @throws IOException when someting is wrong with file under given uri
      */
-    public static void readTextFromUri(Uri uri, MainActivity activity) throws IOException {
-        InputStream inputStream = activity.getContentResolver().openInputStream(uri);
+    public static void readTextFromUri(Uri uri, MainActivity activity) {
+        try{
+            InputStream inputStream = activity.getContentResolver().openInputStream(uri);
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 inputStream));
         StringBuilder stringBuilder = new StringBuilder();
@@ -73,6 +77,16 @@ public class Json_import_service {
         }
         inputStream.close();
         unpackJson(stringBuilder.toString(), activity);
+        }
+        catch (IOException ex){
+            Toast.makeText(activity,"Nie można otworzyć wybranego pliku",Toast.LENGTH_LONG).show();
+        }
+        catch (JsonSyntaxException exJson){
+            Toast.makeText(activity,"Niepoprawny format pliku",Toast.LENGTH_LONG).show();
+        }
+        catch (NullPointerException ex){
+           Toast.makeText(activity,"Niepoprawna zawartość pliku",Toast.LENGTH_LONG).show();
+        }
     }
 
     private static void unpackJson(String string, ImportDataListener listener) {

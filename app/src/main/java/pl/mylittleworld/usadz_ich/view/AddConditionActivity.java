@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import pl.mylittleworld.database.NameId;
 import pl.mylittleworld.database.TypesConverter;
+import pl.mylittleworld.database.temporary_storage.Groups;
 import pl.mylittleworld.database.temporary_storage.People;
 import pl.mylittleworld.database.tables.ConditionT;
 import pl.mylittleworld.database.temporary_storage.Tables;
@@ -148,6 +149,8 @@ public class AddConditionActivity extends AppCompatActivity{
 
             case MUST_AT_TABLE:
                 return Tables.getTemporaryStorageTablesAsNameId();
+            case MUST_IN_GROUP:
+                return new ArrayList<>(Groups.getTemporaryStorageGroupsAsNameId());
             default:
                 return null;
         }

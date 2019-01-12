@@ -4,14 +4,17 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pl.mylittleworld.database.tables.ConditionT;
+import pl.mylittleworld.database.tables.GroupT;
 import pl.mylittleworld.database.tables.PersonT;
 import pl.mylittleworld.database.tables.TableT;
 import pl.mylittleworld.database.tables.TablesPlanT;
 import pl.mylittleworld.database.tasks.GetConditionsTask;
 import pl.mylittleworld.database.temporary_storage.Tables;
 import pl.mylittleworld.database.temporary_storage.TemporaryStorageSittingPlan;
+import pl.mylittleworld.usadz_ich.SittingPlan;
 import pl.mylittleworld.usadz_ich.json_service.ImportDataListener;
 import pl.mylittleworld.usadz_ich.json_service.Json_format;
 
@@ -54,6 +57,27 @@ public class StorageAssistant implements Storage {
             @Override
             public void run() {
                 dataBase.getDao().deleteConditionWithId(conditionId);
+            }
+        });
+    }
+
+    @Override
+    public void addGroup(final String tempGroupName) {
+        ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
+            @Override
+            public void run() {
+                dataBase.getDao().addGroup(new GroupT(tempGroupName));
+            }
+        });
+    }
+
+    @Override
+    public void deleteGroup(final int id) {
+        ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
+            @Override
+            public void run() {
+                dataBase.getDao().deleteGroupWithId(id);
+                dataBase.getDao().deleteRelatedConditions(id);
             }
         });
     }
@@ -106,6 +130,17 @@ public class StorageAssistant implements Storage {
     }
 
     @Override
+    public void getGroupsForDisplay(final GetDataListener listener) {
+        ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
+            @Override
+            public void run() {
+                List<GroupT> groups=dataBase.getDao().getGroupsT();
+                listener.onPersonGroupListsRetrived(groups);
+            }
+        });
+    }
+
+    @Override
     public void addTable(final TableT tableT){
        ThreadPoolExecutorForDatabaseAccess.getExecutor().submit(new Runnable() {
            @Override
@@ -154,7 +189,10 @@ public class StorageAssistant implements Storage {
                dataBase.getDao().insertPerson(json_format.getPeopleList().toArray(new PersonT[json_format.getPeopleList().size()]));
                dataBase.getDao().addConditions(json_format.getConditionsList().toArray(new ConditionT[json_format.getConditionsList().size()]));
 
-                TemporaryStorageSittingPlan.insertActualSittingPlan(json_format.getSittingPlan());
+                SittingPlan sittingPlan=json_format.getSittingPlan();
+                if(sittingPlan!=null) {
+                    TemporaryStorageSittingPlan.insertActualSittingPlan(sittingPlan);
+                }
 
                 listener.onDataImported();
             }

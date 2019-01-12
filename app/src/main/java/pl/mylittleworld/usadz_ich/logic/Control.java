@@ -19,6 +19,7 @@ import pl.mylittleworld.usadz_ich.conditions.Condition;
 import pl.mylittleworld.usadz_ich.conditions.Conditions;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConCanTNextToDescriptor;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConMustAtTableDescriptor;
+import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConMustInGroupDescryptor;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConMustNextToDescriptor;
 import pl.mylittleworld.usadz_ich.conditions.conditions_descriptors.ConditionDescriptors;
 import pl.mylittleworld.usadz_ich.genetics.GeneticAlgorithms;
@@ -69,7 +70,7 @@ public class Control {
     private boolean checkIfNameIsProper(String proposedName){
 
         for(int i=0;i<proposedName.length();++i){
-            if(!Character.isLetter(proposedName.codePointAt(i))&& proposedName.charAt(i)!=' '){
+            if(!Character.isLetter(proposedName.codePointAt(i))&& proposedName.charAt(i)!=' ' && proposedName.charAt(i)!='-'){
                 return false;
             }
         }
@@ -174,6 +175,7 @@ public class Control {
         conditionDescriptors.addDescryptor(new ConMustNextToDescriptor());
         conditionDescriptors.addDescryptor(new ConCanTNextToDescriptor());
         conditionDescriptors.addDescryptor(new ConMustAtTableDescriptor());
+        conditionDescriptors.addDescryptor(new ConMustInGroupDescryptor());
     }
 
     public ConditionDescriptors getConditionDescriptor() {
@@ -194,10 +196,18 @@ public class Control {
     public void getSittingPlan(ArrayList<TableT> tableList, ArrayList<ConditionT> conditionsList, final ArrayList<PersonT> peopleList,final MainActivity context) {
         final ArrayList<ChairT> chairTS= new ArrayList<>();
 
-
-
         for(TableT table:tableList) {
             addChairsForTable(table,chairTS);
+        }
+        if(peopleList.size()==0){
+            if (context.isFinishing() || context.isDestroyed()) return;
+            context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (context.isFinishing() || context.isDestroyed()) return;
+                    Toast.makeText(context,"BRAK GOŚCI",Toast.LENGTH_LONG).show();                }
+            });
+            return;
         }
         if(peopleList.size()!=chairTS.size()){
             if (context.isFinishing() || context.isDestroyed()) return;
@@ -210,7 +220,7 @@ public class Control {
             });
            return;
         }
-
+        context.showWaitingSymbol();
         ArrayList<Condition> conditions=conditionDescriptors.descryptConditionT(conditionsList);
 
         GeneticAlgorithms geneticAlgorithms=new GeneticAlgorithms(chairTS,peopleList,new Conditions(conditions));
@@ -232,9 +242,21 @@ public class Control {
                     storageAssistant.deleteTable(id);
                     TemporaryStorageSittingPlan.setActual(false);
                     break;
+                case GROUPS:
+                    storageAssistant.deleteGroup(id);
+                    TemporaryStorageSittingPlan.setActual(false);
+                    break;
             }
         }
     }
 
 
+    public void getGroupsForDisplay(Storage.GetDataListener mainActivity) {
+        storageAssistant.getGroupsForDisplay(mainActivity);
+    }
+
+    public void userWantsToAddGroup(String tempGroupName) {
+        checkIfNameIsProper(tempGroupName);
+        storageAssistant.addGroup(tempGroupName);
+    }
 }
