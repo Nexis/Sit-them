@@ -15,7 +15,7 @@
         android:textAlignment="center"
         android:textSize="@dimen/text_size" />
 
-    <EditText
+    <TextView
         android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

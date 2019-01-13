@@ -172,6 +172,8 @@ public class AddConditionActivity extends AppCompatActivity{
                     String relationName = extras.getString("CHOOSEN_ITEM_NAME");
                     conditionsOption = CONDITIONS_OPTIONS.conditionFromValue(id);
                     conditionType.setText(relationName);
+                    secondItemId=-1;
+                    secondItem.setText("czlon2");
                 } else if (requestCode == SECOND_ITEM) {
                     secondItemId = extras.getInt("CHOOSEN_ID");
                     String name = extras.getString("CHOOSEN_ITEM_NAME");

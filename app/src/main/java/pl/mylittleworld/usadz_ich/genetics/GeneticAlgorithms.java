@@ -19,7 +19,7 @@ import pl.mylittleworld.usadz_ich.conditions.Conditions;
  * This class implements genetic algorithms
  */
 public class GeneticAlgorithms {
-  //todo genetyczne dobor prawdopodobienstwa rozmiar podgrup grupy
+
     private Random random = new Random();
 
     private final int populationSize = 10;
