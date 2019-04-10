@@ -9,7 +9,7 @@ Zakładka, której zawartość jest aktualnie wyświetlana jest podkreślona. Zo
 
 
 
-#LISTA GOŚCI
+# LISTA GOŚCI
 
 Gdy zakładka LISTA GOŚCI jest aktywną, na ekranie poniżej paska wyboru, znajduje się lista osób,
 
@@ -33,7 +33,7 @@ elementów tego widoku.
 
 
 
-#GRUPY
+# GRUPY
 
 W zakładce GRUPY znajduje się przewijana lista, a każdy z jej elementów jest reprezentowany przez
 
@@ -51,7 +51,7 @@ widoku dodawania grup do ekranu głównego aplikacji.
 
 
 
-#UKŁAD
+# UKŁAD
 
 Wybranie zakładki UKŁAD powoduje, że poniżej paska wyboru wyświetlana jest lista stołów. Lista ta
 
@@ -79,7 +79,7 @@ poszczególnych elementów.
 
 
 
-#WARUNKI
+# WARUNKI
 
 Gdy zakładka WARUNKI jest aktywną, na ekranie poniżej paska wyboru, znajduje się lista warunków.
 
@@ -123,7 +123,7 @@ dodawania warunku został przedstawiony na rysunku 1.3
 
 
 
-#USADZENIE
+# USADZENIE
 
 Wybranie zakładki WARUNKI powoduje, że poniżej paska wyboru wyświetlana jest lista, będąca planem
 
@@ -141,7 +141,7 @@ aktualnych danych – gości, stołów oraz warunków.
 
 
 
-#Górne menu
+# Górne menu
 
 Górne menu dostarcza trzech opcji: ’Import listy gości csv’, ’Import całego planu’ oraz ’Export do formatu
 
