@@ -27,9 +27,11 @@ nazwie, pozostawiający użytkownika w widoku dodawania osób, w ten sposób poz
 
 kolejnego uczestnika spotkania. Oraz drugi z etykietą ’koniec’ dodający gościa o wpisanej nazwie, jednocześnie
 
-przełączając z widoku dodawania osób do ekranu głównego aplikacji. Przykładowy wygląd ekranu głównego z aktywną zakładką LISTA GOŚCI został przedstawiony na Rys. 1.3, wraz z podpisami poszczególnych
+przełączając z widoku dodawania osób do ekranu głównego aplikacji. Przykładowy wygląd ekranu głównego z aktywną zakładką LISTA GOŚCI został przedstawiony na Rys, wraz z podpisami poszczególnych
 
 elementów tego widoku.
+
+![Widok listy gości](https://github.com/Nexis/Sit-them/blob/master/screen2.png "Widok listy gości")
 
 
 
