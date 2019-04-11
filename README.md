@@ -15,7 +15,7 @@ Gdy zakładka LISTA GOŚCI jest aktywną, na ekranie poniżej paska wyboru, znaj
 
 początkowo pusta – dodawanie osób opisano poniżej. Lista ta jest przewijana, a każdy z jej elementów
 
-składa się z nazwy reprezentującej osobę (Rys. 1.3). Klikając i przytrzymując (ang.long click) na pozycji z
+składa się z nazwy reprezentującej osobę (Rys). Klikając i przytrzymując (ang.long click) na pozycji z
 
 listy można ją usunąć. W prawym dolnym rogu znajduje się przycisk z symbolem ”+”, po jego kliknięciu,
 
@@ -31,7 +31,8 @@ przełączając z widoku dodawania osób do ekranu głównego aplikacji. Przykł
 
 elementów tego widoku.
 
-![Widok listy gości](https://github.com/Nexis/Sit-them/blob/master/screen2.png "Widok listy gości")
+
+<img src="https://github.com/Nexis/Sit-them/blob/master/screen2.png" alt="drawing" width="400"/>
 
 
 
@@ -75,10 +76,11 @@ usytuowany jest przycisk z etykietą ”DODAJ”, którego naciśnięcie powoduj
 
 parametry (kształt, nazwa, szerokość) zostały wprowadzone, oraz przeniesienie do ekranu głównego aplika-
 
-cji.Przykładowo uzupełniony widok dodawania stołu został przedstawiony na Rys. 1.3, wraz z podpisami
+cji.Przykładowo uzupełniony widok dodawania stołu został przedstawiony na rysunku, wraz z podpisami
 
 poszczególnych elementów.
 
+<img src="https://github.com/Nexis/Sit-them/blob/master/screen1.png" alt="drawing" width="400"/>
 
 
 # WARUNKI
@@ -121,7 +123,9 @@ tworzonego warunku. Zakres możliwych wartości obejmuje liczby od 1 do 10. Im w
 
 nadany, tym większy wpływ ma spełnienie danego warunku na wartość funkcji celu. Przykładowy widok
 
-dodawania warunku został przedstawiony na rysunku 1.3
+dodawania warunku został przedstawiony na rysunku.
+
+<img src="https://github.com/Nexis/Sit-them/blob/master/screen5.png" alt="drawing" width="400"/>
 
 
 
@@ -138,6 +142,8 @@ lista osób, wraz z numerami miejsc które zostały im przydzielone przy danym s
 znajduje się przycisk z symbolem ”+”, po jego kliknięciu, zostanie wygenerowany nowy plan na podstawie
 
 aktualnych danych – gości, stołów oraz warunków.
+
+<img src="https://github.com/Nexis/Sit-them/blob/master/screen4.png" alt="drawing" width="400"/>
 
 
 
@@ -164,3 +170,5 @@ formatu aplikacji’ pakuje wszystkie dane aplikacji: listę gości, stołów, g
 miejsc – jeśli został wygenerowany do pliku plan.json. Polecenie to nie powoduje usunięcia tych danych z
 
 aplikacji, tworzy jak gdyby kopie, którą można przykładowo wysłać do współorganizatora wydarzenia.
+
+<img src="https://github.com/Nexis/Sit-them/blob/master/screen3.png" alt="drawing" width="400"/>
